@@ -2,7 +2,11 @@
 
 SubPar is an approximate implementation of a subset of
 [ParEdit](http://emacswiki.org/emacs/ParEdit) for
-[CodeMirror](http://codemirror.net/). [Here is a page that hosts a demo.](http://htmlpreview.github.com/?https://github.com/achengs/subpar/blob/master/demo/demo.html).
+[CodeMirror](http://codemirror.net/).
+
+## Demo
+
+[Here is a page that hosts a demo.](http://htmlpreview.github.com/?https://github.com/achengs/subpar/blob/master/demo/demo.html).
 
 ## Usage
 

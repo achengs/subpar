@@ -86,5 +86,4 @@ is configured to make this work.
 
 ## License
 
-To be determined. Hey, I'm not a lawyer. Please merely play with the
-demo for now (don't copy/modify/redistribute/steal). Thanks!
+See [MIT License file](https://github.com/achengs/subpar/LICENSE).

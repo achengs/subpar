@@ -1,6 +1,6 @@
-# subpar
+# SubPar
 
-Subpar is an approximate implementation of a subset of [ParEdit](http://emacswiki.org/emacs/ParEdit) for [CodeMirror](http://codemirror.net/).
+SubPar is an approximate implementation of a subset of [ParEdit](http://emacswiki.org/emacs/ParEdit) for [CodeMirror](http://codemirror.net/).
 
 ## Usage
 
@@ -44,7 +44,7 @@ I want to investigate that before recommending its use)
 * Indentation
   * Indent Selection: Ctrl-Alt-\
 
-Of course, bug reports welcome. I'll need to add Cmd versions to
+Bug reports are definitely welcome. I'll need to add Cmd versions to
 support Mac OS.
 
 ## Customization

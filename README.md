@@ -4,7 +4,7 @@ Subpar is an approximate implementation of a subset of [ParEdit](http://emacswik
 
 ## Usage
 
-Here are the steps I took to create [the demo example](http://htmlpreview.github.com/?https://github.com/achengs/subpar/demo/demo.html).
+Here are the steps I took to create [the demo example](http://htmlpreview.github.com/?https://github.com/achengs/subpar/blob/master/demo/demo.html).
 
 1. Started with a copy of one of the dmeo pages from CodeMirror, like
 [this one](http://codemirror.net/mode/clojure/index.html).

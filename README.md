@@ -6,7 +6,7 @@ SubPar is an approximate implementation of a subset of
 
 ## Demo
 
-[Here is a page that hosts a demo.](http://htmlpreview.github.com/?https://github.com/achengs/subpar/blob/master/demo/demo.html).
+[Here is a page that hosts a demo.](http://htmlpreview.github.com/?https://github.com/achengs/subpar/blob/master/demo/demo.html)
 
 ## Usage
 

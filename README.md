@@ -86,4 +86,4 @@ is configured to make this work.
 
 ## License
 
-See [MIT License file](https://github.com/achengs/subpar/LICENSE).
+See [MIT License file](https://github.com/achengs/subpar/blob/master/LICENSE).

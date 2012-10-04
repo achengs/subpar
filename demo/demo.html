@@ -68,6 +68,53 @@ by including <a href="../resources/public/js/subpar.core.debug.js">subpar.core.d
 <a href="../resources/public/js/subpar.js">subpar.js</a> and setting the
 <code>keyMap</code> option to <code>"subpar"</code>.</p>
 
+<h2>Features / Key Bindings</h2>
+
+<ul>
+<li>Delimiters
+
+<ul>
+<li>Backspace, Delete, Ctrl-D handle these: () {} [] "" \</li>
+<li>Delimiters are created in pairs: () {} [] ""</li>
+<li>Typing a closing delimiter moves past it after deleting any whitespace at the end of the current list</li>
+</ul>
+</li>
+<li>Movement
+
+<ul>
+<li>Forward: Ctrl-Alt-F</li>
+<li>Backward: Ctrl-Alt-B</li>
+<li>Backward Up: Ctrl-Alt-U</li>
+<li>Forward Down: Ctrl-Alt-D</li>
+<li>Backward Down: Ctrl-Alt-P</li>
+<li>Forward Up: Ctrl-Alt-N</li>
+</ul>
+</li>
+<li>Barf / Slurp
+
+<ul>
+<li>Backward Barf: Shift-Ctrl-[ or Ctrl-Alt-Right</li>
+<li>Forward Barf: Shift-Ctrl-] or Ctrl-Left</li>
+<li>Backward Slurp: Shift-Ctrl-9 or Ctrl-Alt-Left</li>
+<li>Forward Slurp: Shift-Ctrl-0 or Ctrl-Right</li>
+</ul>
+</li>
+<li>Splicing
+
+<ul>
+<li>Splice: Alt-S</li>
+<li>Splice Delete Backward: Alt-Up</li>
+<li>Splice Delete Forward: Alt-Down</li>
+</ul>
+</li>
+<li>Indentation
+
+<ul>
+<li>Indent Selection: Ctrl-Alt-\</li>
+</ul>
+</li>
+</ul><p>Bug reports are definitely welcome. I'll need to add Cmd versions to
+support Mac OS.</p>
     <script>
       CodeMirror.commands.save = function() {
         var elt = editor.getWrapperElement();

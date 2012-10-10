@@ -20188,6 +20188,10 @@ cljs.core.UUID.prototype.toString = function() {
 cljs.core.UUID;
 goog.provide("subpar.core");
 goog.require("cljs.core");
+subpar.core.get_index = function get_index(cm) {
+  return cm.indexFromPos(cm.getCursor())
+};
+goog.exportSymbol("subpar.core.get_index", subpar.core.get_index);
 subpar.core.code = "c";
 subpar.core.cmmnt = ";";
 subpar.core.string = '"';

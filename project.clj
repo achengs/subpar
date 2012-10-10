@@ -16,11 +16,13 @@
                         :jar true
                         :compiler {:output-to "resources/public/js/subpar.core.debug.js"
                                    :optimizations :whitespace
+                                   :externs ["resources/private/js/codemirror-externs.js"]
                                    :pretty-print true}}
                        :prod
                        {:source-path "src"
                         :compiler {:output-to "resources/public/js/subpar.core.js"
                                    :optimizations :advanced
+                                   :externs ["resources/private/js/codemirror-externs.js"]
                                    :pretty-print false}}
                                         ; This build is for the ClojureScript unit tests that will
                                         ; be run via PhantomJS.  See the phantom/unit-test.js file
@@ -29,4 +31,5 @@
                        {:source-path "test"
                         :compiler {:output-to "resources/private/js/unit-test.js"
                                    :optimizations :whitespace
+                                   :externs ["resources/private/js/codemirror-externs.js"]
                                    :pretty-print true}}}})

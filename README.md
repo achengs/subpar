@@ -10,6 +10,8 @@ SubPar is written in ClojureScript.
 
 [Here is a page that hosts a demo.](http://htmlpreview.github.com/?https://github.com/achengs/subpar/blob/master/demo/normal.html)
 
+NOTE: You might have to reload the demo page to get the source code to load inside the CodeMirror.
+
 ## Usage
 
 Here are the steps I took to create [the demo example](http://htmlpreview.github.com/?https://github.com/achengs/subpar/blob/master/demo/normal.html).

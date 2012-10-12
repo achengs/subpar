@@ -19,10 +19,8 @@ page](http://codemirror.net/doc/compress.html) to get a minified
 bundle of codemirror.js, clojure.js, emacs.js (wasn't sure whether
 emacs was necessary but included it anyway).
 3. Included the resulting codemirror-compressed.js file in my page's header with a script tag.
-4. Included resources/public/js/subpar.core.debug.js and
-resources/public/js/subpar.js. (subpar.core.js is supposed to be a
-minified version but I think I found a difference in the behavior and
-I want to investigate that before recommending its use) 
+4. Included resources/public/js/subpar.core.js and
+resources/public/js/subpar.js. (If you find an issue and wish to investigate, you can subpar.core.debug.js instead for non-minified symbols.) 
 5. Set the keyMap option to "subpar"
 
 ## Features / Keys

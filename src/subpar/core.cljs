@@ -85,7 +85,7 @@
 (defn in-code?    [p i] (in? p i code))
 (defn in-string?  [p i] (in? p i string))
 
-(defn ^:export in-string [s i] (in-string? (parse s) i))
+(defn in-string [s i] (in-string? (parse s) i))
 
 (def n-str? (complement in-string?))
 
@@ -131,11 +131,11 @@
 ;; subpar core api for subpar.js to use
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn ^:export backward-up-fn [s i]
+(defn backward-up-fn [s i]
   (let [[o c] (get-wrapper (parse s) i)]
     (if (= -1 o) i o)))
 
-(defn ^:export forward-delete-action
+(defn forward-delete-action
   "returns 0 if nothing should be done (foo |)
            1 if one character should be deleted
            2 if a delimiter pair should be deleted and cursor is in pair (|)
@@ -152,7 +152,7 @@
           (opens-list? p i) 4
           true 1)))
 
-(defn ^:export backward-delete-action
+(defn backward-delete-action
   "returns 0 if nothing should be done (| foo)
            1 if one character should be deleted
            2 if a delimiter pair should be deleted and cursor is in pair (|)
@@ -169,7 +169,7 @@
           (opens-list? p h) 0
           true 1)))
 
-(defn ^:export double-quote-action
+(defn double-quote-action
   "returns 0 if creating a string,
            1 if escaping a double-quote,
            2 if ending a string
@@ -184,10 +184,10 @@
           :escaping        1))) ;in a string and not at a double-quote
 
 
-(defn ^:export close-expression-vals
-  "if nowhere to skip to, returns an emtpy array.
+(defn close-expression-vals
+  "if nowhere to skip to, returns an emtpy vector.
 
-  otherwise it's an array of
+  otherwise it's an vector of
   0 - whether we need to delete any whitespace
   1 - where to start deleting from
   2 - where to delete to
@@ -213,11 +213,11 @@
                                p))]
     (if (nil? r) false r)))
 
-(defn ^:export forward-down-fn [s i]
+(defn forward-down-fn [s i]
   (let [r (get-start-of-next-list s i)]
     (if r (inc r) i)))
 
-(defn ^:export backward-fn
+(defn backward-fn
   "returns the index for the cursor position immediately back an
   s-expression or up an s-expression backward. compare to
   paredit-backward. goal: If there are no more S-expressions in this
@@ -230,7 +230,7 @@
         o (get-opening-delimiter-index-with-parse p i)]
     (or b (if (< o 0) 0 o))))
 
-(defn ^:export backward-down-fn
+(defn backward-down-fn
   "paredit-backward-down"
   [s i]
   (let [p (parse s)
@@ -240,7 +240,7 @@
                               p))]
     (or b i)))
 
-(defn ^:export forward-up-fn
+(defn forward-up-fn
   "paredit-forward-up"
   [s i]
   (let [p (parse s)
@@ -248,7 +248,7 @@
         in-list (not= -1 o)]
     (if in-list (inc c) i)))
 
-(defn ^:export forward-fn
+(defn forward-fn
   "returns the index for the cursor position immediately forward an
   s-expression or out the end of an s-expression if already at the
   end. compare to paredit-forward. goal: If there are no more
@@ -265,14 +265,14 @@
           c (min (inc c) l)
           true l)))
 
-(defn ^:export forward-slurp-vals
-  "returns an array of
+(defn forward-slurp-vals
+  "returns an vector of
   0 - the delimiter that needs to move,
   1 - the source index,
   2 - the destination index in the orignal string,
   3 - the number of lines to indent starting from the source index.
 
-  if nothing should be done, the array returned will have length 0"
+  if nothing should be done, the vector returned will have length 0"
   [s i]
   (let [p       (parse s)
         [o c]   (get-wrapper p i) ; opening/closing delimiters wrapping location
@@ -283,14 +283,14 @@
       [a c (inc d) (count-lines s o (inc d))]
       [])))
 
-(defn ^:export backward-slurp-vals
-  "returns an array of
+(defn backward-slurp-vals
+  "returns an vector of
   0 - the delimiter that needs to move,
   1 - the source index,
   2 - the destination index in the orignal string,
   3 - the number of lines to indent starting from the source index.
 
-  if nothing should be done, the array returned will have length 0"
+  if nothing should be done, the vector returned will have length 0"
   [s i]
   (let [p (parse s)
         [o c] (get-wrapper p i)
@@ -301,10 +301,10 @@
       [a o d (count-lines s d c)]
       [])))
 
-(defn ^:export forward-barf-vals
-  "if nothing should be done, this returns an empty array.
+(defn forward-barf-vals
+  "if nothing should be done, this returns an empty vector.
 
-  if there is something to barf, this returns an array of
+  if there is something to barf, this returns an vector of
   0 - the delimiter that needs to move,
   1 - the source index,
   2 - the destination index in the orignal string,
@@ -324,10 +324,10 @@
      (= num 1) [a c (inc o)                       true  r o]
      true      [])))
 
-(defn ^:export backward-barf-vals
-  "if nothing should be done this returns an empty array.
+(defn backward-barf-vals
+  "if nothing should be done this returns an empty vector.
 
-  if there is something to barf, this returns an array of
+  if there is something to barf, this returns an vector of
   0 - the delimiter that needs to move,
   1 - the source index,
   2 - the destination index in the orignal string,
@@ -346,10 +346,10 @@
      (= num 1) [a o c               true  r]
      true      [])))
 
-(defn ^:export splice-vals
-  "if nothing should be done this returns an empty array.
+(defn splice-vals
+  "if nothing should be done this returns an empty vector.
 
-  if there is something to splice, this returns an array of
+  if there is something to splice, this returns an vector of
   0 - the opening delimiter of the current list
   1 - the closing delimiter of the current list
   2 - the index to start re-indenting from
@@ -361,13 +361,13 @@
     (if in-list
       (let [[n d] (get-wrapper p o) ; for text to indent afterwards
             r (count-lines s n d)]
-        (array o c (max 0 n) r))
-      (array))))
+        [o c (max 0 n) r])
+      [])))
 
-(defn ^:export splice-killing-backward
-  "if nothing should be done this returns an empty array.
+(defn splice-delete-backward-vals
+  "if nothing should be done this returns an empty vector.
 
-  if there is something to splice, this returns an array of
+  if there is something to splice, this returns an vector of
   0 - the opening delimiter of the current list (start killing from here)
   1 - the index to kill to
   2 - the original index of the closing delimiter to delete as well (delete this guy first)
@@ -380,13 +380,13 @@
     (if in-list
       (let [[n d] (get-wrapper p o) ; for text to indent afterwards
             r (count-lines s n d)]
-        (array o (max o i) c (max 0 n) r))
-      (array))))
+        [o (max o i) c (max 0 n) r])
+      [])))
 
-(defn ^:export splice-killing-forward
-  "if nothing should be done this returns an empty array.
+(defn splice-delete-forward-vals
+  "if nothing should be done this returns an empty vector.
 
-  if there is something to splice, this returns an array of
+  if there is something to splice, this returns an vector of
   0 - the opening delimiter of the current list
   1 - the index to kill from
   2 - the original index of the closing delimiter to kill to
@@ -399,8 +399,8 @@
     (if in-list
       (let [[n d] (get-wrapper p o) ; for text to indent afterwards
             r (count-lines s n d)]
-        (array o i (inc c) (max 0 n) r))
-      (array))))
+        [o i (inc c) (max 0 n) r])
+      [])))
 
 ;; todo: implement wrap
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -666,7 +666,7 @@
 
 (defn ^:export splice-delete-backward [cm]
   (let [[cur i s] (get-info cm)
-        [start end closer reindent num] (splice-killing-backward s i)]
+        [start end closer reindent num] (splice-delete-backward-vals s i)]
     (if reindent
       (let [line (.-line (.posFromIndex cm reindent))
             c0 (.posFromIndex cm closer)
@@ -682,7 +682,7 @@
 ;; todo: cut to clipboard instead of delete, for all splice fns
 (defn ^:export splice-delete-forward [cm]
   (let [[cur i s] (get-info cm)
-        [opener start end reindent num] (splice-killing-forward s i)]
+        [opener start end reindent num] (splice-delete-forward-vals s i)]
     (if reindent
       (let [line (.-line (.posFromIndex cm reindent))
             o0 (.posFromIndex cm opener)

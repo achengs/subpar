@@ -497,6 +497,15 @@ goog.base = function(me, opt_methodName, var_args) {
 goog.scope = function(fn) {
   fn.call(goog.global)
 };
+goog.provide("goog.debug.Error");
+goog.debug.Error = function(opt_msg) {
+  this.stack = (new Error).stack || "";
+  if(opt_msg) {
+    this.message = String(opt_msg)
+  }
+};
+goog.inherits(goog.debug.Error, Error);
+goog.debug.Error.prototype.name = "CustomError";
 goog.provide("goog.string");
 goog.provide("goog.string.Unicode");
 goog.string.Unicode = {NBSP:"\u00a0"};
@@ -924,15 +933,6 @@ goog.string.toSelectorCaseCache_ = {};
 goog.string.toSelectorCase = function(str) {
   return goog.string.toSelectorCaseCache_[str] || (goog.string.toSelectorCaseCache_[str] = String(str).replace(/([A-Z])/g, "-$1").toLowerCase())
 };
-goog.provide("goog.debug.Error");
-goog.debug.Error = function(opt_msg) {
-  this.stack = (new Error).stack || "";
-  if(opt_msg) {
-    this.message = String(opt_msg)
-  }
-};
-goog.inherits(goog.debug.Error, Error);
-goog.debug.Error.prototype.name = "CustomError";
 goog.provide("goog.asserts");
 goog.provide("goog.asserts.AssertionError");
 goog.require("goog.debug.Error");
@@ -20216,13 +20216,13 @@ subpar.core.closer_QMARK_ = function closer_QMARK_(a) {
   return cljs.core.contains_QMARK_.call(null, subpar.core.closers, a)
 };
 subpar.core.whitespace_QMARK_ = function whitespace_QMARK_(x) {
-  var or__3824__auto____19163 = cljs.core._EQ_.call(null, x, "\t");
-  if(or__3824__auto____19163) {
-    return or__3824__auto____19163
+  var or__3824__auto____36860 = cljs.core._EQ_.call(null, x, "\t");
+  if(or__3824__auto____36860) {
+    return or__3824__auto____36860
   }else {
-    var or__3824__auto____19164 = cljs.core._EQ_.call(null, x, " ");
-    if(or__3824__auto____19164) {
-      return or__3824__auto____19164
+    var or__3824__auto____36861 = cljs.core._EQ_.call(null, x, " ");
+    if(or__3824__auto____36861) {
+      return or__3824__auto____36861
     }else {
       return cljs.core._EQ_.call(null, x, "\n")
     }
@@ -20247,18 +20247,18 @@ subpar.core.get_mode = function get_mode(p, i) {
   return cljs.core.nth.call(null, cljs.core.nth.call(null, (new cljs.core.Keyword("\ufdd0'chars")).call(null, p), i), 0)
 };
 subpar.core.in_QMARK_ = function in_QMARK_(p, i, mode) {
-  var and__3822__auto____19168 = function() {
-    var and__3822__auto____19167 = 0 <= i;
-    if(and__3822__auto____19167) {
+  var and__3822__auto____36865 = function() {
+    var and__3822__auto____36864 = 0 <= i;
+    if(and__3822__auto____36864) {
       return i <= cljs.core.count.call(null, (new cljs.core.Keyword("\ufdd0'chars")).call(null, p))
     }else {
-      return and__3822__auto____19167
+      return and__3822__auto____36864
     }
   }();
-  if(cljs.core.truth_(and__3822__auto____19168)) {
+  if(cljs.core.truth_(and__3822__auto____36865)) {
     return cljs.core._EQ_.call(null, mode, subpar.core.get_mode.call(null, p, i))
   }else {
-    return and__3822__auto____19168
+    return and__3822__auto____36865
   }
 };
 subpar.core.in_comment_QMARK_ = function in_comment_QMARK_(p, i) {
@@ -20273,7 +20273,6 @@ subpar.core.in_string_QMARK_ = function in_string_QMARK_(p, i) {
 subpar.core.in_string = function in_string(s, i) {
   return subpar.core.in_string_QMARK_.call(null, subpar.core.parse.call(null, s), i)
 };
-goog.exportSymbol("subpar.core.in_string", subpar.core.in_string);
 subpar.core.n_str_QMARK_ = cljs.core.complement.call(null, subpar.core.in_string_QMARK_);
 subpar.core.get_all_siblings = function get_all_siblings(i, p) {
   return cljs.core.get_in.call(null, p, cljs.core.PersistentVector.fromArray(["\ufdd0'families", subpar.core.get_opening_delimiter_index_with_parse.call(null, p, i), "\ufdd0'children"], true))
@@ -20282,40 +20281,40 @@ subpar.core.get_siblings = function get_siblings(i, transform, predicate, p) {
   return cljs.core.sort.call(null, cljs.core.filter.call(null, predicate, transform.call(null, subpar.core.get_all_siblings.call(null, i, p))))
 };
 subpar.core.count_lines = function count_lines(s, i, j) {
-  var and__3822__auto____19172 = i;
-  if(cljs.core.truth_(and__3822__auto____19172)) {
-    var and__3822__auto____19173 = j;
-    if(cljs.core.truth_(and__3822__auto____19173)) {
-      return cljs.core.count.call(null, cljs.core.filter.call(null, function(p1__19169_SHARP_) {
-        return cljs.core._EQ_.call(null, "\n", p1__19169_SHARP_)
+  var and__3822__auto____36869 = i;
+  if(cljs.core.truth_(and__3822__auto____36869)) {
+    var and__3822__auto____36870 = j;
+    if(cljs.core.truth_(and__3822__auto____36870)) {
+      return cljs.core.count.call(null, cljs.core.filter.call(null, function(p1__36866_SHARP_) {
+        return cljs.core._EQ_.call(null, "\n", p1__36866_SHARP_)
       }, cljs.core.drop.call(null, i, cljs.core.drop_last.call(null, cljs.core.count.call(null, s) - j - 1, cljs.core.take.call(null, cljs.core.count.call(null, s), s))))) + 1
     }else {
-      return and__3822__auto____19173
+      return and__3822__auto____36870
     }
   }else {
-    return and__3822__auto____19172
+    return and__3822__auto____36869
   }
 };
 subpar.core.escaped_QMARK_ = function escaped_QMARK_(s, i) {
   return cljs.core.odd_QMARK_.call(null, function() {
-    var c__19177 = 0;
-    var j__19178 = i - 1;
+    var c__36874 = 0;
+    var j__36875 = i - 1;
     while(true) {
-      var a__19179 = cljs.core.nth.call(null, s, j__19178, null);
-      if(j__19178 < 0) {
-        return c__19177
+      var a__36876 = cljs.core.nth.call(null, s, j__36875, null);
+      if(j__36875 < 0) {
+        return c__36874
       }else {
-        if(a__19179 == null) {
-          return c__19177
+        if(a__36876 == null) {
+          return c__36874
         }else {
-          if(cljs.core.not_EQ_.call(null, "\\", a__19179)) {
-            return c__19177
+          if(cljs.core.not_EQ_.call(null, "\\", a__36876)) {
+            return c__36874
           }else {
             if(true) {
-              var G__19180 = c__19177 + 1;
-              var G__19181 = j__19178 - 1;
-              c__19177 = G__19180;
-              j__19178 = G__19181;
+              var G__36877 = c__36874 + 1;
+              var G__36878 = j__36875 - 1;
+              c__36874 = G__36877;
+              j__36875 = G__36878;
               continue
             }else {
               return null
@@ -20334,40 +20333,39 @@ subpar.core.opens_list_QMARK_ = function opens_list_QMARK_(p, i) {
   return cljs.core.some.call(null, cljs.core.PersistentHashSet.fromArray([i]), cljs.core.keys.call(null, (new cljs.core.Keyword("\ufdd0'families")).call(null, p)))
 };
 subpar.core.backward_up_fn = function backward_up_fn(s, i) {
-  var vec__19186__19187 = subpar.core.get_wrapper.call(null, subpar.core.parse.call(null, s), i);
-  var o__19188 = cljs.core.nth.call(null, vec__19186__19187, 0, null);
-  var c__19189 = cljs.core.nth.call(null, vec__19186__19187, 1, null);
-  if(cljs.core._EQ_.call(null, -1, o__19188)) {
+  var vec__36883__36884 = subpar.core.get_wrapper.call(null, subpar.core.parse.call(null, s), i);
+  var o__36885 = cljs.core.nth.call(null, vec__36883__36884, 0, null);
+  var c__36886 = cljs.core.nth.call(null, vec__36883__36884, 1, null);
+  if(cljs.core._EQ_.call(null, -1, o__36885)) {
     return i
   }else {
-    return o__19188
+    return o__36885
   }
 };
-goog.exportSymbol("subpar.core.backward_up_fn", subpar.core.backward_up_fn);
 subpar.core.forward_delete_action = function forward_delete_action(s, i) {
-  var p__19194 = subpar.core.parse.call(null, s);
-  var h__19195 = i - 1;
-  var j__19196 = i + 1;
-  var c__19197 = cljs.core.nth.call(null, s, i, null);
+  var p__36891 = subpar.core.parse.call(null, s);
+  var h__36892 = i - 1;
+  var j__36893 = i + 1;
+  var c__36894 = cljs.core.nth.call(null, s, i, null);
   if(i >= cljs.core.count.call(null, s)) {
     return 0
   }else {
     if(cljs.core.truth_(subpar.core.escaped_QMARK_.call(null, s, i))) {
       return 2
     }else {
-      if(cljs.core.truth_(subpar.core.escaped_QMARK_.call(null, s, j__19196))) {
+      if(cljs.core.truth_(subpar.core.escaped_QMARK_.call(null, s, j__36893))) {
         return 3
       }else {
-        if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([h__19195, i], true), subpar.core.get_wrapper.call(null, p__19194, i))) {
+        if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([h__36892, i], true), subpar.core.get_wrapper.call(null, p__36891, i))) {
           return 2
         }else {
-          if(cljs.core.truth_(subpar.core.closes_list_QMARK_.call(null, p__19194, i))) {
+          if(cljs.core.truth_(subpar.core.closes_list_QMARK_.call(null, p__36891, i))) {
             return 0
           }else {
-            if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([i, j__19196], true), subpar.core.get_wrapper.call(null, p__19194, j__19196))) {
+            if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([i, j__36893], true), subpar.core.get_wrapper.call(null, p__36891, j__36893))) {
               return 3
             }else {
-              if(cljs.core.truth_(subpar.core.opens_list_QMARK_.call(null, p__19194, i))) {
+              if(cljs.core.truth_(subpar.core.opens_list_QMARK_.call(null, p__36891, i))) {
                 return 4
               }else {
                 if(true) {
@@ -20383,30 +20381,29 @@ subpar.core.forward_delete_action = function forward_delete_action(s, i) {
     }
   }
 };
-goog.exportSymbol("subpar.core.forward_delete_action", subpar.core.forward_delete_action);
 subpar.core.backward_delete_action = function backward_delete_action(s, i) {
-  var p__19201 = subpar.core.parse.call(null, s);
-  var g__19202 = i - 2;
-  var h__19203 = i - 1;
+  var p__36898 = subpar.core.parse.call(null, s);
+  var g__36899 = i - 2;
+  var h__36900 = i - 1;
   if(i <= 0) {
     return 0
   }else {
-    if(cljs.core.truth_(subpar.core.escaped_QMARK_.call(null, s, h__19203))) {
+    if(cljs.core.truth_(subpar.core.escaped_QMARK_.call(null, s, h__36900))) {
       return 3
     }else {
       if(cljs.core.truth_(subpar.core.escaped_QMARK_.call(null, s, i))) {
         return 2
       }else {
-        if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([g__19202, h__19203], true), subpar.core.get_wrapper.call(null, p__19201, h__19203))) {
+        if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([g__36899, h__36900], true), subpar.core.get_wrapper.call(null, p__36898, h__36900))) {
           return 3
         }else {
-          if(cljs.core.truth_(subpar.core.closes_list_QMARK_.call(null, p__19201, h__19203))) {
+          if(cljs.core.truth_(subpar.core.closes_list_QMARK_.call(null, p__36898, h__36900))) {
             return 4
           }else {
-            if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([h__19203, i], true), subpar.core.get_wrapper.call(null, p__19201, i))) {
+            if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([h__36900, i], true), subpar.core.get_wrapper.call(null, p__36898, i))) {
               return 2
             }else {
-              if(cljs.core.truth_(subpar.core.opens_list_QMARK_.call(null, p__19201, h__19203))) {
+              if(cljs.core.truth_(subpar.core.opens_list_QMARK_.call(null, p__36898, h__36900))) {
                 return 0
               }else {
                 if(true) {
@@ -20422,19 +20419,18 @@ subpar.core.backward_delete_action = function backward_delete_action(s, i) {
     }
   }
 };
-goog.exportSymbol("subpar.core.backward_delete_action", subpar.core.backward_delete_action);
 subpar.core.double_quote_action = function double_quote_action(s, i) {
-  var p__19205 = subpar.core.parse.call(null, s);
+  var p__36902 = subpar.core.parse.call(null, s);
   if(i < 0) {
     return 0
   }else {
     if(i >= cljs.core.count.call(null, s)) {
       return 0
     }else {
-      if(cljs.core.truth_(subpar.core.in_comment_QMARK_.call(null, p__19205, i))) {
+      if(cljs.core.truth_(subpar.core.in_comment_QMARK_.call(null, p__36902, i))) {
         return 3
       }else {
-        if(cljs.core.truth_(subpar.core.n_str_QMARK_.call(null, p__19205, i))) {
+        if(cljs.core.truth_(subpar.core.n_str_QMARK_.call(null, p__36902, i))) {
           return 0
         }else {
           if(cljs.core._EQ_.call(null, '"', cljs.core.nth.call(null, s, i))) {
@@ -20451,246 +20447,237 @@ subpar.core.double_quote_action = function double_quote_action(s, i) {
     }
   }
 };
-goog.exportSymbol("subpar.core.double_quote_action", subpar.core.double_quote_action);
 subpar.core.close_expression_vals = function close_expression_vals(p, i) {
-  var vec__19215__19216 = subpar.core.get_wrapper.call(null, p, i);
-  var o__19217 = cljs.core.nth.call(null, vec__19215__19216, 0, null);
-  var c__19218 = cljs.core.nth.call(null, vec__19215__19216, 1, null);
-  if(cljs.core._EQ_.call(null, -1, o__19217)) {
+  var vec__36912__36913 = subpar.core.get_wrapper.call(null, p, i);
+  var o__36914 = cljs.core.nth.call(null, vec__36912__36913, 0, null);
+  var c__36915 = cljs.core.nth.call(null, vec__36912__36913, 1, null);
+  if(cljs.core._EQ_.call(null, -1, o__36914)) {
     return cljs.core.PersistentVector.EMPTY
   }else {
-    var start__19220 = function() {
-      var or__3824__auto____19219 = cljs.core.last.call(null, subpar.core.get_siblings.call(null, i, cljs.core.vals, cljs.core.identity, p));
-      if(cljs.core.truth_(or__3824__auto____19219)) {
-        return or__3824__auto____19219
+    var start__36917 = function() {
+      var or__3824__auto____36916 = cljs.core.last.call(null, subpar.core.get_siblings.call(null, i, cljs.core.vals, cljs.core.identity, p));
+      if(cljs.core.truth_(or__3824__auto____36916)) {
+        return or__3824__auto____36916
       }else {
-        return o__19217
+        return o__36914
       }
     }() + 1;
-    var delete__19221 = cljs.core.not_EQ_.call(null, start__19220, c__19218);
-    var dest__19222 = delete__19221 ? start__19220 + 1 : c__19218 + 1;
-    return cljs.core.PersistentVector.fromArray([delete__19221, start__19220, c__19218, dest__19222], true)
+    var delete__36918 = cljs.core.not_EQ_.call(null, start__36917, c__36915);
+    var dest__36919 = delete__36918 ? start__36917 + 1 : c__36915 + 1;
+    return cljs.core.PersistentVector.fromArray([delete__36918, start__36917, c__36915, dest__36919], true)
   }
 };
-goog.exportSymbol("subpar.core.close_expression_vals", subpar.core.close_expression_vals);
 subpar.core.get_start_of_next_list = function get_start_of_next_list(s, i) {
-  var p__19226 = subpar.core.parse.call(null, s);
-  var r__19228 = cljs.core.first.call(null, subpar.core.get_siblings.call(null, i, cljs.core.keys, function(p1__19206_SHARP_) {
-    var and__3822__auto____19227 = p1__19206_SHARP_ >= i;
-    if(and__3822__auto____19227) {
-      return cljs.core.get_in.call(null, p__19226, cljs.core.PersistentVector.fromArray(["\ufdd0'families", p1__19206_SHARP_], true))
+  var p__36923 = subpar.core.parse.call(null, s);
+  var r__36925 = cljs.core.first.call(null, subpar.core.get_siblings.call(null, i, cljs.core.keys, function(p1__36903_SHARP_) {
+    var and__3822__auto____36924 = p1__36903_SHARP_ >= i;
+    if(and__3822__auto____36924) {
+      return cljs.core.get_in.call(null, p__36923, cljs.core.PersistentVector.fromArray(["\ufdd0'families", p1__36903_SHARP_], true))
     }else {
-      return and__3822__auto____19227
+      return and__3822__auto____36924
     }
-  }, p__19226));
-  if(r__19228 == null) {
+  }, p__36923));
+  if(r__36925 == null) {
     return false
   }else {
-    return r__19228
+    return r__36925
   }
 };
 subpar.core.forward_down_fn = function forward_down_fn(s, i) {
-  var r__19231 = subpar.core.get_start_of_next_list.call(null, s, i);
-  if(cljs.core.truth_(r__19231)) {
-    return r__19231 + 1
+  var r__36928 = subpar.core.get_start_of_next_list.call(null, s, i);
+  if(cljs.core.truth_(r__36928)) {
+    return r__36928 + 1
   }else {
     return i
   }
 };
-goog.exportSymbol("subpar.core.forward_down_fn", subpar.core.forward_down_fn);
 subpar.core.backward_fn = function backward_fn(s, i) {
-  var p__19237 = subpar.core.parse.call(null, s);
-  var b__19238 = cljs.core.last.call(null, subpar.core.get_siblings.call(null, i, cljs.core.keys, function(p1__19229_SHARP_) {
-    return p1__19229_SHARP_ < i
-  }, p__19237));
-  var o__19239 = subpar.core.get_opening_delimiter_index_with_parse.call(null, p__19237, i);
-  var or__3824__auto____19240 = b__19238;
-  if(cljs.core.truth_(or__3824__auto____19240)) {
-    return or__3824__auto____19240
+  var p__36934 = subpar.core.parse.call(null, s);
+  var b__36935 = cljs.core.last.call(null, subpar.core.get_siblings.call(null, i, cljs.core.keys, function(p1__36926_SHARP_) {
+    return p1__36926_SHARP_ < i
+  }, p__36934));
+  var o__36936 = subpar.core.get_opening_delimiter_index_with_parse.call(null, p__36934, i);
+  var or__3824__auto____36937 = b__36935;
+  if(cljs.core.truth_(or__3824__auto____36937)) {
+    return or__3824__auto____36937
   }else {
-    if(o__19239 < 0) {
+    if(o__36936 < 0) {
       return 0
     }else {
-      return o__19239
+      return o__36936
     }
   }
 };
-goog.exportSymbol("subpar.core.backward_fn", subpar.core.backward_fn);
 subpar.core.backward_down_fn = function backward_down_fn(s, i) {
-  var p__19245 = subpar.core.parse.call(null, s);
-  var b__19247 = cljs.core.last.call(null, subpar.core.get_siblings.call(null, i, cljs.core.vals, function(p1__19232_SHARP_) {
-    var and__3822__auto____19246 = p1__19232_SHARP_ < i;
-    if(and__3822__auto____19246) {
-      return subpar.core.closes_list_QMARK_.call(null, p__19245, p1__19232_SHARP_)
+  var p__36942 = subpar.core.parse.call(null, s);
+  var b__36944 = cljs.core.last.call(null, subpar.core.get_siblings.call(null, i, cljs.core.vals, function(p1__36929_SHARP_) {
+    var and__3822__auto____36943 = p1__36929_SHARP_ < i;
+    if(and__3822__auto____36943) {
+      return subpar.core.closes_list_QMARK_.call(null, p__36942, p1__36929_SHARP_)
     }else {
-      return and__3822__auto____19246
+      return and__3822__auto____36943
     }
-  }, p__19245));
-  var or__3824__auto____19248 = b__19247;
-  if(cljs.core.truth_(or__3824__auto____19248)) {
-    return or__3824__auto____19248
+  }, p__36942));
+  var or__3824__auto____36945 = b__36944;
+  if(cljs.core.truth_(or__3824__auto____36945)) {
+    return or__3824__auto____36945
   }else {
     return i
   }
 };
-goog.exportSymbol("subpar.core.backward_down_fn", subpar.core.backward_down_fn);
 subpar.core.forward_up_fn = function forward_up_fn(s, i) {
-  var p__19257 = subpar.core.parse.call(null, s);
-  var vec__19256__19258 = subpar.core.get_wrapper.call(null, p__19257, i);
-  var o__19259 = cljs.core.nth.call(null, vec__19256__19258, 0, null);
-  var c__19260 = cljs.core.nth.call(null, vec__19256__19258, 1, null);
-  var in_list__19261 = cljs.core.not_EQ_.call(null, -1, o__19259);
-  if(in_list__19261) {
-    return c__19260 + 1
+  var p__36954 = subpar.core.parse.call(null, s);
+  var vec__36953__36955 = subpar.core.get_wrapper.call(null, p__36954, i);
+  var o__36956 = cljs.core.nth.call(null, vec__36953__36955, 0, null);
+  var c__36957 = cljs.core.nth.call(null, vec__36953__36955, 1, null);
+  var in_list__36958 = cljs.core.not_EQ_.call(null, -1, o__36956);
+  if(in_list__36958) {
+    return c__36957 + 1
   }else {
     return i
   }
 };
-goog.exportSymbol("subpar.core.forward_up_fn", subpar.core.forward_up_fn);
 subpar.core.forward_fn = function forward_fn(s, i) {
-  var p__19267 = subpar.core.parse.call(null, s);
-  var b__19268 = cljs.core.first.call(null, subpar.core.get_siblings.call(null, i, cljs.core.vals, function(p1__19249_SHARP_) {
-    return p1__19249_SHARP_ >= i
-  }, p__19267));
-  var c__19269 = subpar.core.get_closing_delimiter_index_with_parse.call(null, p__19267, i);
-  var l__19270 = cljs.core.count.call(null, s);
-  if(cljs.core.truth_(b__19268)) {
-    return b__19268 + 1
+  var p__36964 = subpar.core.parse.call(null, s);
+  var b__36965 = cljs.core.first.call(null, subpar.core.get_siblings.call(null, i, cljs.core.vals, function(p1__36946_SHARP_) {
+    return p1__36946_SHARP_ >= i
+  }, p__36964));
+  var c__36966 = subpar.core.get_closing_delimiter_index_with_parse.call(null, p__36964, i);
+  var l__36967 = cljs.core.count.call(null, s);
+  if(cljs.core.truth_(b__36965)) {
+    return b__36965 + 1
   }else {
-    if(cljs.core.truth_(c__19269)) {
-      return c__19269 + 1 < l__19270 ? c__19269 + 1 : l__19270
+    if(cljs.core.truth_(c__36966)) {
+      return c__36966 + 1 < l__36967 ? c__36966 + 1 : l__36967
     }else {
       if(true) {
-        return l__19270
+        return l__36967
       }else {
         return null
       }
     }
   }
 };
-goog.exportSymbol("subpar.core.forward_fn", subpar.core.forward_fn);
 subpar.core.forward_slurp_vals = function forward_slurp_vals(s, i) {
-  var p__19285 = subpar.core.parse.call(null, s);
-  var vec__19284__19286 = subpar.core.get_wrapper.call(null, p__19285, i);
-  var o__19287 = cljs.core.nth.call(null, vec__19284__19286, 0, null);
-  var c__19288 = cljs.core.nth.call(null, vec__19284__19286, 1, null);
-  var in_list__19289 = cljs.core.not_EQ_.call(null, -1, o__19287);
-  var a__19291 = function() {
-    var and__3822__auto____19290 = in_list__19289;
-    if(and__3822__auto____19290) {
-      return cljs.core.nth.call(null, s, c__19288, false)
+  var p__36982 = subpar.core.parse.call(null, s);
+  var vec__36981__36983 = subpar.core.get_wrapper.call(null, p__36982, i);
+  var o__36984 = cljs.core.nth.call(null, vec__36981__36983, 0, null);
+  var c__36985 = cljs.core.nth.call(null, vec__36981__36983, 1, null);
+  var in_list__36986 = cljs.core.not_EQ_.call(null, -1, o__36984);
+  var a__36988 = function() {
+    var and__3822__auto____36987 = in_list__36986;
+    if(and__3822__auto____36987) {
+      return cljs.core.nth.call(null, s, c__36985, false)
     }else {
-      return and__3822__auto____19290
+      return and__3822__auto____36987
     }
   }();
-  var d__19293 = function() {
-    var and__3822__auto____19292 = in_list__19289;
-    if(and__3822__auto____19292) {
-      return cljs.core.first.call(null, subpar.core.get_siblings.call(null, o__19287, cljs.core.vals, function(p1__19262_SHARP_) {
-        return p1__19262_SHARP_ > c__19288
-      }, p__19285))
+  var d__36990 = function() {
+    var and__3822__auto____36989 = in_list__36986;
+    if(and__3822__auto____36989) {
+      return cljs.core.first.call(null, subpar.core.get_siblings.call(null, o__36984, cljs.core.vals, function(p1__36959_SHARP_) {
+        return p1__36959_SHARP_ > c__36985
+      }, p__36982))
     }else {
-      return and__3822__auto____19292
+      return and__3822__auto____36989
     }
   }();
   if(cljs.core.truth_(function() {
-    var and__3822__auto____19294 = a__19291;
-    if(cljs.core.truth_(and__3822__auto____19294)) {
-      var and__3822__auto____19295 = c__19288;
-      if(cljs.core.truth_(and__3822__auto____19295)) {
-        return d__19293
+    var and__3822__auto____36991 = a__36988;
+    if(cljs.core.truth_(and__3822__auto____36991)) {
+      var and__3822__auto____36992 = c__36985;
+      if(cljs.core.truth_(and__3822__auto____36992)) {
+        return d__36990
       }else {
-        return and__3822__auto____19295
+        return and__3822__auto____36992
       }
     }else {
-      return and__3822__auto____19294
+      return and__3822__auto____36991
     }
   }())) {
-    return cljs.core.PersistentVector.fromArray([a__19291, c__19288, d__19293 + 1, subpar.core.count_lines.call(null, s, o__19287, d__19293 + 1)], true)
+    return cljs.core.PersistentVector.fromArray([a__36988, c__36985, d__36990 + 1, subpar.core.count_lines.call(null, s, o__36984, d__36990 + 1)], true)
   }else {
     return cljs.core.PersistentVector.EMPTY
   }
 };
-goog.exportSymbol("subpar.core.forward_slurp_vals", subpar.core.forward_slurp_vals);
 subpar.core.backward_slurp_vals = function backward_slurp_vals(s, i) {
-  var p__19308 = subpar.core.parse.call(null, s);
-  var vec__19307__19309 = subpar.core.get_wrapper.call(null, p__19308, i);
-  var o__19310 = cljs.core.nth.call(null, vec__19307__19309, 0, null);
-  var c__19311 = cljs.core.nth.call(null, vec__19307__19309, 1, null);
-  var in_list__19312 = cljs.core.not_EQ_.call(null, -1, o__19310);
-  var d__19314 = function() {
-    var and__3822__auto____19313 = in_list__19312;
-    if(and__3822__auto____19313) {
-      return cljs.core.last.call(null, subpar.core.get_siblings.call(null, o__19310, cljs.core.keys, function(p1__19271_SHARP_) {
-        return p1__19271_SHARP_ < o__19310
-      }, p__19308))
+  var p__37005 = subpar.core.parse.call(null, s);
+  var vec__37004__37006 = subpar.core.get_wrapper.call(null, p__37005, i);
+  var o__37007 = cljs.core.nth.call(null, vec__37004__37006, 0, null);
+  var c__37008 = cljs.core.nth.call(null, vec__37004__37006, 1, null);
+  var in_list__37009 = cljs.core.not_EQ_.call(null, -1, o__37007);
+  var d__37011 = function() {
+    var and__3822__auto____37010 = in_list__37009;
+    if(and__3822__auto____37010) {
+      return cljs.core.last.call(null, subpar.core.get_siblings.call(null, o__37007, cljs.core.keys, function(p1__36968_SHARP_) {
+        return p1__36968_SHARP_ < o__37007
+      }, p__37005))
     }else {
-      return and__3822__auto____19313
+      return and__3822__auto____37010
     }
   }();
-  var a__19316 = function() {
-    var and__3822__auto____19315 = in_list__19312;
-    if(and__3822__auto____19315) {
-      return cljs.core.nth.call(null, s, o__19310, false)
+  var a__37013 = function() {
+    var and__3822__auto____37012 = in_list__37009;
+    if(and__3822__auto____37012) {
+      return cljs.core.nth.call(null, s, o__37007, false)
     }else {
-      return and__3822__auto____19315
+      return and__3822__auto____37012
     }
   }();
   if(cljs.core.truth_(function() {
-    var and__3822__auto____19317 = a__19316;
-    if(cljs.core.truth_(and__3822__auto____19317)) {
-      return d__19314
+    var and__3822__auto____37014 = a__37013;
+    if(cljs.core.truth_(and__3822__auto____37014)) {
+      return d__37011
     }else {
-      return and__3822__auto____19317
+      return and__3822__auto____37014
     }
   }())) {
-    return cljs.core.PersistentVector.fromArray([a__19316, o__19310, d__19314, subpar.core.count_lines.call(null, s, d__19314, c__19311)], true)
+    return cljs.core.PersistentVector.fromArray([a__37013, o__37007, d__37011, subpar.core.count_lines.call(null, s, d__37011, c__37008)], true)
   }else {
     return cljs.core.PersistentVector.EMPTY
   }
 };
-goog.exportSymbol("subpar.core.backward_slurp_vals", subpar.core.backward_slurp_vals);
 subpar.core.forward_barf_vals = function forward_barf_vals(s, i) {
-  var p__19333 = subpar.core.parse.call(null, s);
-  var vec__19332__19334 = subpar.core.get_wrapper.call(null, p__19333, i);
-  var o__19335 = cljs.core.nth.call(null, vec__19332__19334, 0, null);
-  var c__19336 = cljs.core.nth.call(null, vec__19332__19334, 1, null);
-  var in_list__19337 = cljs.core.not_EQ_.call(null, -1, o__19335);
-  var endings__19339 = function() {
-    var and__3822__auto____19338 = in_list__19337;
-    if(and__3822__auto____19338) {
-      return subpar.core.get_siblings.call(null, i, cljs.core.vals, cljs.core.constantly.call(null, true), p__19333)
+  var p__37030 = subpar.core.parse.call(null, s);
+  var vec__37029__37031 = subpar.core.get_wrapper.call(null, p__37030, i);
+  var o__37032 = cljs.core.nth.call(null, vec__37029__37031, 0, null);
+  var c__37033 = cljs.core.nth.call(null, vec__37029__37031, 1, null);
+  var in_list__37034 = cljs.core.not_EQ_.call(null, -1, o__37032);
+  var endings__37036 = function() {
+    var and__3822__auto____37035 = in_list__37034;
+    if(and__3822__auto____37035) {
+      return subpar.core.get_siblings.call(null, i, cljs.core.vals, cljs.core.constantly.call(null, true), p__37030)
     }else {
-      return and__3822__auto____19338
+      return and__3822__auto____37035
     }
   }();
-  var a__19342 = function() {
-    var and__3822__auto____19340 = c__19336;
-    if(cljs.core.truth_(and__3822__auto____19340)) {
-      var and__3822__auto____19341 = in_list__19337;
-      if(and__3822__auto____19341) {
-        return cljs.core.nth.call(null, s, c__19336, null)
+  var a__37039 = function() {
+    var and__3822__auto____37037 = c__37033;
+    if(cljs.core.truth_(and__3822__auto____37037)) {
+      var and__3822__auto____37038 = in_list__37034;
+      if(and__3822__auto____37038) {
+        return cljs.core.nth.call(null, s, c__37033, null)
       }else {
-        return and__3822__auto____19341
+        return and__3822__auto____37038
       }
     }else {
-      return and__3822__auto____19340
+      return and__3822__auto____37037
     }
   }();
-  var r__19344 = function() {
-    var or__3824__auto____19343 = subpar.core.count_lines.call(null, s, o__19335, c__19336);
-    if(cljs.core.truth_(or__3824__auto____19343)) {
-      return or__3824__auto____19343
+  var r__37041 = function() {
+    var or__3824__auto____37040 = subpar.core.count_lines.call(null, s, o__37032, c__37033);
+    if(cljs.core.truth_(or__3824__auto____37040)) {
+      return or__3824__auto____37040
     }else {
       return 1
     }
   }();
-  var num__19345 = cljs.core.truth_(endings__19339) ? cljs.core.count.call(null, endings__19339) : 0;
-  if(num__19345 > 1) {
-    return cljs.core.PersistentVector.fromArray([a__19342, c__19336, cljs.core.nth.call(null, endings__19339, num__19345 - 2) + 1, false, r__19344, o__19335], true)
+  var num__37042 = cljs.core.truth_(endings__37036) ? cljs.core.count.call(null, endings__37036) : 0;
+  if(num__37042 > 1) {
+    return cljs.core.PersistentVector.fromArray([a__37039, c__37033, cljs.core.nth.call(null, endings__37036, num__37042 - 2) + 1, false, r__37041, o__37032], true)
   }else {
-    if(cljs.core._EQ_.call(null, num__19345, 1)) {
-      return cljs.core.PersistentVector.fromArray([a__19342, c__19336, o__19335 + 1, true, r__19344, o__19335], true)
+    if(cljs.core._EQ_.call(null, num__37042, 1)) {
+      return cljs.core.PersistentVector.fromArray([a__37039, c__37033, o__37032 + 1, true, r__37041, o__37032], true)
     }else {
       if(true) {
         return cljs.core.PersistentVector.EMPTY
@@ -20700,48 +20687,47 @@ subpar.core.forward_barf_vals = function forward_barf_vals(s, i) {
     }
   }
 };
-goog.exportSymbol("subpar.core.forward_barf_vals", subpar.core.forward_barf_vals);
 subpar.core.backward_barf_vals = function backward_barf_vals(s, i) {
-  var p__19361 = subpar.core.parse.call(null, s);
-  var vec__19360__19362 = subpar.core.get_wrapper.call(null, p__19361, i);
-  var o__19363 = cljs.core.nth.call(null, vec__19360__19362, 0, null);
-  var c__19364 = cljs.core.nth.call(null, vec__19360__19362, 1, null);
-  var in_list__19365 = cljs.core.not_EQ_.call(null, -1, o__19363);
-  var starts__19367 = function() {
-    var and__3822__auto____19366 = in_list__19365;
-    if(and__3822__auto____19366) {
-      return subpar.core.get_siblings.call(null, i, cljs.core.keys, cljs.core.constantly.call(null, true), p__19361)
+  var p__37058 = subpar.core.parse.call(null, s);
+  var vec__37057__37059 = subpar.core.get_wrapper.call(null, p__37058, i);
+  var o__37060 = cljs.core.nth.call(null, vec__37057__37059, 0, null);
+  var c__37061 = cljs.core.nth.call(null, vec__37057__37059, 1, null);
+  var in_list__37062 = cljs.core.not_EQ_.call(null, -1, o__37060);
+  var starts__37064 = function() {
+    var and__3822__auto____37063 = in_list__37062;
+    if(and__3822__auto____37063) {
+      return subpar.core.get_siblings.call(null, i, cljs.core.keys, cljs.core.constantly.call(null, true), p__37058)
     }else {
-      return and__3822__auto____19366
+      return and__3822__auto____37063
     }
   }();
-  var a__19370 = function() {
-    var and__3822__auto____19368 = o__19363;
-    if(cljs.core.truth_(and__3822__auto____19368)) {
-      var and__3822__auto____19369 = in_list__19365;
-      if(and__3822__auto____19369) {
-        return cljs.core.nth.call(null, s, o__19363, null)
+  var a__37067 = function() {
+    var and__3822__auto____37065 = o__37060;
+    if(cljs.core.truth_(and__3822__auto____37065)) {
+      var and__3822__auto____37066 = in_list__37062;
+      if(and__3822__auto____37066) {
+        return cljs.core.nth.call(null, s, o__37060, null)
       }else {
-        return and__3822__auto____19369
+        return and__3822__auto____37066
       }
     }else {
-      return and__3822__auto____19368
+      return and__3822__auto____37065
     }
   }();
-  var r__19372 = function() {
-    var or__3824__auto____19371 = subpar.core.count_lines.call(null, s, o__19363, c__19364);
-    if(cljs.core.truth_(or__3824__auto____19371)) {
-      return or__3824__auto____19371
+  var r__37069 = function() {
+    var or__3824__auto____37068 = subpar.core.count_lines.call(null, s, o__37060, c__37061);
+    if(cljs.core.truth_(or__3824__auto____37068)) {
+      return or__3824__auto____37068
     }else {
       return 1
     }
   }();
-  var num__19373 = cljs.core.truth_(starts__19367) ? cljs.core.count.call(null, starts__19367) : 0;
-  if(num__19373 > 1) {
-    return cljs.core.PersistentVector.fromArray([a__19370, o__19363, cljs.core.second.call(null, starts__19367), false, r__19372], true)
+  var num__37070 = cljs.core.truth_(starts__37064) ? cljs.core.count.call(null, starts__37064) : 0;
+  if(num__37070 > 1) {
+    return cljs.core.PersistentVector.fromArray([a__37067, o__37060, cljs.core.second.call(null, starts__37064), false, r__37069], true)
   }else {
-    if(cljs.core._EQ_.call(null, num__19373, 1)) {
-      return cljs.core.PersistentVector.fromArray([a__19370, o__19363, c__19364, true, r__19372], true)
+    if(cljs.core._EQ_.call(null, num__37070, 1)) {
+      return cljs.core.PersistentVector.fromArray([a__37067, o__37060, c__37061, true, r__37069], true)
     }else {
       if(true) {
         return cljs.core.PersistentVector.EMPTY
@@ -20751,618 +20737,614 @@ subpar.core.backward_barf_vals = function backward_barf_vals(s, i) {
     }
   }
 };
-goog.exportSymbol("subpar.core.backward_barf_vals", subpar.core.backward_barf_vals);
 subpar.core.splice_vals = function splice_vals(s, i) {
-  var p__19386 = subpar.core.parse.call(null, s);
-  var vec__19385__19387 = subpar.core.get_wrapper.call(null, p__19386, i);
-  var o__19388 = cljs.core.nth.call(null, vec__19385__19387, 0, null);
-  var c__19389 = cljs.core.nth.call(null, vec__19385__19387, 1, null);
-  var in_list__19390 = cljs.core.not_EQ_.call(null, -1, o__19388);
-  if(in_list__19390) {
-    var vec__19391__19392 = subpar.core.get_wrapper.call(null, p__19386, o__19388);
-    var n__19393 = cljs.core.nth.call(null, vec__19391__19392, 0, null);
-    var d__19394 = cljs.core.nth.call(null, vec__19391__19392, 1, null);
-    var r__19395 = subpar.core.count_lines.call(null, s, n__19393, d__19394);
-    return[o__19388, c__19389, 0 > n__19393 ? 0 : n__19393, r__19395]
+  var p__37083 = subpar.core.parse.call(null, s);
+  var vec__37082__37084 = subpar.core.get_wrapper.call(null, p__37083, i);
+  var o__37085 = cljs.core.nth.call(null, vec__37082__37084, 0, null);
+  var c__37086 = cljs.core.nth.call(null, vec__37082__37084, 1, null);
+  var in_list__37087 = cljs.core.not_EQ_.call(null, -1, o__37085);
+  if(in_list__37087) {
+    var vec__37088__37089 = subpar.core.get_wrapper.call(null, p__37083, o__37085);
+    var n__37090 = cljs.core.nth.call(null, vec__37088__37089, 0, null);
+    var d__37091 = cljs.core.nth.call(null, vec__37088__37089, 1, null);
+    var r__37092 = subpar.core.count_lines.call(null, s, n__37090, d__37091);
+    return cljs.core.PersistentVector.fromArray([o__37085, c__37086, 0 > n__37090 ? 0 : n__37090, r__37092], true)
   }else {
-    return[]
+    return cljs.core.PersistentVector.EMPTY
   }
 };
-goog.exportSymbol("subpar.core.splice_vals", subpar.core.splice_vals);
-subpar.core.splice_killing_backward = function splice_killing_backward(s, i) {
-  var p__19408 = subpar.core.parse.call(null, s);
-  var vec__19407__19409 = subpar.core.get_wrapper.call(null, p__19408, i);
-  var o__19410 = cljs.core.nth.call(null, vec__19407__19409, 0, null);
-  var c__19411 = cljs.core.nth.call(null, vec__19407__19409, 1, null);
-  var in_list__19412 = cljs.core.not_EQ_.call(null, -1, o__19410);
-  if(in_list__19412) {
-    var vec__19413__19414 = subpar.core.get_wrapper.call(null, p__19408, o__19410);
-    var n__19415 = cljs.core.nth.call(null, vec__19413__19414, 0, null);
-    var d__19416 = cljs.core.nth.call(null, vec__19413__19414, 1, null);
-    var r__19417 = subpar.core.count_lines.call(null, s, n__19415, d__19416);
-    return[o__19410, o__19410 > i ? o__19410 : i, c__19411, 0 > n__19415 ? 0 : n__19415, r__19417]
+subpar.core.splice_delete_backward_vals = function splice_delete_backward_vals(s, i) {
+  var p__37105 = subpar.core.parse.call(null, s);
+  var vec__37104__37106 = subpar.core.get_wrapper.call(null, p__37105, i);
+  var o__37107 = cljs.core.nth.call(null, vec__37104__37106, 0, null);
+  var c__37108 = cljs.core.nth.call(null, vec__37104__37106, 1, null);
+  var in_list__37109 = cljs.core.not_EQ_.call(null, -1, o__37107);
+  if(in_list__37109) {
+    var vec__37110__37111 = subpar.core.get_wrapper.call(null, p__37105, o__37107);
+    var n__37112 = cljs.core.nth.call(null, vec__37110__37111, 0, null);
+    var d__37113 = cljs.core.nth.call(null, vec__37110__37111, 1, null);
+    var r__37114 = subpar.core.count_lines.call(null, s, n__37112, d__37113);
+    return cljs.core.PersistentVector.fromArray([o__37107, o__37107 > i ? o__37107 : i, c__37108, 0 > n__37112 ? 0 : n__37112, r__37114], true)
   }else {
-    return[]
+    return cljs.core.PersistentVector.EMPTY
   }
 };
-goog.exportSymbol("subpar.core.splice_killing_backward", subpar.core.splice_killing_backward);
-subpar.core.splice_killing_forward = function splice_killing_forward(s, i) {
-  var p__19430 = subpar.core.parse.call(null, s);
-  var vec__19429__19431 = subpar.core.get_wrapper.call(null, p__19430, i);
-  var o__19432 = cljs.core.nth.call(null, vec__19429__19431, 0, null);
-  var c__19433 = cljs.core.nth.call(null, vec__19429__19431, 1, null);
-  var in_list__19434 = cljs.core.not_EQ_.call(null, -1, o__19432);
-  if(in_list__19434) {
-    var vec__19435__19436 = subpar.core.get_wrapper.call(null, p__19430, o__19432);
-    var n__19437 = cljs.core.nth.call(null, vec__19435__19436, 0, null);
-    var d__19438 = cljs.core.nth.call(null, vec__19435__19436, 1, null);
-    var r__19439 = subpar.core.count_lines.call(null, s, n__19437, d__19438);
-    return[o__19432, i, c__19433 + 1, 0 > n__19437 ? 0 : n__19437, r__19439]
+subpar.core.splice_delete_forward_vals = function splice_delete_forward_vals(s, i) {
+  var p__37127 = subpar.core.parse.call(null, s);
+  var vec__37126__37128 = subpar.core.get_wrapper.call(null, p__37127, i);
+  var o__37129 = cljs.core.nth.call(null, vec__37126__37128, 0, null);
+  var c__37130 = cljs.core.nth.call(null, vec__37126__37128, 1, null);
+  var in_list__37131 = cljs.core.not_EQ_.call(null, -1, o__37129);
+  if(in_list__37131) {
+    var vec__37132__37133 = subpar.core.get_wrapper.call(null, p__37127, o__37129);
+    var n__37134 = cljs.core.nth.call(null, vec__37132__37133, 0, null);
+    var d__37135 = cljs.core.nth.call(null, vec__37132__37133, 1, null);
+    var r__37136 = subpar.core.count_lines.call(null, s, n__37134, d__37135);
+    return cljs.core.PersistentVector.fromArray([o__37129, i, c__37130 + 1, 0 > n__37134 ? 0 : n__37134, r__37136], true)
   }else {
-    return[]
+    return cljs.core.PersistentVector.EMPTY
   }
 };
-goog.exportSymbol("subpar.core.splice_killing_forward", subpar.core.splice_killing_forward);
 subpar.core.parse = function parse(ss) {
-  var s__19478 = [cljs.core.str(ss), cljs.core.str(" ")].join("");
-  var i__19479 = 0;
-  var mode__19480 = subpar.core.code;
-  var openings__19481 = cljs.core.list.call(null, -1);
-  var start__19482 = -1;
-  var t__19483 = cljs.core.PersistentVector.EMPTY;
-  var families__19484 = cljs.core.PersistentArrayMap.fromArrays([-1], [cljs.core.ObjMap.fromObject(["\ufdd0'children"], {"\ufdd0'children":cljs.core.ObjMap.EMPTY})]);
-  var escaping__19485 = false;
-  var in_word__19486 = false;
+  var s__37175 = [cljs.core.str(ss), cljs.core.str(" ")].join("");
+  var i__37176 = 0;
+  var mode__37177 = subpar.core.code;
+  var openings__37178 = cljs.core.list.call(null, -1);
+  var start__37179 = -1;
+  var t__37180 = cljs.core.PersistentVector.EMPTY;
+  var families__37181 = cljs.core.PersistentArrayMap.fromArrays([-1], [cljs.core.ObjMap.fromObject(["\ufdd0'children"], {"\ufdd0'children":cljs.core.ObjMap.EMPTY})]);
+  var escaping__37182 = false;
+  var in_word__37183 = false;
   while(true) {
-    var a__19487 = cljs.core.nth.call(null, s__19478, i__19479, null);
-    var j__19488 = i__19479 + 1;
-    var o__19489 = cljs.core.peek.call(null, openings__19481);
+    var a__37184 = cljs.core.nth.call(null, s__37175, i__37176, null);
+    var j__37185 = i__37176 + 1;
+    var o__37186 = cljs.core.peek.call(null, openings__37178);
     if(cljs.core.truth_(function() {
-      var and__3822__auto____19490 = a__19487 == null;
-      if(and__3822__auto____19490) {
-        return in_word__19486
+      var and__3822__auto____37187 = a__37184 == null;
+      if(and__3822__auto____37187) {
+        return in_word__37183
       }else {
-        return and__3822__auto____19490
+        return and__3822__auto____37187
       }
     }())) {
-      return cljs.core.ObjMap.fromObject(["\ufdd0'chars", "\ufdd0'families"], {"\ufdd0'chars":t__19483, "\ufdd0'families":cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, families__19484, cljs.core.PersistentVector.fromArray([-1, "\ufdd0'closer"], true), i__19479 - 1), cljs.core.PersistentVector.fromArray([-1, "\ufdd0'children", start__19482], true), i__19479 - 1)})
+      return cljs.core.ObjMap.fromObject(["\ufdd0'chars", "\ufdd0'families"], {"\ufdd0'chars":t__37180, "\ufdd0'families":cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, families__37181, cljs.core.PersistentVector.fromArray([-1, "\ufdd0'closer"], true), i__37176 - 1), cljs.core.PersistentVector.fromArray([-1, "\ufdd0'children", start__37179], true), i__37176 - 1)})
     }else {
-      if(a__19487 == null) {
-        return cljs.core.ObjMap.fromObject(["\ufdd0'chars", "\ufdd0'families"], {"\ufdd0'chars":t__19483, "\ufdd0'families":cljs.core.assoc_in.call(null, families__19484, cljs.core.PersistentVector.fromArray([-1, "\ufdd0'closer"], true), i__19479 - 1)})
+      if(a__37184 == null) {
+        return cljs.core.ObjMap.fromObject(["\ufdd0'chars", "\ufdd0'families"], {"\ufdd0'chars":t__37180, "\ufdd0'families":cljs.core.assoc_in.call(null, families__37181, cljs.core.PersistentVector.fromArray([-1, "\ufdd0'closer"], true), i__37176 - 1)})
       }else {
         if(function() {
-          var and__3822__auto____19491 = cljs.core.not_EQ_.call(null, subpar.core.cmmnt, mode__19480);
-          if(and__3822__auto____19491) {
-            var and__3822__auto____19492 = cljs.core._EQ_.call(null, "\\", a__19487);
-            if(and__3822__auto____19492) {
-              var and__3822__auto____19493 = cljs.core.not.call(null, escaping__19485);
-              if(and__3822__auto____19493) {
-                return cljs.core.not.call(null, in_word__19486)
+          var and__3822__auto____37188 = cljs.core.not_EQ_.call(null, subpar.core.cmmnt, mode__37177);
+          if(and__3822__auto____37188) {
+            var and__3822__auto____37189 = cljs.core._EQ_.call(null, "\\", a__37184);
+            if(and__3822__auto____37189) {
+              var and__3822__auto____37190 = cljs.core.not.call(null, escaping__37182);
+              if(and__3822__auto____37190) {
+                return cljs.core.not.call(null, in_word__37183)
               }else {
-                return and__3822__auto____19493
+                return and__3822__auto____37190
               }
             }else {
-              return and__3822__auto____19492
+              return and__3822__auto____37189
             }
           }else {
-            return and__3822__auto____19491
+            return and__3822__auto____37188
           }
         }()) {
-          var G__19516 = j__19488;
-          var G__19517 = mode__19480;
-          var G__19518 = openings__19481;
-          var G__19519 = i__19479;
-          var G__19520 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-          var G__19521 = cljs.core.assoc_in.call(null, families__19484, cljs.core.PersistentVector.fromArray([o__19489, "\ufdd0'children", i__19479], true), j__19488);
-          var G__19522 = true;
-          var G__19523 = true;
-          i__19479 = G__19516;
-          mode__19480 = G__19517;
-          openings__19481 = G__19518;
-          start__19482 = G__19519;
-          t__19483 = G__19520;
-          families__19484 = G__19521;
-          escaping__19485 = G__19522;
-          in_word__19486 = G__19523;
+          var G__37213 = j__37185;
+          var G__37214 = mode__37177;
+          var G__37215 = openings__37178;
+          var G__37216 = i__37176;
+          var G__37217 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+          var G__37218 = cljs.core.assoc_in.call(null, families__37181, cljs.core.PersistentVector.fromArray([o__37186, "\ufdd0'children", i__37176], true), j__37185);
+          var G__37219 = true;
+          var G__37220 = true;
+          i__37176 = G__37213;
+          mode__37177 = G__37214;
+          openings__37178 = G__37215;
+          start__37179 = G__37216;
+          t__37180 = G__37217;
+          families__37181 = G__37218;
+          escaping__37182 = G__37219;
+          in_word__37183 = G__37220;
           continue
         }else {
           if(function() {
-            var and__3822__auto____19494 = cljs.core.not_EQ_.call(null, subpar.core.cmmnt, mode__19480);
-            if(and__3822__auto____19494) {
-              var and__3822__auto____19495 = cljs.core._EQ_.call(null, "\\", a__19487);
-              if(and__3822__auto____19495) {
-                return cljs.core.not.call(null, escaping__19485)
+            var and__3822__auto____37191 = cljs.core.not_EQ_.call(null, subpar.core.cmmnt, mode__37177);
+            if(and__3822__auto____37191) {
+              var and__3822__auto____37192 = cljs.core._EQ_.call(null, "\\", a__37184);
+              if(and__3822__auto____37192) {
+                return cljs.core.not.call(null, escaping__37182)
               }else {
-                return and__3822__auto____19495
+                return and__3822__auto____37192
               }
             }else {
-              return and__3822__auto____19494
+              return and__3822__auto____37191
             }
           }()) {
-            var G__19524 = j__19488;
-            var G__19525 = mode__19480;
-            var G__19526 = openings__19481;
-            var G__19527 = i__19479;
-            var G__19528 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-            var G__19529 = families__19484;
-            var G__19530 = true;
-            var G__19531 = true;
-            i__19479 = G__19524;
-            mode__19480 = G__19525;
-            openings__19481 = G__19526;
-            start__19482 = G__19527;
-            t__19483 = G__19528;
-            families__19484 = G__19529;
-            escaping__19485 = G__19530;
-            in_word__19486 = G__19531;
+            var G__37221 = j__37185;
+            var G__37222 = mode__37177;
+            var G__37223 = openings__37178;
+            var G__37224 = i__37176;
+            var G__37225 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+            var G__37226 = families__37181;
+            var G__37227 = true;
+            var G__37228 = true;
+            i__37176 = G__37221;
+            mode__37177 = G__37222;
+            openings__37178 = G__37223;
+            start__37179 = G__37224;
+            t__37180 = G__37225;
+            families__37181 = G__37226;
+            escaping__37182 = G__37227;
+            in_word__37183 = G__37228;
             continue
           }else {
             if(function() {
-              var and__3822__auto____19496 = cljs.core._EQ_.call(null, subpar.core.code, mode__19480);
-              if(and__3822__auto____19496) {
-                var and__3822__auto____19497 = cljs.core._EQ_.call(null, ";", a__19487);
-                if(and__3822__auto____19497) {
-                  return cljs.core.not.call(null, escaping__19485)
+              var and__3822__auto____37193 = cljs.core._EQ_.call(null, subpar.core.code, mode__37177);
+              if(and__3822__auto____37193) {
+                var and__3822__auto____37194 = cljs.core._EQ_.call(null, ";", a__37184);
+                if(and__3822__auto____37194) {
+                  return cljs.core.not.call(null, escaping__37182)
                 }else {
-                  return and__3822__auto____19497
+                  return and__3822__auto____37194
                 }
               }else {
-                return and__3822__auto____19496
+                return and__3822__auto____37193
               }
             }()) {
-              var G__19532 = j__19488;
-              var G__19533 = subpar.core.cmmnt;
-              var G__19534 = openings__19481;
-              var G__19535 = start__19482;
-              var G__19536 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-              var G__19537 = families__19484;
-              var G__19538 = false;
-              var G__19539 = false;
-              i__19479 = G__19532;
-              mode__19480 = G__19533;
-              openings__19481 = G__19534;
-              start__19482 = G__19535;
-              t__19483 = G__19536;
-              families__19484 = G__19537;
-              escaping__19485 = G__19538;
-              in_word__19486 = G__19539;
+              var G__37229 = j__37185;
+              var G__37230 = subpar.core.cmmnt;
+              var G__37231 = openings__37178;
+              var G__37232 = start__37179;
+              var G__37233 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+              var G__37234 = families__37181;
+              var G__37235 = false;
+              var G__37236 = false;
+              i__37176 = G__37229;
+              mode__37177 = G__37230;
+              openings__37178 = G__37231;
+              start__37179 = G__37232;
+              t__37180 = G__37233;
+              families__37181 = G__37234;
+              escaping__37182 = G__37235;
+              in_word__37183 = G__37236;
               continue
             }else {
               if(function() {
-                var and__3822__auto____19498 = cljs.core._EQ_.call(null, subpar.core.cmmnt, mode__19480);
-                if(and__3822__auto____19498) {
-                  return cljs.core._EQ_.call(null, "\n", a__19487)
+                var and__3822__auto____37195 = cljs.core._EQ_.call(null, subpar.core.cmmnt, mode__37177);
+                if(and__3822__auto____37195) {
+                  return cljs.core._EQ_.call(null, "\n", a__37184)
                 }else {
-                  return and__3822__auto____19498
+                  return and__3822__auto____37195
                 }
               }()) {
-                var G__19540 = j__19488;
-                var G__19541 = subpar.core.code;
-                var G__19542 = openings__19481;
-                var G__19543 = start__19482;
-                var G__19544 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-                var G__19545 = families__19484;
-                var G__19546 = false;
-                var G__19547 = false;
-                i__19479 = G__19540;
-                mode__19480 = G__19541;
-                openings__19481 = G__19542;
-                start__19482 = G__19543;
-                t__19483 = G__19544;
-                families__19484 = G__19545;
-                escaping__19485 = G__19546;
-                in_word__19486 = G__19547;
+                var G__37237 = j__37185;
+                var G__37238 = subpar.core.code;
+                var G__37239 = openings__37178;
+                var G__37240 = start__37179;
+                var G__37241 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+                var G__37242 = families__37181;
+                var G__37243 = false;
+                var G__37244 = false;
+                i__37176 = G__37237;
+                mode__37177 = G__37238;
+                openings__37178 = G__37239;
+                start__37179 = G__37240;
+                t__37180 = G__37241;
+                families__37181 = G__37242;
+                escaping__37182 = G__37243;
+                in_word__37183 = G__37244;
                 continue
               }else {
-                if(cljs.core._EQ_.call(null, subpar.core.cmmnt, mode__19480)) {
-                  var G__19548 = j__19488;
-                  var G__19549 = subpar.core.cmmnt;
-                  var G__19550 = openings__19481;
-                  var G__19551 = start__19482;
-                  var G__19552 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-                  var G__19553 = families__19484;
-                  var G__19554 = false;
-                  var G__19555 = false;
-                  i__19479 = G__19548;
-                  mode__19480 = G__19549;
-                  openings__19481 = G__19550;
-                  start__19482 = G__19551;
-                  t__19483 = G__19552;
-                  families__19484 = G__19553;
-                  escaping__19485 = G__19554;
-                  in_word__19486 = G__19555;
+                if(cljs.core._EQ_.call(null, subpar.core.cmmnt, mode__37177)) {
+                  var G__37245 = j__37185;
+                  var G__37246 = subpar.core.cmmnt;
+                  var G__37247 = openings__37178;
+                  var G__37248 = start__37179;
+                  var G__37249 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+                  var G__37250 = families__37181;
+                  var G__37251 = false;
+                  var G__37252 = false;
+                  i__37176 = G__37245;
+                  mode__37177 = G__37246;
+                  openings__37178 = G__37247;
+                  start__37179 = G__37248;
+                  t__37180 = G__37249;
+                  families__37181 = G__37250;
+                  escaping__37182 = G__37251;
+                  in_word__37183 = G__37252;
                   continue
                 }else {
                   if(function() {
-                    var and__3822__auto____19499 = cljs.core._EQ_.call(null, subpar.core.code, mode__19480);
-                    if(and__3822__auto____19499) {
-                      var and__3822__auto____19500 = cljs.core._EQ_.call(null, '"', a__19487);
-                      if(and__3822__auto____19500) {
-                        return cljs.core.not.call(null, escaping__19485)
+                    var and__3822__auto____37196 = cljs.core._EQ_.call(null, subpar.core.code, mode__37177);
+                    if(and__3822__auto____37196) {
+                      var and__3822__auto____37197 = cljs.core._EQ_.call(null, '"', a__37184);
+                      if(and__3822__auto____37197) {
+                        return cljs.core.not.call(null, escaping__37182)
                       }else {
-                        return and__3822__auto____19500
+                        return and__3822__auto____37197
                       }
                     }else {
-                      return and__3822__auto____19499
+                      return and__3822__auto____37196
                     }
                   }()) {
-                    var G__19556 = j__19488;
-                    var G__19557 = subpar.core.string;
-                    var G__19558 = cljs.core.conj.call(null, openings__19481, i__19479);
-                    var G__19559 = -1;
-                    var G__19560 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-                    var G__19561 = cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, families__19484, cljs.core.PersistentVector.fromArray([i__19479, "\ufdd0'children"], true), cljs.core.ObjMap.EMPTY), cljs.core.PersistentVector.fromArray([o__19489, "\ufdd0'children", i__19479], true), j__19488);
-                    var G__19562 = false;
-                    var G__19563 = false;
-                    i__19479 = G__19556;
-                    mode__19480 = G__19557;
-                    openings__19481 = G__19558;
-                    start__19482 = G__19559;
-                    t__19483 = G__19560;
-                    families__19484 = G__19561;
-                    escaping__19485 = G__19562;
-                    in_word__19486 = G__19563;
+                    var G__37253 = j__37185;
+                    var G__37254 = subpar.core.string;
+                    var G__37255 = cljs.core.conj.call(null, openings__37178, i__37176);
+                    var G__37256 = -1;
+                    var G__37257 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+                    var G__37258 = cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, families__37181, cljs.core.PersistentVector.fromArray([i__37176, "\ufdd0'children"], true), cljs.core.ObjMap.EMPTY), cljs.core.PersistentVector.fromArray([o__37186, "\ufdd0'children", i__37176], true), j__37185);
+                    var G__37259 = false;
+                    var G__37260 = false;
+                    i__37176 = G__37253;
+                    mode__37177 = G__37254;
+                    openings__37178 = G__37255;
+                    start__37179 = G__37256;
+                    t__37180 = G__37257;
+                    families__37181 = G__37258;
+                    escaping__37182 = G__37259;
+                    in_word__37183 = G__37260;
                     continue
                   }else {
                     if(cljs.core.truth_(function() {
-                      var and__3822__auto____19501 = cljs.core._EQ_.call(null, subpar.core.string, mode__19480);
-                      if(and__3822__auto____19501) {
-                        var and__3822__auto____19502 = cljs.core._EQ_.call(null, '"', a__19487);
-                        if(and__3822__auto____19502) {
-                          var and__3822__auto____19503 = cljs.core.not.call(null, escaping__19485);
-                          if(and__3822__auto____19503) {
-                            return in_word__19486
+                      var and__3822__auto____37198 = cljs.core._EQ_.call(null, subpar.core.string, mode__37177);
+                      if(and__3822__auto____37198) {
+                        var and__3822__auto____37199 = cljs.core._EQ_.call(null, '"', a__37184);
+                        if(and__3822__auto____37199) {
+                          var and__3822__auto____37200 = cljs.core.not.call(null, escaping__37182);
+                          if(and__3822__auto____37200) {
+                            return in_word__37183
                           }else {
-                            return and__3822__auto____19503
+                            return and__3822__auto____37200
                           }
                         }else {
-                          return and__3822__auto____19502
+                          return and__3822__auto____37199
                         }
                       }else {
-                        return and__3822__auto____19501
+                        return and__3822__auto____37198
                       }
                     }())) {
-                      var G__19564 = j__19488;
-                      var G__19565 = subpar.core.code;
-                      var G__19566 = cljs.core.pop.call(null, openings__19481);
-                      var G__19567 = -1;
-                      var G__19568 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-                      var G__19569 = cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, families__19484, cljs.core.PersistentVector.fromArray([o__19489, "\ufdd0'closer"], true), i__19479), cljs.core.PersistentVector.fromArray([cljs.core.second.call(null, openings__19481), "\ufdd0'children", o__19489], true), i__19479), cljs.core.PersistentVector.fromArray([o__19489, "\ufdd0'children", start__19482], true), i__19479 - 1);
-                      var G__19570 = false;
-                      var G__19571 = false;
-                      i__19479 = G__19564;
-                      mode__19480 = G__19565;
-                      openings__19481 = G__19566;
-                      start__19482 = G__19567;
-                      t__19483 = G__19568;
-                      families__19484 = G__19569;
-                      escaping__19485 = G__19570;
-                      in_word__19486 = G__19571;
+                      var G__37261 = j__37185;
+                      var G__37262 = subpar.core.code;
+                      var G__37263 = cljs.core.pop.call(null, openings__37178);
+                      var G__37264 = -1;
+                      var G__37265 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+                      var G__37266 = cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, families__37181, cljs.core.PersistentVector.fromArray([o__37186, "\ufdd0'closer"], true), i__37176), cljs.core.PersistentVector.fromArray([cljs.core.second.call(null, openings__37178), "\ufdd0'children", o__37186], true), i__37176), cljs.core.PersistentVector.fromArray([o__37186, "\ufdd0'children", start__37179], true), i__37176 - 1);
+                      var G__37267 = false;
+                      var G__37268 = false;
+                      i__37176 = G__37261;
+                      mode__37177 = G__37262;
+                      openings__37178 = G__37263;
+                      start__37179 = G__37264;
+                      t__37180 = G__37265;
+                      families__37181 = G__37266;
+                      escaping__37182 = G__37267;
+                      in_word__37183 = G__37268;
                       continue
                     }else {
                       if(function() {
-                        var and__3822__auto____19504 = cljs.core._EQ_.call(null, subpar.core.string, mode__19480);
-                        if(and__3822__auto____19504) {
-                          var and__3822__auto____19505 = cljs.core._EQ_.call(null, '"', a__19487);
-                          if(and__3822__auto____19505) {
-                            return cljs.core.not.call(null, escaping__19485)
+                        var and__3822__auto____37201 = cljs.core._EQ_.call(null, subpar.core.string, mode__37177);
+                        if(and__3822__auto____37201) {
+                          var and__3822__auto____37202 = cljs.core._EQ_.call(null, '"', a__37184);
+                          if(and__3822__auto____37202) {
+                            return cljs.core.not.call(null, escaping__37182)
                           }else {
-                            return and__3822__auto____19505
+                            return and__3822__auto____37202
                           }
                         }else {
-                          return and__3822__auto____19504
+                          return and__3822__auto____37201
                         }
                       }()) {
-                        var G__19572 = j__19488;
-                        var G__19573 = subpar.core.code;
-                        var G__19574 = cljs.core.pop.call(null, openings__19481);
-                        var G__19575 = -1;
-                        var G__19576 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-                        var G__19577 = cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, families__19484, cljs.core.PersistentVector.fromArray([o__19489, "\ufdd0'closer"], true), i__19479), cljs.core.PersistentVector.fromArray([cljs.core.second.call(null, openings__19481), "\ufdd0'children", o__19489], true), i__19479);
-                        var G__19578 = false;
-                        var G__19579 = false;
-                        i__19479 = G__19572;
-                        mode__19480 = G__19573;
-                        openings__19481 = G__19574;
-                        start__19482 = G__19575;
-                        t__19483 = G__19576;
-                        families__19484 = G__19577;
-                        escaping__19485 = G__19578;
-                        in_word__19486 = G__19579;
+                        var G__37269 = j__37185;
+                        var G__37270 = subpar.core.code;
+                        var G__37271 = cljs.core.pop.call(null, openings__37178);
+                        var G__37272 = -1;
+                        var G__37273 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+                        var G__37274 = cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, families__37181, cljs.core.PersistentVector.fromArray([o__37186, "\ufdd0'closer"], true), i__37176), cljs.core.PersistentVector.fromArray([cljs.core.second.call(null, openings__37178), "\ufdd0'children", o__37186], true), i__37176);
+                        var G__37275 = false;
+                        var G__37276 = false;
+                        i__37176 = G__37269;
+                        mode__37177 = G__37270;
+                        openings__37178 = G__37271;
+                        start__37179 = G__37272;
+                        t__37180 = G__37273;
+                        families__37181 = G__37274;
+                        escaping__37182 = G__37275;
+                        in_word__37183 = G__37276;
                         continue
                       }else {
                         if(function() {
-                          var and__3822__auto____19506 = cljs.core._EQ_.call(null, subpar.core.string, mode__19480);
-                          if(and__3822__auto____19506) {
-                            var and__3822__auto____19507 = cljs.core.not.call(null, subpar.core.whitespace_QMARK_.call(null, a__19487));
-                            if(and__3822__auto____19507) {
-                              return cljs.core.not.call(null, in_word__19486)
+                          var and__3822__auto____37203 = cljs.core._EQ_.call(null, subpar.core.string, mode__37177);
+                          if(and__3822__auto____37203) {
+                            var and__3822__auto____37204 = cljs.core.not.call(null, subpar.core.whitespace_QMARK_.call(null, a__37184));
+                            if(and__3822__auto____37204) {
+                              return cljs.core.not.call(null, in_word__37183)
                             }else {
-                              return and__3822__auto____19507
+                              return and__3822__auto____37204
                             }
                           }else {
-                            return and__3822__auto____19506
+                            return and__3822__auto____37203
                           }
                         }()) {
-                          var G__19580 = j__19488;
-                          var G__19581 = subpar.core.string;
-                          var G__19582 = openings__19481;
-                          var G__19583 = i__19479;
-                          var G__19584 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-                          var G__19585 = cljs.core.assoc_in.call(null, families__19484, cljs.core.PersistentVector.fromArray([o__19489, "\ufdd0'children", i__19479], true), i__19479);
-                          var G__19586 = false;
-                          var G__19587 = true;
-                          i__19479 = G__19580;
-                          mode__19480 = G__19581;
-                          openings__19481 = G__19582;
-                          start__19482 = G__19583;
-                          t__19483 = G__19584;
-                          families__19484 = G__19585;
-                          escaping__19485 = G__19586;
-                          in_word__19486 = G__19587;
+                          var G__37277 = j__37185;
+                          var G__37278 = subpar.core.string;
+                          var G__37279 = openings__37178;
+                          var G__37280 = i__37176;
+                          var G__37281 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+                          var G__37282 = cljs.core.assoc_in.call(null, families__37181, cljs.core.PersistentVector.fromArray([o__37186, "\ufdd0'children", i__37176], true), i__37176);
+                          var G__37283 = false;
+                          var G__37284 = true;
+                          i__37176 = G__37277;
+                          mode__37177 = G__37278;
+                          openings__37178 = G__37279;
+                          start__37179 = G__37280;
+                          t__37180 = G__37281;
+                          families__37181 = G__37282;
+                          escaping__37182 = G__37283;
+                          in_word__37183 = G__37284;
                           continue
                         }else {
                           if(cljs.core.truth_(function() {
-                            var and__3822__auto____19508 = cljs.core._EQ_.call(null, subpar.core.string, mode__19480);
-                            if(and__3822__auto____19508) {
-                              var and__3822__auto____19509 = subpar.core.whitespace_QMARK_.call(null, a__19487);
-                              if(cljs.core.truth_(and__3822__auto____19509)) {
-                                return in_word__19486
+                            var and__3822__auto____37205 = cljs.core._EQ_.call(null, subpar.core.string, mode__37177);
+                            if(and__3822__auto____37205) {
+                              var and__3822__auto____37206 = subpar.core.whitespace_QMARK_.call(null, a__37184);
+                              if(cljs.core.truth_(and__3822__auto____37206)) {
+                                return in_word__37183
                               }else {
-                                return and__3822__auto____19509
+                                return and__3822__auto____37206
                               }
                             }else {
-                              return and__3822__auto____19508
+                              return and__3822__auto____37205
                             }
                           }())) {
-                            var G__19588 = j__19488;
-                            var G__19589 = subpar.core.string;
-                            var G__19590 = openings__19481;
-                            var G__19591 = -1;
-                            var G__19592 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-                            var G__19593 = cljs.core.assoc_in.call(null, families__19484, cljs.core.PersistentVector.fromArray([o__19489, "\ufdd0'children", start__19482], true), i__19479 - 1);
-                            var G__19594 = false;
-                            var G__19595 = false;
-                            i__19479 = G__19588;
-                            mode__19480 = G__19589;
-                            openings__19481 = G__19590;
-                            start__19482 = G__19591;
-                            t__19483 = G__19592;
-                            families__19484 = G__19593;
-                            escaping__19485 = G__19594;
-                            in_word__19486 = G__19595;
+                            var G__37285 = j__37185;
+                            var G__37286 = subpar.core.string;
+                            var G__37287 = openings__37178;
+                            var G__37288 = -1;
+                            var G__37289 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+                            var G__37290 = cljs.core.assoc_in.call(null, families__37181, cljs.core.PersistentVector.fromArray([o__37186, "\ufdd0'children", start__37179], true), i__37176 - 1);
+                            var G__37291 = false;
+                            var G__37292 = false;
+                            i__37176 = G__37285;
+                            mode__37177 = G__37286;
+                            openings__37178 = G__37287;
+                            start__37179 = G__37288;
+                            t__37180 = G__37289;
+                            families__37181 = G__37290;
+                            escaping__37182 = G__37291;
+                            in_word__37183 = G__37292;
                             continue
                           }else {
-                            if(cljs.core._EQ_.call(null, subpar.core.string, mode__19480)) {
-                              var G__19596 = j__19488;
-                              var G__19597 = subpar.core.string;
-                              var G__19598 = openings__19481;
-                              var G__19599 = start__19482;
-                              var G__19600 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-                              var G__19601 = families__19484;
-                              var G__19602 = false;
-                              var G__19603 = in_word__19486;
-                              i__19479 = G__19596;
-                              mode__19480 = G__19597;
-                              openings__19481 = G__19598;
-                              start__19482 = G__19599;
-                              t__19483 = G__19600;
-                              families__19484 = G__19601;
-                              escaping__19485 = G__19602;
-                              in_word__19486 = G__19603;
+                            if(cljs.core._EQ_.call(null, subpar.core.string, mode__37177)) {
+                              var G__37293 = j__37185;
+                              var G__37294 = subpar.core.string;
+                              var G__37295 = openings__37178;
+                              var G__37296 = start__37179;
+                              var G__37297 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+                              var G__37298 = families__37181;
+                              var G__37299 = false;
+                              var G__37300 = in_word__37183;
+                              i__37176 = G__37293;
+                              mode__37177 = G__37294;
+                              openings__37178 = G__37295;
+                              start__37179 = G__37296;
+                              t__37180 = G__37297;
+                              families__37181 = G__37298;
+                              escaping__37182 = G__37299;
+                              in_word__37183 = G__37300;
                               continue
                             }else {
                               if(cljs.core.truth_(function() {
-                                var and__3822__auto____19510 = subpar.core.opener_QMARK_.call(null, a__19487);
-                                if(cljs.core.truth_(and__3822__auto____19510)) {
-                                  return in_word__19486
+                                var and__3822__auto____37207 = subpar.core.opener_QMARK_.call(null, a__37184);
+                                if(cljs.core.truth_(and__3822__auto____37207)) {
+                                  return in_word__37183
                                 }else {
-                                  return and__3822__auto____19510
+                                  return and__3822__auto____37207
                                 }
                               }())) {
-                                var G__19604 = j__19488;
-                                var G__19605 = subpar.core.code;
-                                var G__19606 = cljs.core.conj.call(null, openings__19481, i__19479);
-                                var G__19607 = -1;
-                                var G__19608 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-                                var G__19609 = cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, families__19484, cljs.core.PersistentVector.fromArray([o__19489, "\ufdd0'children", start__19482], true), i__19479 - 1), cljs.core.PersistentVector.fromArray([o__19489, "\ufdd0'children", i__19479], true), i__19479), cljs.core.PersistentVector.fromArray([i__19479, "\ufdd0'children"], true), cljs.core.ObjMap.EMPTY);
-                                var G__19610 = false;
-                                var G__19611 = false;
-                                i__19479 = G__19604;
-                                mode__19480 = G__19605;
-                                openings__19481 = G__19606;
-                                start__19482 = G__19607;
-                                t__19483 = G__19608;
-                                families__19484 = G__19609;
-                                escaping__19485 = G__19610;
-                                in_word__19486 = G__19611;
+                                var G__37301 = j__37185;
+                                var G__37302 = subpar.core.code;
+                                var G__37303 = cljs.core.conj.call(null, openings__37178, i__37176);
+                                var G__37304 = -1;
+                                var G__37305 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+                                var G__37306 = cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, families__37181, cljs.core.PersistentVector.fromArray([o__37186, "\ufdd0'children", start__37179], true), i__37176 - 1), cljs.core.PersistentVector.fromArray([o__37186, "\ufdd0'children", i__37176], true), i__37176), cljs.core.PersistentVector.fromArray([i__37176, "\ufdd0'children"], true), cljs.core.ObjMap.EMPTY);
+                                var G__37307 = false;
+                                var G__37308 = false;
+                                i__37176 = G__37301;
+                                mode__37177 = G__37302;
+                                openings__37178 = G__37303;
+                                start__37179 = G__37304;
+                                t__37180 = G__37305;
+                                families__37181 = G__37306;
+                                escaping__37182 = G__37307;
+                                in_word__37183 = G__37308;
                                 continue
                               }else {
-                                if(cljs.core.truth_(subpar.core.opener_QMARK_.call(null, a__19487))) {
-                                  var G__19612 = j__19488;
-                                  var G__19613 = subpar.core.code;
-                                  var G__19614 = cljs.core.conj.call(null, openings__19481, i__19479);
-                                  var G__19615 = -1;
-                                  var G__19616 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-                                  var G__19617 = cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, families__19484, cljs.core.PersistentVector.fromArray([o__19489, "\ufdd0'children", i__19479], true), i__19479), cljs.core.PersistentVector.fromArray([i__19479, "\ufdd0'children"], true), cljs.core.ObjMap.EMPTY);
-                                  var G__19618 = false;
-                                  var G__19619 = false;
-                                  i__19479 = G__19612;
-                                  mode__19480 = G__19613;
-                                  openings__19481 = G__19614;
-                                  start__19482 = G__19615;
-                                  t__19483 = G__19616;
-                                  families__19484 = G__19617;
-                                  escaping__19485 = G__19618;
-                                  in_word__19486 = G__19619;
+                                if(cljs.core.truth_(subpar.core.opener_QMARK_.call(null, a__37184))) {
+                                  var G__37309 = j__37185;
+                                  var G__37310 = subpar.core.code;
+                                  var G__37311 = cljs.core.conj.call(null, openings__37178, i__37176);
+                                  var G__37312 = -1;
+                                  var G__37313 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+                                  var G__37314 = cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, families__37181, cljs.core.PersistentVector.fromArray([o__37186, "\ufdd0'children", i__37176], true), i__37176), cljs.core.PersistentVector.fromArray([i__37176, "\ufdd0'children"], true), cljs.core.ObjMap.EMPTY);
+                                  var G__37315 = false;
+                                  var G__37316 = false;
+                                  i__37176 = G__37309;
+                                  mode__37177 = G__37310;
+                                  openings__37178 = G__37311;
+                                  start__37179 = G__37312;
+                                  t__37180 = G__37313;
+                                  families__37181 = G__37314;
+                                  escaping__37182 = G__37315;
+                                  in_word__37183 = G__37316;
                                   continue
                                 }else {
                                   if(cljs.core.truth_(function() {
-                                    var and__3822__auto____19511 = subpar.core.closer_QMARK_.call(null, a__19487);
-                                    if(cljs.core.truth_(and__3822__auto____19511)) {
-                                      return in_word__19486
+                                    var and__3822__auto____37208 = subpar.core.closer_QMARK_.call(null, a__37184);
+                                    if(cljs.core.truth_(and__3822__auto____37208)) {
+                                      return in_word__37183
                                     }else {
-                                      return and__3822__auto____19511
+                                      return and__3822__auto____37208
                                     }
                                   }())) {
-                                    var G__19620 = j__19488;
-                                    var G__19621 = subpar.core.code;
-                                    var G__19622 = cljs.core.pop.call(null, openings__19481);
-                                    var G__19623 = -1;
-                                    var G__19624 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-                                    var G__19625 = cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, families__19484, cljs.core.PersistentVector.fromArray([o__19489, "\ufdd0'children", start__19482], true), i__19479 - 1), cljs.core.PersistentVector.fromArray([o__19489, "\ufdd0'closer"], true), i__19479), cljs.core.PersistentVector.fromArray([cljs.core.second.call(null, openings__19481), "\ufdd0'children", o__19489], true), i__19479);
-                                    var G__19626 = false;
-                                    var G__19627 = false;
-                                    i__19479 = G__19620;
-                                    mode__19480 = G__19621;
-                                    openings__19481 = G__19622;
-                                    start__19482 = G__19623;
-                                    t__19483 = G__19624;
-                                    families__19484 = G__19625;
-                                    escaping__19485 = G__19626;
-                                    in_word__19486 = G__19627;
+                                    var G__37317 = j__37185;
+                                    var G__37318 = subpar.core.code;
+                                    var G__37319 = cljs.core.pop.call(null, openings__37178);
+                                    var G__37320 = -1;
+                                    var G__37321 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+                                    var G__37322 = cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, families__37181, cljs.core.PersistentVector.fromArray([o__37186, "\ufdd0'children", start__37179], true), i__37176 - 1), cljs.core.PersistentVector.fromArray([o__37186, "\ufdd0'closer"], true), i__37176), cljs.core.PersistentVector.fromArray([cljs.core.second.call(null, openings__37178), "\ufdd0'children", o__37186], true), i__37176);
+                                    var G__37323 = false;
+                                    var G__37324 = false;
+                                    i__37176 = G__37317;
+                                    mode__37177 = G__37318;
+                                    openings__37178 = G__37319;
+                                    start__37179 = G__37320;
+                                    t__37180 = G__37321;
+                                    families__37181 = G__37322;
+                                    escaping__37182 = G__37323;
+                                    in_word__37183 = G__37324;
                                     continue
                                   }else {
-                                    if(cljs.core.truth_(subpar.core.closer_QMARK_.call(null, a__19487))) {
-                                      var G__19628 = j__19488;
-                                      var G__19629 = subpar.core.code;
-                                      var G__19630 = cljs.core.pop.call(null, openings__19481);
-                                      var G__19631 = -1;
-                                      var G__19632 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-                                      var G__19633 = cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, families__19484, cljs.core.PersistentVector.fromArray([o__19489, "\ufdd0'closer"], true), i__19479), cljs.core.PersistentVector.fromArray([cljs.core.second.call(null, openings__19481), "\ufdd0'children", o__19489], true), i__19479);
-                                      var G__19634 = false;
-                                      var G__19635 = false;
-                                      i__19479 = G__19628;
-                                      mode__19480 = G__19629;
-                                      openings__19481 = G__19630;
-                                      start__19482 = G__19631;
-                                      t__19483 = G__19632;
-                                      families__19484 = G__19633;
-                                      escaping__19485 = G__19634;
-                                      in_word__19486 = G__19635;
+                                    if(cljs.core.truth_(subpar.core.closer_QMARK_.call(null, a__37184))) {
+                                      var G__37325 = j__37185;
+                                      var G__37326 = subpar.core.code;
+                                      var G__37327 = cljs.core.pop.call(null, openings__37178);
+                                      var G__37328 = -1;
+                                      var G__37329 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+                                      var G__37330 = cljs.core.assoc_in.call(null, cljs.core.assoc_in.call(null, families__37181, cljs.core.PersistentVector.fromArray([o__37186, "\ufdd0'closer"], true), i__37176), cljs.core.PersistentVector.fromArray([cljs.core.second.call(null, openings__37178), "\ufdd0'children", o__37186], true), i__37176);
+                                      var G__37331 = false;
+                                      var G__37332 = false;
+                                      i__37176 = G__37325;
+                                      mode__37177 = G__37326;
+                                      openings__37178 = G__37327;
+                                      start__37179 = G__37328;
+                                      t__37180 = G__37329;
+                                      families__37181 = G__37330;
+                                      escaping__37182 = G__37331;
+                                      in_word__37183 = G__37332;
                                       continue
                                     }else {
                                       if(function() {
-                                        var and__3822__auto____19512 = cljs.core.not.call(null, subpar.core.whitespace_QMARK_.call(null, a__19487));
-                                        if(and__3822__auto____19512) {
-                                          return cljs.core.not.call(null, in_word__19486)
+                                        var and__3822__auto____37209 = cljs.core.not.call(null, subpar.core.whitespace_QMARK_.call(null, a__37184));
+                                        if(and__3822__auto____37209) {
+                                          return cljs.core.not.call(null, in_word__37183)
                                         }else {
-                                          return and__3822__auto____19512
+                                          return and__3822__auto____37209
                                         }
                                       }()) {
-                                        var G__19636 = j__19488;
-                                        var G__19637 = subpar.core.code;
-                                        var G__19638 = openings__19481;
-                                        var G__19639 = i__19479;
-                                        var G__19640 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-                                        var G__19641 = cljs.core.assoc_in.call(null, families__19484, cljs.core.PersistentVector.fromArray([o__19489, "\ufdd0'children", i__19479], true), i__19479);
-                                        var G__19642 = false;
-                                        var G__19643 = true;
-                                        i__19479 = G__19636;
-                                        mode__19480 = G__19637;
-                                        openings__19481 = G__19638;
-                                        start__19482 = G__19639;
-                                        t__19483 = G__19640;
-                                        families__19484 = G__19641;
-                                        escaping__19485 = G__19642;
-                                        in_word__19486 = G__19643;
+                                        var G__37333 = j__37185;
+                                        var G__37334 = subpar.core.code;
+                                        var G__37335 = openings__37178;
+                                        var G__37336 = i__37176;
+                                        var G__37337 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+                                        var G__37338 = cljs.core.assoc_in.call(null, families__37181, cljs.core.PersistentVector.fromArray([o__37186, "\ufdd0'children", i__37176], true), i__37176);
+                                        var G__37339 = false;
+                                        var G__37340 = true;
+                                        i__37176 = G__37333;
+                                        mode__37177 = G__37334;
+                                        openings__37178 = G__37335;
+                                        start__37179 = G__37336;
+                                        t__37180 = G__37337;
+                                        families__37181 = G__37338;
+                                        escaping__37182 = G__37339;
+                                        in_word__37183 = G__37340;
                                         continue
                                       }else {
                                         if(cljs.core.truth_(function() {
-                                          var and__3822__auto____19513 = subpar.core.whitespace_QMARK_.call(null, a__19487);
-                                          if(cljs.core.truth_(and__3822__auto____19513)) {
-                                            return in_word__19486
+                                          var and__3822__auto____37210 = subpar.core.whitespace_QMARK_.call(null, a__37184);
+                                          if(cljs.core.truth_(and__3822__auto____37210)) {
+                                            return in_word__37183
                                           }else {
-                                            return and__3822__auto____19513
+                                            return and__3822__auto____37210
                                           }
                                         }())) {
-                                          var G__19644 = j__19488;
-                                          var G__19645 = subpar.core.code;
-                                          var G__19646 = openings__19481;
-                                          var G__19647 = -1;
-                                          var G__19648 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-                                          var G__19649 = cljs.core.assoc_in.call(null, families__19484, cljs.core.PersistentVector.fromArray([o__19489, "\ufdd0'children", start__19482], true), i__19479 - 1);
-                                          var G__19650 = false;
-                                          var G__19651 = false;
-                                          i__19479 = G__19644;
-                                          mode__19480 = G__19645;
-                                          openings__19481 = G__19646;
-                                          start__19482 = G__19647;
-                                          t__19483 = G__19648;
-                                          families__19484 = G__19649;
-                                          escaping__19485 = G__19650;
-                                          in_word__19486 = G__19651;
+                                          var G__37341 = j__37185;
+                                          var G__37342 = subpar.core.code;
+                                          var G__37343 = openings__37178;
+                                          var G__37344 = -1;
+                                          var G__37345 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+                                          var G__37346 = cljs.core.assoc_in.call(null, families__37181, cljs.core.PersistentVector.fromArray([o__37186, "\ufdd0'children", start__37179], true), i__37176 - 1);
+                                          var G__37347 = false;
+                                          var G__37348 = false;
+                                          i__37176 = G__37341;
+                                          mode__37177 = G__37342;
+                                          openings__37178 = G__37343;
+                                          start__37179 = G__37344;
+                                          t__37180 = G__37345;
+                                          families__37181 = G__37346;
+                                          escaping__37182 = G__37347;
+                                          in_word__37183 = G__37348;
                                           continue
                                         }else {
                                           if(cljs.core.truth_(function() {
-                                            var and__3822__auto____19514 = subpar.core.whitespace_QMARK_.call(null, a__19487);
-                                            if(cljs.core.truth_(and__3822__auto____19514)) {
-                                              return cljs.core.not.call(null, in_word__19486)
+                                            var and__3822__auto____37211 = subpar.core.whitespace_QMARK_.call(null, a__37184);
+                                            if(cljs.core.truth_(and__3822__auto____37211)) {
+                                              return cljs.core.not.call(null, in_word__37183)
                                             }else {
-                                              return and__3822__auto____19514
+                                              return and__3822__auto____37211
                                             }
                                           }())) {
-                                            var G__19652 = j__19488;
-                                            var G__19653 = subpar.core.code;
-                                            var G__19654 = openings__19481;
-                                            var G__19655 = -1;
-                                            var G__19656 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-                                            var G__19657 = families__19484;
-                                            var G__19658 = false;
-                                            var G__19659 = false;
-                                            i__19479 = G__19652;
-                                            mode__19480 = G__19653;
-                                            openings__19481 = G__19654;
-                                            start__19482 = G__19655;
-                                            t__19483 = G__19656;
-                                            families__19484 = G__19657;
-                                            escaping__19485 = G__19658;
-                                            in_word__19486 = G__19659;
+                                            var G__37349 = j__37185;
+                                            var G__37350 = subpar.core.code;
+                                            var G__37351 = openings__37178;
+                                            var G__37352 = -1;
+                                            var G__37353 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+                                            var G__37354 = families__37181;
+                                            var G__37355 = false;
+                                            var G__37356 = false;
+                                            i__37176 = G__37349;
+                                            mode__37177 = G__37350;
+                                            openings__37178 = G__37351;
+                                            start__37179 = G__37352;
+                                            t__37180 = G__37353;
+                                            families__37181 = G__37354;
+                                            escaping__37182 = G__37355;
+                                            in_word__37183 = G__37356;
                                             continue
                                           }else {
                                             if(cljs.core.truth_(function() {
-                                              var and__3822__auto____19515 = cljs.core.not.call(null, subpar.core.whitespace_QMARK_.call(null, a__19487));
-                                              if(and__3822__auto____19515) {
-                                                return in_word__19486
+                                              var and__3822__auto____37212 = cljs.core.not.call(null, subpar.core.whitespace_QMARK_.call(null, a__37184));
+                                              if(and__3822__auto____37212) {
+                                                return in_word__37183
                                               }else {
-                                                return and__3822__auto____19515
+                                                return and__3822__auto____37212
                                               }
                                             }())) {
-                                              var G__19660 = j__19488;
-                                              var G__19661 = subpar.core.code;
-                                              var G__19662 = openings__19481;
-                                              var G__19663 = start__19482;
-                                              var G__19664 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray([mode__19480, o__19489], true));
-                                              var G__19665 = families__19484;
-                                              var G__19666 = false;
-                                              var G__19667 = true;
-                                              i__19479 = G__19660;
-                                              mode__19480 = G__19661;
-                                              openings__19481 = G__19662;
-                                              start__19482 = G__19663;
-                                              t__19483 = G__19664;
-                                              families__19484 = G__19665;
-                                              escaping__19485 = G__19666;
-                                              in_word__19486 = G__19667;
+                                              var G__37357 = j__37185;
+                                              var G__37358 = subpar.core.code;
+                                              var G__37359 = openings__37178;
+                                              var G__37360 = start__37179;
+                                              var G__37361 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray([mode__37177, o__37186], true));
+                                              var G__37362 = families__37181;
+                                              var G__37363 = false;
+                                              var G__37364 = true;
+                                              i__37176 = G__37357;
+                                              mode__37177 = G__37358;
+                                              openings__37178 = G__37359;
+                                              start__37179 = G__37360;
+                                              t__37180 = G__37361;
+                                              families__37181 = G__37362;
+                                              escaping__37182 = G__37363;
+                                              in_word__37183 = G__37364;
                                               continue
                                             }else {
                                               if("\ufdd0'default") {
-                                                var G__19668 = j__19488;
-                                                var G__19669 = subpar.core.code;
-                                                var G__19670 = openings__19481;
-                                                var G__19671 = start__19482;
-                                                var G__19672 = cljs.core.conj.call(null, t__19483, cljs.core.PersistentVector.fromArray(["?", o__19489], true));
-                                                var G__19673 = families__19484;
-                                                var G__19674 = escaping__19485;
-                                                var G__19675 = in_word__19486;
-                                                i__19479 = G__19668;
-                                                mode__19480 = G__19669;
-                                                openings__19481 = G__19670;
-                                                start__19482 = G__19671;
-                                                t__19483 = G__19672;
-                                                families__19484 = G__19673;
-                                                escaping__19485 = G__19674;
-                                                in_word__19486 = G__19675;
+                                                var G__37365 = j__37185;
+                                                var G__37366 = subpar.core.code;
+                                                var G__37367 = openings__37178;
+                                                var G__37368 = start__37179;
+                                                var G__37369 = cljs.core.conj.call(null, t__37180, cljs.core.PersistentVector.fromArray(["?", o__37186], true));
+                                                var G__37370 = families__37181;
+                                                var G__37371 = escaping__37182;
+                                                var G__37372 = in_word__37183;
+                                                i__37176 = G__37365;
+                                                mode__37177 = G__37366;
+                                                openings__37178 = G__37367;
+                                                start__37179 = G__37368;
+                                                t__37180 = G__37369;
+                                                families__37181 = G__37370;
+                                                escaping__37182 = G__37371;
+                                                in_word__37183 = G__37372;
                                                 continue
                                               }else {
                                                 return null
@@ -21392,50 +21374,50 @@ subpar.core.parse = function parse(ss) {
   }
 };
 subpar.core.open_expression = function open_expression(cm, pair) {
-  var vec__19681__19682 = subpar.core.get_info.call(null, cm);
-  var cur__19683 = cljs.core.nth.call(null, vec__19681__19682, 0, null);
-  var i__19684 = cljs.core.nth.call(null, vec__19681__19682, 1, null);
-  var s__19685 = cljs.core.nth.call(null, vec__19681__19682, 2, null);
-  if(cljs.core.truth_(subpar.core.in_string.call(null, s__19685, i__19684))) {
-    cm.replaceRange(cljs.core.nth.call(null, pair, 0), cur__19683);
-    return cm.setCursor(cur__19683.line, cur__19683.ch + 1)
+  var vec__37378__37379 = subpar.core.get_info.call(null, cm);
+  var cur__37380 = cljs.core.nth.call(null, vec__37378__37379, 0, null);
+  var i__37381 = cljs.core.nth.call(null, vec__37378__37379, 1, null);
+  var s__37382 = cljs.core.nth.call(null, vec__37378__37379, 2, null);
+  if(cljs.core.truth_(subpar.core.in_string.call(null, s__37382, i__37381))) {
+    cm.replaceRange(cljs.core.nth.call(null, pair, 0), cur__37380);
+    return cm.setCursor(cur__37380.line, cur__37380.ch + 1)
   }else {
     return cm.compoundChange(function() {
-      cm.replaceRange(pair, cur__19683);
-      cm.setCursor(cur__19683.line, cur__19683.ch + 1);
-      return cm.indentLine(cur__19683.line)
+      cm.replaceRange(pair, cur__37380);
+      cm.setCursor(cur__37380.line, cur__37380.ch + 1);
+      return cm.indentLine(cur__37380.line)
     })
   }
 };
 goog.exportSymbol("subpar.core.open_expression", subpar.core.open_expression);
 subpar.core.forward_delete = function forward_delete(cm) {
   if(cljs.core.truth_(subpar.core.nothing_selected_QMARK_.call(null, cm))) {
-    var vec__19703__19704 = subpar.core.get_info.call(null, cm);
-    var cur__19705 = cljs.core.nth.call(null, vec__19703__19704, 0, null);
-    var i__19706 = cljs.core.nth.call(null, vec__19703__19704, 1, null);
-    var s__19707 = cljs.core.nth.call(null, vec__19703__19704, 2, null);
-    var act__19708 = subpar.core.forward_delete_action.call(null, s__19707, i__19706);
-    var s1__19709 = cm.posFromIndex(i__19706);
-    var e1__19710 = cm.posFromIndex(i__19706 + 1);
-    var s2__19711 = cm.posFromIndex(i__19706 - 1);
-    var e2__19712 = e1__19710;
-    var s3__19713 = s1__19709;
-    var e3__19714 = cm.posFromIndex(i__19706 + 2);
-    var pred__19715__19718 = cljs.core._EQ_;
-    var expr__19716__19719 = act__19708;
-    if(pred__19715__19718.call(null, 1, expr__19716__19719)) {
-      return cm.replaceRange("", s1__19709, e1__19710)
+    var vec__37400__37401 = subpar.core.get_info.call(null, cm);
+    var cur__37402 = cljs.core.nth.call(null, vec__37400__37401, 0, null);
+    var i__37403 = cljs.core.nth.call(null, vec__37400__37401, 1, null);
+    var s__37404 = cljs.core.nth.call(null, vec__37400__37401, 2, null);
+    var act__37405 = subpar.core.forward_delete_action.call(null, s__37404, i__37403);
+    var s1__37406 = cm.posFromIndex(i__37403);
+    var e1__37407 = cm.posFromIndex(i__37403 + 1);
+    var s2__37408 = cm.posFromIndex(i__37403 - 1);
+    var e2__37409 = e1__37407;
+    var s3__37410 = s1__37406;
+    var e3__37411 = cm.posFromIndex(i__37403 + 2);
+    var pred__37412__37415 = cljs.core._EQ_;
+    var expr__37413__37416 = act__37405;
+    if(pred__37412__37415.call(null, 1, expr__37413__37416)) {
+      return cm.replaceRange("", s1__37406, e1__37407)
     }else {
-      if(pred__19715__19718.call(null, 2, expr__19716__19719)) {
-        return cm.replaceRange("", s2__19711, e2__19712)
+      if(pred__37412__37415.call(null, 2, expr__37413__37416)) {
+        return cm.replaceRange("", s2__37408, e2__37409)
       }else {
-        if(pred__19715__19718.call(null, 3, expr__19716__19719)) {
-          return cm.replaceRange("", s3__19713, e3__19714)
+        if(pred__37412__37415.call(null, 3, expr__37413__37416)) {
+          return cm.replaceRange("", s3__37410, e3__37411)
         }else {
-          if(pred__19715__19718.call(null, 4, expr__19716__19719)) {
-            return cm.setCursor(e1__19710)
+          if(pred__37412__37415.call(null, 4, expr__37413__37416)) {
+            return cm.setCursor(e1__37407)
           }else {
-            throw new Error([cljs.core.str("No matching clause: "), cljs.core.str(expr__19716__19719)].join(""));
+            throw new Error([cljs.core.str("No matching clause: "), cljs.core.str(expr__37413__37416)].join(""));
           }
         }
       }
@@ -21447,32 +21429,32 @@ subpar.core.forward_delete = function forward_delete(cm) {
 goog.exportSymbol("subpar.core.forward_delete", subpar.core.forward_delete);
 subpar.core.backward_delete = function backward_delete(cm) {
   if(cljs.core.truth_(subpar.core.nothing_selected_QMARK_.call(null, cm))) {
-    var vec__19737__19738 = subpar.core.get_info.call(null, cm);
-    var cur__19739 = cljs.core.nth.call(null, vec__19737__19738, 0, null);
-    var i__19740 = cljs.core.nth.call(null, vec__19737__19738, 1, null);
-    var s__19741 = cljs.core.nth.call(null, vec__19737__19738, 2, null);
-    var act__19742 = subpar.core.backward_delete_action.call(null, s__19741, i__19740);
-    var s1__19743 = cm.posFromIndex(i__19740 - 1);
-    var e1__19744 = cm.posFromIndex(i__19740);
-    var s2__19745 = s1__19743;
-    var e2__19746 = cm.posFromIndex(i__19740 + 1);
-    var s3__19747 = cm.posFromIndex(i__19740 - 2);
-    var e3__19748 = e1__19744;
-    var pred__19749__19752 = cljs.core._EQ_;
-    var expr__19750__19753 = act__19742;
-    if(pred__19749__19752.call(null, 1, expr__19750__19753)) {
-      return cm.replaceRange("", s1__19743, e1__19744)
+    var vec__37434__37435 = subpar.core.get_info.call(null, cm);
+    var cur__37436 = cljs.core.nth.call(null, vec__37434__37435, 0, null);
+    var i__37437 = cljs.core.nth.call(null, vec__37434__37435, 1, null);
+    var s__37438 = cljs.core.nth.call(null, vec__37434__37435, 2, null);
+    var act__37439 = subpar.core.backward_delete_action.call(null, s__37438, i__37437);
+    var s1__37440 = cm.posFromIndex(i__37437 - 1);
+    var e1__37441 = cm.posFromIndex(i__37437);
+    var s2__37442 = s1__37440;
+    var e2__37443 = cm.posFromIndex(i__37437 + 1);
+    var s3__37444 = cm.posFromIndex(i__37437 - 2);
+    var e3__37445 = e1__37441;
+    var pred__37446__37449 = cljs.core._EQ_;
+    var expr__37447__37450 = act__37439;
+    if(pred__37446__37449.call(null, 1, expr__37447__37450)) {
+      return cm.replaceRange("", s1__37440, e1__37441)
     }else {
-      if(pred__19749__19752.call(null, 2, expr__19750__19753)) {
-        return cm.replaceRange("", s2__19745, e2__19746)
+      if(pred__37446__37449.call(null, 2, expr__37447__37450)) {
+        return cm.replaceRange("", s2__37442, e2__37443)
       }else {
-        if(pred__19749__19752.call(null, 3, expr__19750__19753)) {
-          return cm.replaceRange("", s3__19747, e3__19748)
+        if(pred__37446__37449.call(null, 3, expr__37447__37450)) {
+          return cm.replaceRange("", s3__37444, e3__37445)
         }else {
-          if(pred__19749__19752.call(null, 4, expr__19750__19753)) {
-            return cm.setCursor(s1__19743)
+          if(pred__37446__37449.call(null, 4, expr__37447__37450)) {
+            return cm.setCursor(s1__37440)
           }else {
-            throw new Error([cljs.core.str("No matching clause: "), cljs.core.str(expr__19750__19753)].join(""));
+            throw new Error([cljs.core.str("No matching clause: "), cljs.core.str(expr__37447__37450)].join(""));
           }
         }
       }
@@ -21483,26 +21465,26 @@ subpar.core.backward_delete = function backward_delete(cm) {
 };
 goog.exportSymbol("subpar.core.backward_delete", subpar.core.backward_delete);
 subpar.core.double_quote = function double_quote(cm) {
-  var vec__19765__19766 = subpar.core.get_info.call(null, cm);
-  var cur__19767 = cljs.core.nth.call(null, vec__19765__19766, 0, null);
-  var i__19768 = cljs.core.nth.call(null, vec__19765__19766, 1, null);
-  var s__19769 = cljs.core.nth.call(null, vec__19765__19766, 2, null);
-  var act__19770 = subpar.core.double_quote_action.call(null, s__19769, i__19768);
-  var pred__19771__19774 = cljs.core._EQ_;
-  var expr__19772__19775 = act__19770;
-  if(pred__19771__19774.call(null, 0, expr__19772__19775)) {
+  var vec__37462__37463 = subpar.core.get_info.call(null, cm);
+  var cur__37464 = cljs.core.nth.call(null, vec__37462__37463, 0, null);
+  var i__37465 = cljs.core.nth.call(null, vec__37462__37463, 1, null);
+  var s__37466 = cljs.core.nth.call(null, vec__37462__37463, 2, null);
+  var act__37467 = subpar.core.double_quote_action.call(null, s__37466, i__37465);
+  var pred__37468__37471 = cljs.core._EQ_;
+  var expr__37469__37472 = act__37467;
+  if(pred__37468__37471.call(null, 0, expr__37469__37472)) {
     return subpar.core.open_expression.call(null, cm, '""')
   }else {
-    if(pred__19771__19774.call(null, 1, expr__19772__19775)) {
-      return cm.replaceRange('\\"', cur__19767)
+    if(pred__37468__37471.call(null, 1, expr__37469__37472)) {
+      return cm.replaceRange('\\"', cur__37464)
     }else {
-      if(pred__19771__19774.call(null, 2, expr__19772__19775)) {
-        return subpar.core.go_to_index.call(null, cm, i__19768, i__19768 + 1)
+      if(pred__37468__37471.call(null, 2, expr__37469__37472)) {
+        return subpar.core.go_to_index.call(null, cm, i__37465, i__37465 + 1)
       }else {
-        if(pred__19771__19774.call(null, 3, expr__19772__19775)) {
-          return cm.replaceRange('"', cur__19767)
+        if(pred__37468__37471.call(null, 3, expr__37469__37472)) {
+          return cm.replaceRange('"', cur__37464)
         }else {
-          throw new Error([cljs.core.str("No matching clause: "), cljs.core.str(expr__19772__19775)].join(""));
+          throw new Error([cljs.core.str("No matching clause: "), cljs.core.str(expr__37469__37472)].join(""));
         }
       }
     }
@@ -21510,26 +21492,26 @@ subpar.core.double_quote = function double_quote(cm) {
 };
 goog.exportSymbol("subpar.core.double_quote", subpar.core.double_quote);
 subpar.core.close_expression = function close_expression(cm, c) {
-  var vec__19788__19789 = subpar.core.get_info.call(null, cm);
-  var cur__19790 = cljs.core.nth.call(null, vec__19788__19789, 0, null);
-  var i__19791 = cljs.core.nth.call(null, vec__19788__19789, 1, null);
-  var s__19792 = cljs.core.nth.call(null, vec__19788__19789, 2, null);
-  var p__19793 = subpar.core.parse.call(null, s__19792);
-  if(cljs.core.truth_(subpar.core.in_string_QMARK_.call(null, p__19793, i__19791))) {
-    cm.replaceRange(c, cur__19790);
-    return cm.setCursor(cur__19790.line, cur__19790.ch + 1)
+  var vec__37485__37486 = subpar.core.get_info.call(null, cm);
+  var cur__37487 = cljs.core.nth.call(null, vec__37485__37486, 0, null);
+  var i__37488 = cljs.core.nth.call(null, vec__37485__37486, 1, null);
+  var s__37489 = cljs.core.nth.call(null, vec__37485__37486, 2, null);
+  var p__37490 = subpar.core.parse.call(null, s__37489);
+  if(cljs.core.truth_(subpar.core.in_string_QMARK_.call(null, p__37490, i__37488))) {
+    cm.replaceRange(c, cur__37487);
+    return cm.setCursor(cur__37487.line, cur__37487.ch + 1)
   }else {
-    var vec__19794__19795 = subpar.core.close_expression_vals.call(null, p__19793, i__19791);
-    var del__19796 = cljs.core.nth.call(null, vec__19794__19795, 0, null);
-    var beg__19797 = cljs.core.nth.call(null, vec__19794__19795, 1, null);
-    var end__19798 = cljs.core.nth.call(null, vec__19794__19795, 2, null);
-    var dst__19799 = cljs.core.nth.call(null, vec__19794__19795, 3, null);
-    if(cljs.core.truth_(dst__19799)) {
-      if(cljs.core.truth_(del__19796)) {
-        cm.replaceRange("", cm.posFromIndex(beg__19797), cm.posFromIndex(end__19798))
+    var vec__37491__37492 = subpar.core.close_expression_vals.call(null, p__37490, i__37488);
+    var del__37493 = cljs.core.nth.call(null, vec__37491__37492, 0, null);
+    var beg__37494 = cljs.core.nth.call(null, vec__37491__37492, 1, null);
+    var end__37495 = cljs.core.nth.call(null, vec__37491__37492, 2, null);
+    var dst__37496 = cljs.core.nth.call(null, vec__37491__37492, 3, null);
+    if(cljs.core.truth_(dst__37496)) {
+      if(cljs.core.truth_(del__37493)) {
+        cm.replaceRange("", cm.posFromIndex(beg__37494), cm.posFromIndex(end__37495))
       }else {
       }
-      return subpar.core.go_to_index.call(null, cm, i__19791, dst__19799)
+      return subpar.core.go_to_index.call(null, cm, i__37488, dst__37496)
     }else {
       return null
     }
@@ -21537,12 +21519,12 @@ subpar.core.close_expression = function close_expression(cm, c) {
 };
 goog.exportSymbol("subpar.core.close_expression", subpar.core.close_expression);
 subpar.core.go = function go(cm, f) {
-  var vec__19806__19807 = subpar.core.get_info.call(null, cm);
-  var cur__19808 = cljs.core.nth.call(null, vec__19806__19807, 0, null);
-  var i__19809 = cljs.core.nth.call(null, vec__19806__19807, 1, null);
-  var s__19810 = cljs.core.nth.call(null, vec__19806__19807, 2, null);
-  var j__19811 = f.call(null, s__19810, i__19809);
-  return subpar.core.go_to_index.call(null, cm, i__19809, j__19811)
+  var vec__37503__37504 = subpar.core.get_info.call(null, cm);
+  var cur__37505 = cljs.core.nth.call(null, vec__37503__37504, 0, null);
+  var i__37506 = cljs.core.nth.call(null, vec__37503__37504, 1, null);
+  var s__37507 = cljs.core.nth.call(null, vec__37503__37504, 2, null);
+  var j__37508 = f.call(null, s__37507, i__37506);
+  return subpar.core.go_to_index.call(null, cm, i__37506, j__37508)
 };
 subpar.core.backward_up = function backward_up(cm) {
   return subpar.core.go.call(null, cm, subpar.core.backward_up_fn)
@@ -21569,206 +21551,206 @@ subpar.core.forward_up = function forward_up(cm) {
 };
 goog.exportSymbol("subpar.core.forward_up", subpar.core.forward_up);
 subpar.core.forward_slurp = function forward_slurp(cm) {
-  var vec__19830__19832 = subpar.core.get_info.call(null, cm);
-  var cur__19833 = cljs.core.nth.call(null, vec__19830__19832, 0, null);
-  var i__19834 = cljs.core.nth.call(null, vec__19830__19832, 1, null);
-  var s__19835 = cljs.core.nth.call(null, vec__19830__19832, 2, null);
-  var vec__19831__19836 = subpar.core.forward_slurp_vals.call(null, s__19835, i__19834);
-  var delimiter__19837 = cljs.core.nth.call(null, vec__19831__19836, 0, null);
-  var si__19838 = cljs.core.nth.call(null, vec__19831__19836, 1, null);
-  var di__19839 = cljs.core.nth.call(null, vec__19831__19836, 2, null);
-  var ri__19840 = cljs.core.nth.call(null, vec__19831__19836, 3, null);
-  if(cljs.core.truth_(ri__19840)) {
-    var start__19841 = cm.posFromIndex(si__19838);
-    var end__19842 = cm.posFromIndex(si__19838 + 1);
-    var destination__19843 = cm.posFromIndex(di__19839);
-    var line__19844 = start__19841.line;
-    var update__19845 = function() {
-      cm.replaceRange(delimiter__19837, destination__19843);
-      cm.replaceRange("", start__19841, end__19842);
-      return cljs.core.map.call(null, function(p1__19812_SHARP_) {
-        return cm.indentLine(p1__19812_SHARP_)
-      }, cljs.core.range.call(null, line__19844, line__19844 + ri__19840))
+  var vec__37527__37529 = subpar.core.get_info.call(null, cm);
+  var cur__37530 = cljs.core.nth.call(null, vec__37527__37529, 0, null);
+  var i__37531 = cljs.core.nth.call(null, vec__37527__37529, 1, null);
+  var s__37532 = cljs.core.nth.call(null, vec__37527__37529, 2, null);
+  var vec__37528__37533 = subpar.core.forward_slurp_vals.call(null, s__37532, i__37531);
+  var delimiter__37534 = cljs.core.nth.call(null, vec__37528__37533, 0, null);
+  var si__37535 = cljs.core.nth.call(null, vec__37528__37533, 1, null);
+  var di__37536 = cljs.core.nth.call(null, vec__37528__37533, 2, null);
+  var ri__37537 = cljs.core.nth.call(null, vec__37528__37533, 3, null);
+  if(cljs.core.truth_(ri__37537)) {
+    var start__37538 = cm.posFromIndex(si__37535);
+    var end__37539 = cm.posFromIndex(si__37535 + 1);
+    var destination__37540 = cm.posFromIndex(di__37536);
+    var line__37541 = start__37538.line;
+    var update__37542 = function() {
+      cm.replaceRange(delimiter__37534, destination__37540);
+      cm.replaceRange("", start__37538, end__37539);
+      return cljs.core.map.call(null, function(p1__37509_SHARP_) {
+        return cm.indentLine(p1__37509_SHARP_)
+      }, cljs.core.range.call(null, line__37541, line__37541 + ri__37537))
     };
-    return cm.compoundChange(update__19845)
+    return cm.compoundChange(update__37542)
   }else {
     return null
   }
 };
 goog.exportSymbol("subpar.core.forward_slurp", subpar.core.forward_slurp);
 subpar.core.backward_slurp = function backward_slurp(cm) {
-  var vec__19863__19865 = subpar.core.get_info.call(null, cm);
-  var cur__19866 = cljs.core.nth.call(null, vec__19863__19865, 0, null);
-  var i__19867 = cljs.core.nth.call(null, vec__19863__19865, 1, null);
-  var s__19868 = cljs.core.nth.call(null, vec__19863__19865, 2, null);
-  var vec__19864__19869 = subpar.core.backward_slurp_vals.call(null, s__19868, i__19867);
-  var delimiter__19870 = cljs.core.nth.call(null, vec__19864__19869, 0, null);
-  var si__19871 = cljs.core.nth.call(null, vec__19864__19869, 1, null);
-  var di__19872 = cljs.core.nth.call(null, vec__19864__19869, 2, null);
-  var ri__19873 = cljs.core.nth.call(null, vec__19864__19869, 3, null);
-  if(cljs.core.truth_(ri__19873)) {
-    var start__19874 = cm.posFromIndex(si__19871);
-    var end__19875 = cm.posFromIndex(si__19871 + 1);
-    var destination__19876 = cm.posFromIndex(di__19872);
-    var line__19877 = start__19874.line;
-    var update__19878 = function() {
-      cm.replaceRange("", start__19874, end__19875);
-      cm.replaceRange(delimiter__19870, destination__19876);
-      return cljs.core.map.call(null, function(p1__19813_SHARP_) {
-        return cm.indentLine(p1__19813_SHARP_)
-      }, cljs.core.range.call(null, line__19877, line__19877 + ri__19873))
+  var vec__37560__37562 = subpar.core.get_info.call(null, cm);
+  var cur__37563 = cljs.core.nth.call(null, vec__37560__37562, 0, null);
+  var i__37564 = cljs.core.nth.call(null, vec__37560__37562, 1, null);
+  var s__37565 = cljs.core.nth.call(null, vec__37560__37562, 2, null);
+  var vec__37561__37566 = subpar.core.backward_slurp_vals.call(null, s__37565, i__37564);
+  var delimiter__37567 = cljs.core.nth.call(null, vec__37561__37566, 0, null);
+  var si__37568 = cljs.core.nth.call(null, vec__37561__37566, 1, null);
+  var di__37569 = cljs.core.nth.call(null, vec__37561__37566, 2, null);
+  var ri__37570 = cljs.core.nth.call(null, vec__37561__37566, 3, null);
+  if(cljs.core.truth_(ri__37570)) {
+    var start__37571 = cm.posFromIndex(si__37568);
+    var end__37572 = cm.posFromIndex(si__37568 + 1);
+    var destination__37573 = cm.posFromIndex(di__37569);
+    var line__37574 = start__37571.line;
+    var update__37575 = function() {
+      cm.replaceRange("", start__37571, end__37572);
+      cm.replaceRange(delimiter__37567, destination__37573);
+      return cljs.core.map.call(null, function(p1__37510_SHARP_) {
+        return cm.indentLine(p1__37510_SHARP_)
+      }, cljs.core.range.call(null, line__37574, line__37574 + ri__37570))
     };
-    return cm.compoundChange(update__19878)
+    return cm.compoundChange(update__37575)
   }else {
     return null
   }
 };
 goog.exportSymbol("subpar.core.backward_slurp", subpar.core.backward_slurp);
 subpar.core.backward_barf = function backward_barf(cm) {
-  var vec__19898__19900 = subpar.core.get_info.call(null, cm);
-  var cur__19901 = cljs.core.nth.call(null, vec__19898__19900, 0, null);
-  var i__19902 = cljs.core.nth.call(null, vec__19898__19900, 1, null);
-  var s__19903 = cljs.core.nth.call(null, vec__19898__19900, 2, null);
-  var vec__19899__19904 = subpar.core.backward_barf_vals.call(null, s__19903, i__19902);
-  var delimiter__19905 = cljs.core.nth.call(null, vec__19899__19904, 0, null);
-  var si__19906 = cljs.core.nth.call(null, vec__19899__19904, 1, null);
-  var di__19907 = cljs.core.nth.call(null, vec__19899__19904, 2, null);
-  var pad__19908 = cljs.core.nth.call(null, vec__19899__19904, 3, null);
-  var ri__19909 = cljs.core.nth.call(null, vec__19899__19904, 4, null);
-  if(cljs.core.truth_(ri__19909)) {
-    var delimiter__19910 = cljs.core.truth_(pad__19908) ? [cljs.core.str(" "), cljs.core.str(delimiter__19905)].join("") : delimiter__19905;
-    var destination__19911 = cm.posFromIndex(di__19907);
-    var start__19912 = cm.posFromIndex(si__19906);
-    var end__19913 = cm.posFromIndex(si__19906 + 1);
-    var line__19914 = start__19912.line;
-    var update__19915 = function() {
-      cm.replaceRange(delimiter__19910, destination__19911);
-      cm.replaceRange("", start__19912, end__19913);
-      return cljs.core.map.call(null, function(p1__19846_SHARP_) {
-        return cm.indentLine(p1__19846_SHARP_)
-      }, cljs.core.range.call(null, line__19914, line__19914 + ri__19909))
+  var vec__37595__37597 = subpar.core.get_info.call(null, cm);
+  var cur__37598 = cljs.core.nth.call(null, vec__37595__37597, 0, null);
+  var i__37599 = cljs.core.nth.call(null, vec__37595__37597, 1, null);
+  var s__37600 = cljs.core.nth.call(null, vec__37595__37597, 2, null);
+  var vec__37596__37601 = subpar.core.backward_barf_vals.call(null, s__37600, i__37599);
+  var delimiter__37602 = cljs.core.nth.call(null, vec__37596__37601, 0, null);
+  var si__37603 = cljs.core.nth.call(null, vec__37596__37601, 1, null);
+  var di__37604 = cljs.core.nth.call(null, vec__37596__37601, 2, null);
+  var pad__37605 = cljs.core.nth.call(null, vec__37596__37601, 3, null);
+  var ri__37606 = cljs.core.nth.call(null, vec__37596__37601, 4, null);
+  if(cljs.core.truth_(ri__37606)) {
+    var delimiter__37607 = cljs.core.truth_(pad__37605) ? [cljs.core.str(" "), cljs.core.str(delimiter__37602)].join("") : delimiter__37602;
+    var destination__37608 = cm.posFromIndex(di__37604);
+    var start__37609 = cm.posFromIndex(si__37603);
+    var end__37610 = cm.posFromIndex(si__37603 + 1);
+    var line__37611 = start__37609.line;
+    var update__37612 = function() {
+      cm.replaceRange(delimiter__37607, destination__37608);
+      cm.replaceRange("", start__37609, end__37610);
+      return cljs.core.map.call(null, function(p1__37543_SHARP_) {
+        return cm.indentLine(p1__37543_SHARP_)
+      }, cljs.core.range.call(null, line__37611, line__37611 + ri__37606))
     };
-    return cm.compoundChange(update__19915)
+    return cm.compoundChange(update__37612)
   }else {
     return null
   }
 };
 goog.exportSymbol("subpar.core.backward_barf", subpar.core.backward_barf);
 subpar.core.forward_barf = function forward_barf(cm) {
-  var vec__19936__19938 = subpar.core.get_info.call(null, cm);
-  var cur__19939 = cljs.core.nth.call(null, vec__19936__19938, 0, null);
-  var i__19940 = cljs.core.nth.call(null, vec__19936__19938, 1, null);
-  var s__19941 = cljs.core.nth.call(null, vec__19936__19938, 2, null);
-  var vec__19937__19942 = subpar.core.forward_barf_vals.call(null, s__19941, i__19940);
-  var delimiter__19943 = cljs.core.nth.call(null, vec__19937__19942, 0, null);
-  var si__19944 = cljs.core.nth.call(null, vec__19937__19942, 1, null);
-  var di__19945 = cljs.core.nth.call(null, vec__19937__19942, 2, null);
-  var pad__19946 = cljs.core.nth.call(null, vec__19937__19942, 3, null);
-  var ri__19947 = cljs.core.nth.call(null, vec__19937__19942, 4, null);
-  var i0__19948 = cljs.core.nth.call(null, vec__19937__19942, 5, null);
-  if(cljs.core.truth_(ri__19947)) {
-    var delimiter__19949 = cljs.core.truth_(pad__19946) ? [cljs.core.str(" "), cljs.core.str(delimiter__19943)].join("") : delimiter__19943;
-    var destination__19950 = cm.posFromIndex(di__19945);
-    var start__19951 = cm.posFromIndex(si__19944);
-    var end__19952 = cm.posFromIndex(si__19944 + 1);
-    var line__19953 = cm.posFromIndex(i0__19948).line;
-    var update__19954 = function() {
-      cm.replaceRange("", start__19951, end__19952);
-      cm.replaceRange(delimiter__19949, destination__19950);
-      return cljs.core.map.call(null, function(p1__19879_SHARP_) {
-        return cm.indentLine(p1__19879_SHARP_)
-      }, cljs.core.range.call(null, line__19953, line__19953 + ri__19947))
+  var vec__37633__37635 = subpar.core.get_info.call(null, cm);
+  var cur__37636 = cljs.core.nth.call(null, vec__37633__37635, 0, null);
+  var i__37637 = cljs.core.nth.call(null, vec__37633__37635, 1, null);
+  var s__37638 = cljs.core.nth.call(null, vec__37633__37635, 2, null);
+  var vec__37634__37639 = subpar.core.forward_barf_vals.call(null, s__37638, i__37637);
+  var delimiter__37640 = cljs.core.nth.call(null, vec__37634__37639, 0, null);
+  var si__37641 = cljs.core.nth.call(null, vec__37634__37639, 1, null);
+  var di__37642 = cljs.core.nth.call(null, vec__37634__37639, 2, null);
+  var pad__37643 = cljs.core.nth.call(null, vec__37634__37639, 3, null);
+  var ri__37644 = cljs.core.nth.call(null, vec__37634__37639, 4, null);
+  var i0__37645 = cljs.core.nth.call(null, vec__37634__37639, 5, null);
+  if(cljs.core.truth_(ri__37644)) {
+    var delimiter__37646 = cljs.core.truth_(pad__37643) ? [cljs.core.str(" "), cljs.core.str(delimiter__37640)].join("") : delimiter__37640;
+    var destination__37647 = cm.posFromIndex(di__37642);
+    var start__37648 = cm.posFromIndex(si__37641);
+    var end__37649 = cm.posFromIndex(si__37641 + 1);
+    var line__37650 = cm.posFromIndex(i0__37645).line;
+    var update__37651 = function() {
+      cm.replaceRange("", start__37648, end__37649);
+      cm.replaceRange(delimiter__37646, destination__37647);
+      return cljs.core.map.call(null, function(p1__37576_SHARP_) {
+        return cm.indentLine(p1__37576_SHARP_)
+      }, cljs.core.range.call(null, line__37650, line__37650 + ri__37644))
     };
-    return cm.compoundChange(update__19954)
+    return cm.compoundChange(update__37651)
   }else {
     return null
   }
 };
 goog.exportSymbol("subpar.core.forward_barf", subpar.core.forward_barf);
 subpar.core.splice_delete_backward = function splice_delete_backward(cm) {
-  var vec__19974__19976 = subpar.core.get_info.call(null, cm);
-  var cur__19977 = cljs.core.nth.call(null, vec__19974__19976, 0, null);
-  var i__19978 = cljs.core.nth.call(null, vec__19974__19976, 1, null);
-  var s__19979 = cljs.core.nth.call(null, vec__19974__19976, 2, null);
-  var vec__19975__19980 = subpar.core.splice_killing_backward.call(null, s__19979, i__19978);
-  var start__19981 = cljs.core.nth.call(null, vec__19975__19980, 0, null);
-  var end__19982 = cljs.core.nth.call(null, vec__19975__19980, 1, null);
-  var closer__19983 = cljs.core.nth.call(null, vec__19975__19980, 2, null);
-  var reindent__19984 = cljs.core.nth.call(null, vec__19975__19980, 3, null);
-  var num__19985 = cljs.core.nth.call(null, vec__19975__19980, 4, null);
-  if(cljs.core.truth_(reindent__19984)) {
-    var line__19986 = cm.posFromIndex(reindent__19984).line;
-    var c0__19987 = cm.posFromIndex(closer__19983);
-    var c1__19988 = cm.posFromIndex(closer__19983 + 1);
-    var s0__19989 = cm.posFromIndex(start__19981);
-    var s1__19990 = cm.posFromIndex(end__19982);
-    var update__19991 = function() {
-      cm.replaceRange("", c0__19987, c1__19988);
-      cm.replaceRange("", s0__19989, s1__19990);
-      return cljs.core.map.call(null, function(p1__19916_SHARP_) {
-        return cm.indentLine(p1__19916_SHARP_)
-      }, cljs.core.range.call(null, line__19986, line__19986 + num__19985))
+  var vec__37671__37673 = subpar.core.get_info.call(null, cm);
+  var cur__37674 = cljs.core.nth.call(null, vec__37671__37673, 0, null);
+  var i__37675 = cljs.core.nth.call(null, vec__37671__37673, 1, null);
+  var s__37676 = cljs.core.nth.call(null, vec__37671__37673, 2, null);
+  var vec__37672__37677 = subpar.core.splice_delete_backward_vals.call(null, s__37676, i__37675);
+  var start__37678 = cljs.core.nth.call(null, vec__37672__37677, 0, null);
+  var end__37679 = cljs.core.nth.call(null, vec__37672__37677, 1, null);
+  var closer__37680 = cljs.core.nth.call(null, vec__37672__37677, 2, null);
+  var reindent__37681 = cljs.core.nth.call(null, vec__37672__37677, 3, null);
+  var num__37682 = cljs.core.nth.call(null, vec__37672__37677, 4, null);
+  if(cljs.core.truth_(reindent__37681)) {
+    var line__37683 = cm.posFromIndex(reindent__37681).line;
+    var c0__37684 = cm.posFromIndex(closer__37680);
+    var c1__37685 = cm.posFromIndex(closer__37680 + 1);
+    var s0__37686 = cm.posFromIndex(start__37678);
+    var s1__37687 = cm.posFromIndex(end__37679);
+    var update__37688 = function() {
+      cm.replaceRange("", c0__37684, c1__37685);
+      cm.replaceRange("", s0__37686, s1__37687);
+      return cljs.core.map.call(null, function(p1__37613_SHARP_) {
+        return cm.indentLine(p1__37613_SHARP_)
+      }, cljs.core.range.call(null, line__37683, line__37683 + num__37682))
     };
-    return cm.compoundChange(update__19991)
+    return cm.compoundChange(update__37688)
   }else {
     return null
   }
 };
 goog.exportSymbol("subpar.core.splice_delete_backward", subpar.core.splice_delete_backward);
 subpar.core.splice_delete_forward = function splice_delete_forward(cm) {
-  var vec__20011__20013 = subpar.core.get_info.call(null, cm);
-  var cur__20014 = cljs.core.nth.call(null, vec__20011__20013, 0, null);
-  var i__20015 = cljs.core.nth.call(null, vec__20011__20013, 1, null);
-  var s__20016 = cljs.core.nth.call(null, vec__20011__20013, 2, null);
-  var vec__20012__20017 = subpar.core.splice_killing_forward.call(null, s__20016, i__20015);
-  var opener__20018 = cljs.core.nth.call(null, vec__20012__20017, 0, null);
-  var start__20019 = cljs.core.nth.call(null, vec__20012__20017, 1, null);
-  var end__20020 = cljs.core.nth.call(null, vec__20012__20017, 2, null);
-  var reindent__20021 = cljs.core.nth.call(null, vec__20012__20017, 3, null);
-  var num__20022 = cljs.core.nth.call(null, vec__20012__20017, 4, null);
-  if(cljs.core.truth_(reindent__20021)) {
-    var line__20023 = cm.posFromIndex(reindent__20021).line;
-    var o0__20024 = cm.posFromIndex(opener__20018);
-    var o1__20025 = cm.posFromIndex(opener__20018 + 1);
-    var s0__20026 = cm.posFromIndex(start__20019);
-    var s1__20027 = cm.posFromIndex(end__20020);
-    var update__20028 = function() {
-      cm.replaceRange("", s0__20026, s1__20027);
-      cm.replaceRange("", o0__20024, o1__20025);
-      return cljs.core.map.call(null, function(p1__19955_SHARP_) {
-        return cm.indentLine(p1__19955_SHARP_)
-      }, cljs.core.range.call(null, line__20023, line__20023 + num__20022))
+  var vec__37708__37710 = subpar.core.get_info.call(null, cm);
+  var cur__37711 = cljs.core.nth.call(null, vec__37708__37710, 0, null);
+  var i__37712 = cljs.core.nth.call(null, vec__37708__37710, 1, null);
+  var s__37713 = cljs.core.nth.call(null, vec__37708__37710, 2, null);
+  var vec__37709__37714 = subpar.core.splice_delete_forward_vals.call(null, s__37713, i__37712);
+  var opener__37715 = cljs.core.nth.call(null, vec__37709__37714, 0, null);
+  var start__37716 = cljs.core.nth.call(null, vec__37709__37714, 1, null);
+  var end__37717 = cljs.core.nth.call(null, vec__37709__37714, 2, null);
+  var reindent__37718 = cljs.core.nth.call(null, vec__37709__37714, 3, null);
+  var num__37719 = cljs.core.nth.call(null, vec__37709__37714, 4, null);
+  if(cljs.core.truth_(reindent__37718)) {
+    var line__37720 = cm.posFromIndex(reindent__37718).line;
+    var o0__37721 = cm.posFromIndex(opener__37715);
+    var o1__37722 = cm.posFromIndex(opener__37715 + 1);
+    var s0__37723 = cm.posFromIndex(start__37716);
+    var s1__37724 = cm.posFromIndex(end__37717);
+    var update__37725 = function() {
+      cm.replaceRange("", s0__37723, s1__37724);
+      cm.replaceRange("", o0__37721, o1__37722);
+      return cljs.core.map.call(null, function(p1__37652_SHARP_) {
+        return cm.indentLine(p1__37652_SHARP_)
+      }, cljs.core.range.call(null, line__37720, line__37720 + num__37719))
     };
-    return cm.compoundChange(update__20028)
+    return cm.compoundChange(update__37725)
   }else {
     return null
   }
 };
 goog.exportSymbol("subpar.core.splice_delete_forward", subpar.core.splice_delete_forward);
 subpar.core.splice = function splice(cm) {
-  var vec__20047__20049 = subpar.core.get_info.call(null, cm);
-  var cur__20050 = cljs.core.nth.call(null, vec__20047__20049, 0, null);
-  var i__20051 = cljs.core.nth.call(null, vec__20047__20049, 1, null);
-  var s__20052 = cljs.core.nth.call(null, vec__20047__20049, 2, null);
-  var vec__20048__20053 = subpar.core.splice_vals.call(null, s__20052, i__20051);
-  var opener__20054 = cljs.core.nth.call(null, vec__20048__20053, 0, null);
-  var closer__20055 = cljs.core.nth.call(null, vec__20048__20053, 1, null);
-  var reindent__20056 = cljs.core.nth.call(null, vec__20048__20053, 2, null);
-  var num__20057 = cljs.core.nth.call(null, vec__20048__20053, 3, null);
-  if(cljs.core.truth_(reindent__20056)) {
-    var line__20058 = cm.posFromIndex(reindent__20056).line;
-    var o0__20059 = cm.posFromIndex(opener__20054);
-    var o1__20060 = cm.posFromIndex(opener__20054 + 1);
-    var c0__20061 = cm.posFromIndex(closer__20055);
-    var c1__20062 = cm.posFromIndex(closer__20055 + 1);
-    var update__20063 = function() {
-      cm.replaceRange("", c0__20061, c1__20062);
-      cm.replaceRange("", o0__20059, o1__20060);
-      return cljs.core.map.call(null, function(p1__19992_SHARP_) {
-        return cm.indentLine(p1__19992_SHARP_)
-      }, cljs.core.range.call(null, line__20058, line__20058 + num__20057))
+  var vec__37744__37746 = subpar.core.get_info.call(null, cm);
+  var cur__37747 = cljs.core.nth.call(null, vec__37744__37746, 0, null);
+  var i__37748 = cljs.core.nth.call(null, vec__37744__37746, 1, null);
+  var s__37749 = cljs.core.nth.call(null, vec__37744__37746, 2, null);
+  var vec__37745__37750 = subpar.core.splice_vals.call(null, s__37749, i__37748);
+  var opener__37751 = cljs.core.nth.call(null, vec__37745__37750, 0, null);
+  var closer__37752 = cljs.core.nth.call(null, vec__37745__37750, 1, null);
+  var reindent__37753 = cljs.core.nth.call(null, vec__37745__37750, 2, null);
+  var num__37754 = cljs.core.nth.call(null, vec__37745__37750, 3, null);
+  if(cljs.core.truth_(reindent__37753)) {
+    var line__37755 = cm.posFromIndex(reindent__37753).line;
+    var o0__37756 = cm.posFromIndex(opener__37751);
+    var o1__37757 = cm.posFromIndex(opener__37751 + 1);
+    var c0__37758 = cm.posFromIndex(closer__37752);
+    var c1__37759 = cm.posFromIndex(closer__37752 + 1);
+    var update__37760 = function() {
+      cm.replaceRange("", c0__37758, c1__37759);
+      cm.replaceRange("", o0__37756, o1__37757);
+      return cljs.core.map.call(null, function(p1__37689_SHARP_) {
+        return cm.indentLine(p1__37689_SHARP_)
+      }, cljs.core.range.call(null, line__37755, line__37755 + num__37754))
     };
-    return cm.compoundChange(update__20063)
+    return cm.compoundChange(update__37760)
   }else {
     return null
   }
@@ -21776,14 +21758,14 @@ subpar.core.splice = function splice(cm) {
 goog.exportSymbol("subpar.core.splice", subpar.core.splice);
 subpar.core.indent_selection = function indent_selection(cm) {
   if(cljs.core.truth_(cm.somethingSelected())) {
-    var start__20067 = cm.getCursor(true).line;
-    var end__20068 = cm.getCursor(false).line;
-    var f__20069 = function() {
-      return cljs.core.map.call(null, function(p1__20029_SHARP_) {
-        return cm.indentLine(p1__20029_SHARP_)
-      }, cljs.core.range.call(null, start__20067, end__20068 + 1))
+    var start__37764 = cm.getCursor(true).line;
+    var end__37765 = cm.getCursor(false).line;
+    var f__37766 = function() {
+      return cljs.core.map.call(null, function(p1__37726_SHARP_) {
+        return cm.indentLine(p1__37726_SHARP_)
+      }, cljs.core.range.call(null, start__37764, end__37765 + 1))
     };
-    return cm.compoundChange(f__20069)
+    return cm.compoundChange(f__37766)
   }else {
     return cm.indentLine(cm.getCursor().line)
   }
@@ -21793,679 +21775,675 @@ goog.provide("subpar.test.tests");
 goog.require("cljs.core");
 goog.require("subpar.core");
 goog.require("subpar.core");
-subpar.test.tests.arr_EQ_ = function arr_EQ_(a, b) {
-  return cljs.core._EQ_.call(null, cljs.core.into.call(null, cljs.core.PersistentVector.EMPTY, a), cljs.core.into.call(null, cljs.core.PersistentVector.EMPTY, b))
-};
-goog.exportSymbol("subpar.test.tests.arr_EQ_", subpar.test.tests.arr_EQ_);
 subpar.test.tests.run = function run() {
   if(cljs.core._EQ_.call(null, 4, subpar.core.count_lines.call(null, "\n\n\n\n", 0, 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'count-lines", "\n\n\n\n", 0, 2), cljs.core.hash_map("\ufdd0'line", 24))), cljs.core.hash_map("\ufdd0'line", 24))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'count-lines", "\n\n\n\n", 0, 2), cljs.core.hash_map("\ufdd0'line", 22))), cljs.core.hash_map("\ufdd0'line", 22))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 3, subpar.core.count_lines.call(null, "0\n\n\n\n", 0, 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'count-lines", "0\n\n\n\n", 0, 2), cljs.core.hash_map("\ufdd0'line", 25))), cljs.core.hash_map("\ufdd0'line", 25))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'count-lines", "0\n\n\n\n", 0, 2), cljs.core.hash_map("\ufdd0'line", 23))), cljs.core.hash_map("\ufdd0'line", 23))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 2, subpar.core.count_lines.call(null, "01\n\n\n\n", 0, 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'count-lines", "01\n\n\n\n", 0, 2), cljs.core.hash_map("\ufdd0'line", 26))), cljs.core.hash_map("\ufdd0'line", 26))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'count-lines", "01\n\n\n\n", 0, 2), cljs.core.hash_map("\ufdd0'line", 24))), cljs.core.hash_map("\ufdd0'line", 24))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 1, subpar.core.count_lines.call(null, "012\n\n\n\n", 0, 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'count-lines", "012\n\n\n\n", 0, 2), cljs.core.hash_map("\ufdd0'line", 27))), cljs.core.hash_map("\ufdd0'line", 27))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'count-lines", "012\n\n\n\n", 0, 2), cljs.core.hash_map("\ufdd0'line", 25))), cljs.core.hash_map("\ufdd0'line", 25))))].join(""));
   }
   if(cljs.core._EQ_.call(null, -1, subpar.core.get_opening_delimiter_index.call(null, " ()", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", -1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " ()", 0), cljs.core.hash_map("\ufdd0'line", 29))), cljs.core.hash_map("\ufdd0'line", 29))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", -1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " ()", 0), cljs.core.hash_map("\ufdd0'line", 27))), cljs.core.hash_map("\ufdd0'line", 27))))].join(""));
   }
   if(cljs.core._EQ_.call(null, -1, subpar.core.get_opening_delimiter_index.call(null, " ()", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", -1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " ()", 1), cljs.core.hash_map("\ufdd0'line", 30))), cljs.core.hash_map("\ufdd0'line", 30))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", -1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " ()", 1), cljs.core.hash_map("\ufdd0'line", 28))), cljs.core.hash_map("\ufdd0'line", 28))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 1, subpar.core.get_opening_delimiter_index.call(null, " ()", 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " ()", 2), cljs.core.hash_map("\ufdd0'line", 31))), cljs.core.hash_map("\ufdd0'line", 31))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " ()", 2), cljs.core.hash_map("\ufdd0'line", 29))), cljs.core.hash_map("\ufdd0'line", 29))))].join(""));
   }
   if(cljs.core._EQ_.call(null, -1, subpar.core.get_opening_delimiter_index.call(null, " ()", 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", -1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " ()", 3), cljs.core.hash_map("\ufdd0'line", 32))), cljs.core.hash_map("\ufdd0'line", 32))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", -1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " ()", 3), cljs.core.hash_map("\ufdd0'line", 30))), cljs.core.hash_map("\ufdd0'line", 30))))].join(""));
   }
   if(cljs.core._EQ_.call(null, -1, subpar.core.get_opening_delimiter_index.call(null, " () []", 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", -1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " () []", 3), cljs.core.hash_map("\ufdd0'line", 33))), cljs.core.hash_map("\ufdd0'line", 33))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", -1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " () []", 3), cljs.core.hash_map("\ufdd0'line", 31))), cljs.core.hash_map("\ufdd0'line", 31))))].join(""));
   }
   if(cljs.core._EQ_.call(null, -1, subpar.core.get_opening_delimiter_index.call(null, " () []", 4))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", -1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " () []", 4), cljs.core.hash_map("\ufdd0'line", 34))), cljs.core.hash_map("\ufdd0'line", 34))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", -1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " () []", 4), cljs.core.hash_map("\ufdd0'line", 32))), cljs.core.hash_map("\ufdd0'line", 32))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 4, subpar.core.get_opening_delimiter_index.call(null, " () []", 5))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " () []", 5), cljs.core.hash_map("\ufdd0'line", 35))), cljs.core.hash_map("\ufdd0'line", 35))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " () []", 5), cljs.core.hash_map("\ufdd0'line", 33))), cljs.core.hash_map("\ufdd0'line", 33))))].join(""));
   }
   if(cljs.core._EQ_.call(null, -1, subpar.core.get_opening_delimiter_index.call(null, " () []", 6))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", -1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " () []", 6), cljs.core.hash_map("\ufdd0'line", 36))), cljs.core.hash_map("\ufdd0'line", 36))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", -1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " () []", 6), cljs.core.hash_map("\ufdd0'line", 34))), cljs.core.hash_map("\ufdd0'line", 34))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 1, subpar.core.get_opening_delimiter_index.call(null, " ([a] )", 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " ([a] )", 2), cljs.core.hash_map("\ufdd0'line", 37))), cljs.core.hash_map("\ufdd0'line", 37))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " ([a] )", 2), cljs.core.hash_map("\ufdd0'line", 35))), cljs.core.hash_map("\ufdd0'line", 35))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 2, subpar.core.get_opening_delimiter_index.call(null, " ([a] )", 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " ([a] )", 3), cljs.core.hash_map("\ufdd0'line", 38))), cljs.core.hash_map("\ufdd0'line", 38))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " ([a] )", 3), cljs.core.hash_map("\ufdd0'line", 36))), cljs.core.hash_map("\ufdd0'line", 36))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 5, subpar.core.get_opening_delimiter_index.call(null, "([a]){b}", 6))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 5, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", "([a]){b}", 6), cljs.core.hash_map("\ufdd0'line", 39))), cljs.core.hash_map("\ufdd0'line", 39))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 5, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", "([a]){b}", 6), cljs.core.hash_map("\ufdd0'line", 37))), cljs.core.hash_map("\ufdd0'line", 37))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 1, subpar.core.get_opening_delimiter_index.call(null, " (;a\nb)", 5))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " (;a\nb)", 5), cljs.core.hash_map("\ufdd0'line", 40))), cljs.core.hash_map("\ufdd0'line", 40))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-opening-delimiter-index", " (;a\nb)", 5), cljs.core.hash_map("\ufdd0'line", 38))), cljs.core.hash_map("\ufdd0'line", 38))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 3, subpar.core.get_closing_delimiter_index.call(null, " ()", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " ()", 0), cljs.core.hash_map("\ufdd0'line", 42))), cljs.core.hash_map("\ufdd0'line", 42))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " ()", 0), cljs.core.hash_map("\ufdd0'line", 40))), cljs.core.hash_map("\ufdd0'line", 40))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 3, subpar.core.get_closing_delimiter_index.call(null, " ()", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " ()", 1), cljs.core.hash_map("\ufdd0'line", 43))), cljs.core.hash_map("\ufdd0'line", 43))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " ()", 1), cljs.core.hash_map("\ufdd0'line", 41))), cljs.core.hash_map("\ufdd0'line", 41))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 2, subpar.core.get_closing_delimiter_index.call(null, " ()", 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " ()", 2), cljs.core.hash_map("\ufdd0'line", 44))), cljs.core.hash_map("\ufdd0'line", 44))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " ()", 2), cljs.core.hash_map("\ufdd0'line", 42))), cljs.core.hash_map("\ufdd0'line", 42))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 3, subpar.core.get_closing_delimiter_index.call(null, " ()", 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " ()", 3), cljs.core.hash_map("\ufdd0'line", 45))), cljs.core.hash_map("\ufdd0'line", 45))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " ()", 3), cljs.core.hash_map("\ufdd0'line", 43))), cljs.core.hash_map("\ufdd0'line", 43))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 6, subpar.core.get_closing_delimiter_index.call(null, " () []", 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 6, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " () []", 3), cljs.core.hash_map("\ufdd0'line", 46))), cljs.core.hash_map("\ufdd0'line", 46))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 6, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " () []", 3), cljs.core.hash_map("\ufdd0'line", 44))), cljs.core.hash_map("\ufdd0'line", 44))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 6, subpar.core.get_closing_delimiter_index.call(null, " () []", 4))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 6, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " () []", 4), cljs.core.hash_map("\ufdd0'line", 47))), cljs.core.hash_map("\ufdd0'line", 47))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 6, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " () []", 4), cljs.core.hash_map("\ufdd0'line", 45))), cljs.core.hash_map("\ufdd0'line", 45))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 5, subpar.core.get_closing_delimiter_index.call(null, " () []", 5))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 5, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " () []", 5), cljs.core.hash_map("\ufdd0'line", 48))), cljs.core.hash_map("\ufdd0'line", 48))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 5, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " () []", 5), cljs.core.hash_map("\ufdd0'line", 46))), cljs.core.hash_map("\ufdd0'line", 46))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 6, subpar.core.get_closing_delimiter_index.call(null, " () []", 6))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 6, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " () []", 6), cljs.core.hash_map("\ufdd0'line", 49))), cljs.core.hash_map("\ufdd0'line", 49))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 6, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " () []", 6), cljs.core.hash_map("\ufdd0'line", 47))), cljs.core.hash_map("\ufdd0'line", 47))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 6, subpar.core.get_closing_delimiter_index.call(null, " ([a] )", 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 6, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " ([a] )", 2), cljs.core.hash_map("\ufdd0'line", 50))), cljs.core.hash_map("\ufdd0'line", 50))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 6, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " ([a] )", 2), cljs.core.hash_map("\ufdd0'line", 48))), cljs.core.hash_map("\ufdd0'line", 48))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 4, subpar.core.get_closing_delimiter_index.call(null, " ([a] )", 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " ([a] )", 3), cljs.core.hash_map("\ufdd0'line", 51))), cljs.core.hash_map("\ufdd0'line", 51))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " ([a] )", 3), cljs.core.hash_map("\ufdd0'line", 49))), cljs.core.hash_map("\ufdd0'line", 49))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 7, subpar.core.get_closing_delimiter_index.call(null, "([a]){b}", 6))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 7, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", "([a]){b}", 6), cljs.core.hash_map("\ufdd0'line", 52))), cljs.core.hash_map("\ufdd0'line", 52))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 7, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", "([a]){b}", 6), cljs.core.hash_map("\ufdd0'line", 50))), cljs.core.hash_map("\ufdd0'line", 50))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 10, subpar.core.get_closing_delimiter_index.call(null, " (;a\nb () )", 5))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 10, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " (;a\nb () )", 5), cljs.core.hash_map("\ufdd0'line", 53))), cljs.core.hash_map("\ufdd0'line", 53))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 10, cljs.core.with_meta(cljs.core.list("\ufdd1'get-closing-delimiter-index", " (;a\nb () )", 5), cljs.core.hash_map("\ufdd0'line", 51))), cljs.core.hash_map("\ufdd0'line", 51))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.in_comment_QMARK_.call(null, subpar.core.parse.call(null, "a;b"), 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'in-comment?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b"), cljs.core.hash_map("\ufdd0'line", 55)), 0), cljs.core.hash_map("\ufdd0'line", 55))), cljs.core.hash_map("\ufdd0'line", 55))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'in-comment?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b"), cljs.core.hash_map("\ufdd0'line", 53)), 0), cljs.core.hash_map("\ufdd0'line", 53))), cljs.core.hash_map("\ufdd0'line", 53))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.in_comment_QMARK_.call(null, subpar.core.parse.call(null, "a;b"), 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'in-comment?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b"), cljs.core.hash_map("\ufdd0'line", 56)), 1), cljs.core.hash_map("\ufdd0'line", 56))), cljs.core.hash_map("\ufdd0'line", 56))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'in-comment?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b"), cljs.core.hash_map("\ufdd0'line", 54)), 1), cljs.core.hash_map("\ufdd0'line", 54))), cljs.core.hash_map("\ufdd0'line", 54))))].join(""));
   }
   if(cljs.core._EQ_.call(null, true, subpar.core.in_comment_QMARK_.call(null, subpar.core.parse.call(null, "a;b"), 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", true, cljs.core.with_meta(cljs.core.list("\ufdd1'in-comment?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b"), cljs.core.hash_map("\ufdd0'line", 57)), 2), cljs.core.hash_map("\ufdd0'line", 57))), cljs.core.hash_map("\ufdd0'line", 57))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", true, cljs.core.with_meta(cljs.core.list("\ufdd1'in-comment?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b"), cljs.core.hash_map("\ufdd0'line", 55)), 2), cljs.core.hash_map("\ufdd0'line", 55))), cljs.core.hash_map("\ufdd0'line", 55))))].join(""));
   }
   if(cljs.core._EQ_.call(null, true, subpar.core.in_comment_QMARK_.call(null, subpar.core.parse.call(null, "a;b\nc"), 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", true, cljs.core.with_meta(cljs.core.list("\ufdd1'in-comment?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b\nc"), cljs.core.hash_map("\ufdd0'line", 58)), 3), cljs.core.hash_map("\ufdd0'line", 58))), cljs.core.hash_map("\ufdd0'line", 58))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", true, cljs.core.with_meta(cljs.core.list("\ufdd1'in-comment?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b\nc"), cljs.core.hash_map("\ufdd0'line", 56)), 3), cljs.core.hash_map("\ufdd0'line", 56))), cljs.core.hash_map("\ufdd0'line", 56))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.in_comment_QMARK_.call(null, subpar.core.parse.call(null, "a;b\nc"), 4))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'in-comment?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b\nc"), cljs.core.hash_map("\ufdd0'line", 59)), 4), cljs.core.hash_map("\ufdd0'line", 59))), cljs.core.hash_map("\ufdd0'line", 59))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'in-comment?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b\nc"), cljs.core.hash_map("\ufdd0'line", 57)), 4), cljs.core.hash_map("\ufdd0'line", 57))), cljs.core.hash_map("\ufdd0'line", 57))))].join(""));
   }
   if(cljs.core._EQ_.call(null, true, subpar.core.in_comment_QMARK_.call(null, subpar.core.parse.call(null, 'a;"b"'), 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", true, cljs.core.with_meta(cljs.core.list("\ufdd1'in-comment?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", 'a;"b"'), cljs.core.hash_map("\ufdd0'line", 60)), 3), cljs.core.hash_map("\ufdd0'line", 60))), cljs.core.hash_map("\ufdd0'line", 60))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", true, cljs.core.with_meta(cljs.core.list("\ufdd1'in-comment?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", 'a;"b"'), cljs.core.hash_map("\ufdd0'line", 58)), 3), cljs.core.hash_map("\ufdd0'line", 58))), cljs.core.hash_map("\ufdd0'line", 58))))].join(""));
   }
   if(cljs.core._EQ_.call(null, true, subpar.core.in_code_QMARK_.call(null, subpar.core.parse.call(null, "a;b"), 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", true, cljs.core.with_meta(cljs.core.list("\ufdd1'in-code?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b"), cljs.core.hash_map("\ufdd0'line", 62)), 0), cljs.core.hash_map("\ufdd0'line", 62))), cljs.core.hash_map("\ufdd0'line", 62))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", true, cljs.core.with_meta(cljs.core.list("\ufdd1'in-code?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b"), cljs.core.hash_map("\ufdd0'line", 60)), 0), cljs.core.hash_map("\ufdd0'line", 60))), cljs.core.hash_map("\ufdd0'line", 60))))].join(""));
   }
   if(cljs.core._EQ_.call(null, true, subpar.core.in_code_QMARK_.call(null, subpar.core.parse.call(null, "a;b"), 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", true, cljs.core.with_meta(cljs.core.list("\ufdd1'in-code?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b"), cljs.core.hash_map("\ufdd0'line", 63)), 1), cljs.core.hash_map("\ufdd0'line", 63))), cljs.core.hash_map("\ufdd0'line", 63))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", true, cljs.core.with_meta(cljs.core.list("\ufdd1'in-code?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b"), cljs.core.hash_map("\ufdd0'line", 61)), 1), cljs.core.hash_map("\ufdd0'line", 61))), cljs.core.hash_map("\ufdd0'line", 61))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.in_code_QMARK_.call(null, subpar.core.parse.call(null, "a;b"), 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'in-code?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b"), cljs.core.hash_map("\ufdd0'line", 64)), 2), cljs.core.hash_map("\ufdd0'line", 64))), cljs.core.hash_map("\ufdd0'line", 64))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'in-code?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b"), cljs.core.hash_map("\ufdd0'line", 62)), 2), cljs.core.hash_map("\ufdd0'line", 62))), cljs.core.hash_map("\ufdd0'line", 62))))].join(""));
   }
   if(cljs.core._EQ_.call(null, true, subpar.core.in_code_QMARK_.call(null, subpar.core.parse.call(null, "a;b\nc"), 4))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", true, cljs.core.with_meta(cljs.core.list("\ufdd1'in-code?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b\nc"), cljs.core.hash_map("\ufdd0'line", 65)), 4), cljs.core.hash_map("\ufdd0'line", 65))), cljs.core.hash_map("\ufdd0'line", 65))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", true, cljs.core.with_meta(cljs.core.list("\ufdd1'in-code?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "a;b\nc"), cljs.core.hash_map("\ufdd0'line", 63)), 4), cljs.core.hash_map("\ufdd0'line", 63))), cljs.core.hash_map("\ufdd0'line", 63))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.in_code_QMARK_.call(null, subpar.core.parse.call(null, 'a;"b"'), 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'in-code?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", 'a;"b"'), cljs.core.hash_map("\ufdd0'line", 66)), 3), cljs.core.hash_map("\ufdd0'line", 66))), cljs.core.hash_map("\ufdd0'line", 66))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'in-code?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", 'a;"b"'), cljs.core.hash_map("\ufdd0'line", 64)), 3), cljs.core.hash_map("\ufdd0'line", 64))), cljs.core.hash_map("\ufdd0'line", 64))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.in_string_QMARK_.call(null, subpar.core.parse.call(null, 'a;"b"'), 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'in-string?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", 'a;"b"'), cljs.core.hash_map("\ufdd0'line", 68)), 0), cljs.core.hash_map("\ufdd0'line", 68))), cljs.core.hash_map("\ufdd0'line", 68))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'in-string?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", 'a;"b"'), cljs.core.hash_map("\ufdd0'line", 66)), 0), cljs.core.hash_map("\ufdd0'line", 66))), cljs.core.hash_map("\ufdd0'line", 66))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.in_string_QMARK_.call(null, subpar.core.parse.call(null, 'a;"b"'), 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'in-string?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", 'a;"b"'), cljs.core.hash_map("\ufdd0'line", 69)), 3), cljs.core.hash_map("\ufdd0'line", 69))), cljs.core.hash_map("\ufdd0'line", 69))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'in-string?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", 'a;"b"'), cljs.core.hash_map("\ufdd0'line", 67)), 3), cljs.core.hash_map("\ufdd0'line", 67))), cljs.core.hash_map("\ufdd0'line", 67))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.in_string_QMARK_.call(null, subpar.core.parse.call(null, 'a "b"'), 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'in-string?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", 'a "b"'), cljs.core.hash_map("\ufdd0'line", 70)), 2), cljs.core.hash_map("\ufdd0'line", 70))), cljs.core.hash_map("\ufdd0'line", 70))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'in-string?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", 'a "b"'), cljs.core.hash_map("\ufdd0'line", 68)), 2), cljs.core.hash_map("\ufdd0'line", 68))), cljs.core.hash_map("\ufdd0'line", 68))))].join(""));
   }
   if(cljs.core._EQ_.call(null, true, subpar.core.in_string_QMARK_.call(null, subpar.core.parse.call(null, 'a "b"'), 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", true, cljs.core.with_meta(cljs.core.list("\ufdd1'in-string?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", 'a "b"'), cljs.core.hash_map("\ufdd0'line", 71)), 3), cljs.core.hash_map("\ufdd0'line", 71))), cljs.core.hash_map("\ufdd0'line", 71))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", true, cljs.core.with_meta(cljs.core.list("\ufdd1'in-string?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", 'a "b"'), cljs.core.hash_map("\ufdd0'line", 69)), 3), cljs.core.hash_map("\ufdd0'line", 69))), cljs.core.hash_map("\ufdd0'line", 69))))].join(""));
   }
   if(cljs.core._EQ_.call(null, true, subpar.core.in_string_QMARK_.call(null, subpar.core.parse.call(null, 'a "b"'), 4))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", true, cljs.core.with_meta(cljs.core.list("\ufdd1'in-string?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", 'a "b"'), cljs.core.hash_map("\ufdd0'line", 72)), 4), cljs.core.hash_map("\ufdd0'line", 72))), cljs.core.hash_map("\ufdd0'line", 72))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", true, cljs.core.with_meta(cljs.core.list("\ufdd1'in-string?", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", 'a "b"'), cljs.core.hash_map("\ufdd0'line", 70)), 4), cljs.core.hash_map("\ufdd0'line", 70))), cljs.core.hash_map("\ufdd0'line", 70))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 0, subpar.core.doublequote.call(null, "", 0))) {
+  if(cljs.core._EQ_.call(null, 0, subpar.core.double_quote_action.call(null, "", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'doublequote", "", 0), cljs.core.hash_map("\ufdd0'line", 74))), cljs.core.hash_map("\ufdd0'line", 74))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'double-quote-action", "", 0), cljs.core.hash_map("\ufdd0'line", 72))), cljs.core.hash_map("\ufdd0'line", 72))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 0, subpar.core.doublequote.call(null, "  ", 1))) {
+  if(cljs.core._EQ_.call(null, 0, subpar.core.double_quote_action.call(null, "  ", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'doublequote", "  ", 1), cljs.core.hash_map("\ufdd0'line", 75))), cljs.core.hash_map("\ufdd0'line", 75))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'double-quote-action", "  ", 1), cljs.core.hash_map("\ufdd0'line", 73))), cljs.core.hash_map("\ufdd0'line", 73))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 0, subpar.core.doublequote.call(null, '""', 0))) {
+  if(cljs.core._EQ_.call(null, 0, subpar.core.double_quote_action.call(null, '""', 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'doublequote", '""', 0), cljs.core.hash_map("\ufdd0'line", 76))), cljs.core.hash_map("\ufdd0'line", 76))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'double-quote-action", '""', 0), cljs.core.hash_map("\ufdd0'line", 74))), cljs.core.hash_map("\ufdd0'line", 74))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 2, subpar.core.doublequote.call(null, '""', 1))) {
+  if(cljs.core._EQ_.call(null, 2, subpar.core.double_quote_action.call(null, '""', 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'doublequote", '""', 1), cljs.core.hash_map("\ufdd0'line", 77))), cljs.core.hash_map("\ufdd0'line", 77))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'double-quote-action", '""', 1), cljs.core.hash_map("\ufdd0'line", 75))), cljs.core.hash_map("\ufdd0'line", 75))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 1, subpar.core.doublequote.call(null, '" "', 1))) {
+  if(cljs.core._EQ_.call(null, 1, subpar.core.double_quote_action.call(null, '" "', 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'doublequote", '" "', 1), cljs.core.hash_map("\ufdd0'line", 78))), cljs.core.hash_map("\ufdd0'line", 78))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'double-quote-action", '" "', 1), cljs.core.hash_map("\ufdd0'line", 76))), cljs.core.hash_map("\ufdd0'line", 76))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 1, subpar.core.doublequote.call(null, '" \\" "', 2))) {
+  if(cljs.core._EQ_.call(null, 1, subpar.core.double_quote_action.call(null, '" \\" "', 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'doublequote", '" \\" "', 2), cljs.core.hash_map("\ufdd0'line", 79))), cljs.core.hash_map("\ufdd0'line", 79))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'double-quote-action", '" \\" "', 2), cljs.core.hash_map("\ufdd0'line", 77))), cljs.core.hash_map("\ufdd0'line", 77))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 2, subpar.core.doublequote.call(null, '" \\" "', 3))) {
+  if(cljs.core._EQ_.call(null, 2, subpar.core.double_quote_action.call(null, '" \\" "', 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'doublequote", '" \\" "', 3), cljs.core.hash_map("\ufdd0'line", 80))), cljs.core.hash_map("\ufdd0'line", 80))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'double-quote-action", '" \\" "', 3), cljs.core.hash_map("\ufdd0'line", 78))), cljs.core.hash_map("\ufdd0'line", 78))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 0, subpar.core.doublequote.call(null, '; " "', 0))) {
+  if(cljs.core._EQ_.call(null, 0, subpar.core.double_quote_action.call(null, '; " "', 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'doublequote", '; " "', 0), cljs.core.hash_map("\ufdd0'line", 81))), cljs.core.hash_map("\ufdd0'line", 81))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'double-quote-action", '; " "', 0), cljs.core.hash_map("\ufdd0'line", 79))), cljs.core.hash_map("\ufdd0'line", 79))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.doublequote.call(null, '; " "', 1))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.double_quote_action.call(null, '; " "', 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'doublequote", '; " "', 1), cljs.core.hash_map("\ufdd0'line", 82))), cljs.core.hash_map("\ufdd0'line", 82))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'double-quote-action", '; " "', 1), cljs.core.hash_map("\ufdd0'line", 80))), cljs.core.hash_map("\ufdd0'line", 80))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.doublequote.call(null, '; " "', 2))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.double_quote_action.call(null, '; " "', 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'doublequote", '; " "', 2), cljs.core.hash_map("\ufdd0'line", 83))), cljs.core.hash_map("\ufdd0'line", 83))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'double-quote-action", '; " "', 2), cljs.core.hash_map("\ufdd0'line", 81))), cljs.core.hash_map("\ufdd0'line", 81))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.doublequote.call(null, '; " "', 3))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.double_quote_action.call(null, '; " "', 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'doublequote", '; " "', 3), cljs.core.hash_map("\ufdd0'line", 84))), cljs.core.hash_map("\ufdd0'line", 84))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'double-quote-action", '; " "', 3), cljs.core.hash_map("\ufdd0'line", 82))), cljs.core.hash_map("\ufdd0'line", 82))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.doublequote.call(null, '; " "', 4))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.double_quote_action.call(null, '; " "', 4))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'doublequote", '; " "', 4), cljs.core.hash_map("\ufdd0'line", 85))), cljs.core.hash_map("\ufdd0'line", 85))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'double-quote-action", '; " "', 4), cljs.core.hash_map("\ufdd0'line", 83))), cljs.core.hash_map("\ufdd0'line", 83))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.get_start_of_next_list.call(null, "", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", "", 0), cljs.core.hash_map("\ufdd0'line", 87))), cljs.core.hash_map("\ufdd0'line", 87))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", "", 0), cljs.core.hash_map("\ufdd0'line", 85))), cljs.core.hash_map("\ufdd0'line", 85))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.get_start_of_next_list.call(null, " ", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", " ", 0), cljs.core.hash_map("\ufdd0'line", 88))), cljs.core.hash_map("\ufdd0'line", 88))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", " ", 0), cljs.core.hash_map("\ufdd0'line", 86))), cljs.core.hash_map("\ufdd0'line", 86))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.get_start_of_next_list.call(null, "()  ", 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", "()  ", 2), cljs.core.hash_map("\ufdd0'line", 89))), cljs.core.hash_map("\ufdd0'line", 89))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", "()  ", 2), cljs.core.hash_map("\ufdd0'line", 87))), cljs.core.hash_map("\ufdd0'line", 87))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.get_start_of_next_list.call(null, "()", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", "()", 1), cljs.core.hash_map("\ufdd0'line", 90))), cljs.core.hash_map("\ufdd0'line", 90))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", "()", 1), cljs.core.hash_map("\ufdd0'line", 88))), cljs.core.hash_map("\ufdd0'line", 88))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 0, subpar.core.get_start_of_next_list.call(null, "() ", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", "() ", 0), cljs.core.hash_map("\ufdd0'line", 91))), cljs.core.hash_map("\ufdd0'line", 91))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", "() ", 0), cljs.core.hash_map("\ufdd0'line", 89))), cljs.core.hash_map("\ufdd0'line", 89))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.get_start_of_next_list.call(null, ";()", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", ";()", 0), cljs.core.hash_map("\ufdd0'line", 92))), cljs.core.hash_map("\ufdd0'line", 92))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", ";()", 0), cljs.core.hash_map("\ufdd0'line", 90))), cljs.core.hash_map("\ufdd0'line", 90))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.get_start_of_next_list.call(null, ";[]", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", ";[]", 0), cljs.core.hash_map("\ufdd0'line", 93))), cljs.core.hash_map("\ufdd0'line", 93))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", ";[]", 0), cljs.core.hash_map("\ufdd0'line", 91))), cljs.core.hash_map("\ufdd0'line", 91))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.get_start_of_next_list.call(null, ";{}", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", ";{}", 0), cljs.core.hash_map("\ufdd0'line", 94))), cljs.core.hash_map("\ufdd0'line", 94))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", ";{}", 0), cljs.core.hash_map("\ufdd0'line", 92))), cljs.core.hash_map("\ufdd0'line", 92))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.get_start_of_next_list.call(null, ';""', 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", ';""', 0), cljs.core.hash_map("\ufdd0'line", 95))), cljs.core.hash_map("\ufdd0'line", 95))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", ';""', 0), cljs.core.hash_map("\ufdd0'line", 93))), cljs.core.hash_map("\ufdd0'line", 93))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 1, subpar.core.get_start_of_next_list.call(null, " () ", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", " () ", 0), cljs.core.hash_map("\ufdd0'line", 96))), cljs.core.hash_map("\ufdd0'line", 96))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", " () ", 0), cljs.core.hash_map("\ufdd0'line", 94))), cljs.core.hash_map("\ufdd0'line", 94))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 1, subpar.core.get_start_of_next_list.call(null, " [] ", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", " [] ", 0), cljs.core.hash_map("\ufdd0'line", 97))), cljs.core.hash_map("\ufdd0'line", 97))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", " [] ", 0), cljs.core.hash_map("\ufdd0'line", 95))), cljs.core.hash_map("\ufdd0'line", 95))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 1, subpar.core.get_start_of_next_list.call(null, " {} ", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", " {} ", 0), cljs.core.hash_map("\ufdd0'line", 98))), cljs.core.hash_map("\ufdd0'line", 98))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", " {} ", 0), cljs.core.hash_map("\ufdd0'line", 96))), cljs.core.hash_map("\ufdd0'line", 96))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 1, subpar.core.get_start_of_next_list.call(null, ' "" ', 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", ' "" ', 0), cljs.core.hash_map("\ufdd0'line", 99))), cljs.core.hash_map("\ufdd0'line", 99))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", ' "" ', 0), cljs.core.hash_map("\ufdd0'line", 97))), cljs.core.hash_map("\ufdd0'line", 97))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.get_start_of_next_list.call(null, ';""', 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", ';""', 0), cljs.core.hash_map("\ufdd0'line", 100))), cljs.core.hash_map("\ufdd0'line", 100))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", ';""', 0), cljs.core.hash_map("\ufdd0'line", 98))), cljs.core.hash_map("\ufdd0'line", 98))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.get_start_of_next_list.call(null, ';""', 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", ';""', 0), cljs.core.hash_map("\ufdd0'line", 101))), cljs.core.hash_map("\ufdd0'line", 101))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", ';""', 0), cljs.core.hash_map("\ufdd0'line", 99))), cljs.core.hash_map("\ufdd0'line", 99))))].join(""));
   }
   if(cljs.core._EQ_.call(null, false, subpar.core.get_start_of_next_list.call(null, "();a\n()", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", "();a\n()", 1), cljs.core.hash_map("\ufdd0'line", 102))), cljs.core.hash_map("\ufdd0'line", 102))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", false, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", "();a\n()", 1), cljs.core.hash_map("\ufdd0'line", 100))), cljs.core.hash_map("\ufdd0'line", 100))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 5, subpar.core.get_start_of_next_list.call(null, "();a\n()", 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 5, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", "();a\n()", 2), cljs.core.hash_map("\ufdd0'line", 103))), cljs.core.hash_map("\ufdd0'line", 103))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 5, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", "();a\n()", 2), cljs.core.hash_map("\ufdd0'line", 101))), cljs.core.hash_map("\ufdd0'line", 101))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 2, subpar.core.get_start_of_next_list.call(null, "( [] [])", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", "( [] [])", 1), cljs.core.hash_map("\ufdd0'line", 104))), cljs.core.hash_map("\ufdd0'line", 104))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", "( [] [])", 1), cljs.core.hash_map("\ufdd0'line", 102))), cljs.core.hash_map("\ufdd0'line", 102))))].join(""));
   }
   if(cljs.core._EQ_.call(null, 5, subpar.core.get_start_of_next_list.call(null, "(aaa []())", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 5, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", "(aaa []())", 1), cljs.core.hash_map("\ufdd0'line", 105))), cljs.core.hash_map("\ufdd0'line", 105))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 5, cljs.core.with_meta(cljs.core.list("\ufdd1'get-start-of-next-list", "(aaa []())", 1), cljs.core.hash_map("\ufdd0'line", 103))), cljs.core.hash_map("\ufdd0'line", 103))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 0, subpar.core.backward_up.call(null, "", 0))) {
+  if(cljs.core._EQ_.call(null, 0, subpar.core.backward_up_fn.call(null, "", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up", "", 0), cljs.core.hash_map("\ufdd0'line", 107))), cljs.core.hash_map("\ufdd0'line", 107))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up-fn", "", 0), cljs.core.hash_map("\ufdd0'line", 105))), cljs.core.hash_map("\ufdd0'line", 105))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 0, subpar.core.backward_up.call(null, " ", 0))) {
+  if(cljs.core._EQ_.call(null, 0, subpar.core.backward_up_fn.call(null, " ", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up", " ", 0), cljs.core.hash_map("\ufdd0'line", 108))), cljs.core.hash_map("\ufdd0'line", 108))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up-fn", " ", 0), cljs.core.hash_map("\ufdd0'line", 106))), cljs.core.hash_map("\ufdd0'line", 106))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 1, subpar.core.backward_up.call(null, " ", 1))) {
+  if(cljs.core._EQ_.call(null, 1, subpar.core.backward_up_fn.call(null, " ", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up", " ", 1), cljs.core.hash_map("\ufdd0'line", 109))), cljs.core.hash_map("\ufdd0'line", 109))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up-fn", " ", 1), cljs.core.hash_map("\ufdd0'line", 107))), cljs.core.hash_map("\ufdd0'line", 107))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 1, subpar.core.backward_up.call(null, " ( )", 2))) {
+  if(cljs.core._EQ_.call(null, 1, subpar.core.backward_up_fn.call(null, " ( )", 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up", " ( )", 2), cljs.core.hash_map("\ufdd0'line", 110))), cljs.core.hash_map("\ufdd0'line", 110))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up-fn", " ( )", 2), cljs.core.hash_map("\ufdd0'line", 108))), cljs.core.hash_map("\ufdd0'line", 108))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.backward_up.call(null, " ()", 3))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.backward_up_fn.call(null, " ()", 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up", " ()", 3), cljs.core.hash_map("\ufdd0'line", 111))), cljs.core.hash_map("\ufdd0'line", 111))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up-fn", " ()", 3), cljs.core.hash_map("\ufdd0'line", 109))), cljs.core.hash_map("\ufdd0'line", 109))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 5, subpar.core.backward_up.call(null, " ()\n;\n", 5))) {
+  if(cljs.core._EQ_.call(null, 5, subpar.core.backward_up_fn.call(null, " ()\n;\n", 5))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 5, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up", " ()\n;\n", 5), cljs.core.hash_map("\ufdd0'line", 112))), cljs.core.hash_map("\ufdd0'line", 112))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 5, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up-fn", " ()\n;\n", 5), cljs.core.hash_map("\ufdd0'line", 110))), cljs.core.hash_map("\ufdd0'line", 110))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.backward_up.call(null, " ( [ ])", 4))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.backward_up_fn.call(null, " ( [ ])", 4))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up", " ( [ ])", 4), cljs.core.hash_map("\ufdd0'line", 113))), cljs.core.hash_map("\ufdd0'line", 113))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up-fn", " ( [ ])", 4), cljs.core.hash_map("\ufdd0'line", 111))), cljs.core.hash_map("\ufdd0'line", 111))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.backward_up.call(null, " ( [ asdf])", 7))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.backward_up_fn.call(null, " ( [ asdf])", 7))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up", " ( [ asdf])", 7), cljs.core.hash_map("\ufdd0'line", 114))), cljs.core.hash_map("\ufdd0'line", 114))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up-fn", " ( [ asdf])", 7), cljs.core.hash_map("\ufdd0'line", 112))), cljs.core.hash_map("\ufdd0'line", 112))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.backward_up.call(null, " ( [ asdf])", 9))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.backward_up_fn.call(null, " ( [ asdf])", 9))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up", " ( [ asdf])", 9), cljs.core.hash_map("\ufdd0'line", 115))), cljs.core.hash_map("\ufdd0'line", 115))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up-fn", " ( [ asdf])", 9), cljs.core.hash_map("\ufdd0'line", 113))), cljs.core.hash_map("\ufdd0'line", 113))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 1, subpar.core.backward_up.call(null, " ( [ asdf])", 10))) {
+  if(cljs.core._EQ_.call(null, 1, subpar.core.backward_up_fn.call(null, " ( [ asdf])", 10))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up", " ( [ asdf])", 10), cljs.core.hash_map("\ufdd0'line", 116))), cljs.core.hash_map("\ufdd0'line", 116))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up-fn", " ( [ asdf])", 10), cljs.core.hash_map("\ufdd0'line", 114))), cljs.core.hash_map("\ufdd0'line", 114))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 11, subpar.core.backward_up.call(null, " ( [ asdf])", 11))) {
+  if(cljs.core._EQ_.call(null, 11, subpar.core.backward_up_fn.call(null, " ( [ asdf])", 11))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 11, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up", " ( [ asdf])", 11), cljs.core.hash_map("\ufdd0'line", 117))), cljs.core.hash_map("\ufdd0'line", 117))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 11, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up-fn", " ( [ asdf])", 11), cljs.core.hash_map("\ufdd0'line", 115))), cljs.core.hash_map("\ufdd0'line", 115))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 13, subpar.core.backward_up.call(null, " ( [ asdf])  ", 13))) {
+  if(cljs.core._EQ_.call(null, 13, subpar.core.backward_up_fn.call(null, " ( [ asdf])  ", 13))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 13, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up", " ( [ asdf])  ", 13), cljs.core.hash_map("\ufdd0'line", 118))), cljs.core.hash_map("\ufdd0'line", 118))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 13, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-up-fn", " ( [ asdf])  ", 13), cljs.core.hash_map("\ufdd0'line", 116))), cljs.core.hash_map("\ufdd0'line", 116))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 0, subpar.core.forward.call(null, "", 0))) {
+  if(cljs.core._EQ_.call(null, 0, subpar.core.forward_fn.call(null, "", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'forward", "", 0), cljs.core.hash_map("\ufdd0'line", 120))), cljs.core.hash_map("\ufdd0'line", 120))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-fn", "", 0), cljs.core.hash_map("\ufdd0'line", 118))), cljs.core.hash_map("\ufdd0'line", 118))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 1, subpar.core.forward.call(null, " ", 0))) {
+  if(cljs.core._EQ_.call(null, 1, subpar.core.forward_fn.call(null, " ", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'forward", " ", 0), cljs.core.hash_map("\ufdd0'line", 121))), cljs.core.hash_map("\ufdd0'line", 121))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-fn", " ", 0), cljs.core.hash_map("\ufdd0'line", 119))), cljs.core.hash_map("\ufdd0'line", 119))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.forward.call(null, " ()", 0))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.forward_fn.call(null, " ()", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'forward", " ()", 0), cljs.core.hash_map("\ufdd0'line", 122))), cljs.core.hash_map("\ufdd0'line", 122))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-fn", " ()", 0), cljs.core.hash_map("\ufdd0'line", 120))), cljs.core.hash_map("\ufdd0'line", 120))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.forward.call(null, "\n()", 0))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.forward_fn.call(null, "\n()", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'forward", "\n()", 0), cljs.core.hash_map("\ufdd0'line", 123))), cljs.core.hash_map("\ufdd0'line", 123))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-fn", "\n()", 0), cljs.core.hash_map("\ufdd0'line", 121))), cljs.core.hash_map("\ufdd0'line", 121))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 11, subpar.core.forward.call(null, " (asdf (a))", 0))) {
+  if(cljs.core._EQ_.call(null, 11, subpar.core.forward_fn.call(null, " (asdf (a))", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 11, cljs.core.with_meta(cljs.core.list("\ufdd1'forward", " (asdf (a))", 0), cljs.core.hash_map("\ufdd0'line", 124))), cljs.core.hash_map("\ufdd0'line", 124))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 11, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-fn", " (asdf (a))", 0), cljs.core.hash_map("\ufdd0'line", 122))), cljs.core.hash_map("\ufdd0'line", 122))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 11, subpar.core.forward.call(null, " (asdf (a))", 1))) {
+  if(cljs.core._EQ_.call(null, 11, subpar.core.forward_fn.call(null, " (asdf (a))", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 11, cljs.core.with_meta(cljs.core.list("\ufdd1'forward", " (asdf (a))", 1), cljs.core.hash_map("\ufdd0'line", 125))), cljs.core.hash_map("\ufdd0'line", 125))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 11, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-fn", " (asdf (a))", 1), cljs.core.hash_map("\ufdd0'line", 123))), cljs.core.hash_map("\ufdd0'line", 123))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 6, subpar.core.forward.call(null, " (asdf (a))", 2))) {
+  if(cljs.core._EQ_.call(null, 6, subpar.core.forward_fn.call(null, " (asdf (a))", 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 6, cljs.core.with_meta(cljs.core.list("\ufdd1'forward", " (asdf (a))", 2), cljs.core.hash_map("\ufdd0'line", 126))), cljs.core.hash_map("\ufdd0'line", 126))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 6, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-fn", " (asdf (a))", 2), cljs.core.hash_map("\ufdd0'line", 124))), cljs.core.hash_map("\ufdd0'line", 124))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 6, subpar.core.forward.call(null, " (asdf (a))", 3))) {
+  if(cljs.core._EQ_.call(null, 6, subpar.core.forward_fn.call(null, " (asdf (a))", 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 6, cljs.core.with_meta(cljs.core.list("\ufdd1'forward", " (asdf (a))", 3), cljs.core.hash_map("\ufdd0'line", 127))), cljs.core.hash_map("\ufdd0'line", 127))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 6, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-fn", " (asdf (a))", 3), cljs.core.hash_map("\ufdd0'line", 125))), cljs.core.hash_map("\ufdd0'line", 125))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 10, subpar.core.forward.call(null, " (asdf (a))", 6))) {
+  if(cljs.core._EQ_.call(null, 10, subpar.core.forward_fn.call(null, " (asdf (a))", 6))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 10, cljs.core.with_meta(cljs.core.list("\ufdd1'forward", " (asdf (a))", 6), cljs.core.hash_map("\ufdd0'line", 128))), cljs.core.hash_map("\ufdd0'line", 128))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 10, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-fn", " (asdf (a))", 6), cljs.core.hash_map("\ufdd0'line", 126))), cljs.core.hash_map("\ufdd0'line", 126))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 6, subpar.core.forward.call(null, "((ab ) )", 1))) {
+  if(cljs.core._EQ_.call(null, 6, subpar.core.forward_fn.call(null, "((ab ) )", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 6, cljs.core.with_meta(cljs.core.list("\ufdd1'forward", "((ab ) )", 1), cljs.core.hash_map("\ufdd0'line", 129))), cljs.core.hash_map("\ufdd0'line", 129))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 6, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-fn", "((ab ) )", 1), cljs.core.hash_map("\ufdd0'line", 127))), cljs.core.hash_map("\ufdd0'line", 127))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 4, subpar.core.forward.call(null, "((ab ) )", 2))) {
+  if(cljs.core._EQ_.call(null, 4, subpar.core.forward_fn.call(null, "((ab ) )", 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'forward", "((ab ) )", 2), cljs.core.hash_map("\ufdd0'line", 130))), cljs.core.hash_map("\ufdd0'line", 130))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-fn", "((ab ) )", 2), cljs.core.hash_map("\ufdd0'line", 128))), cljs.core.hash_map("\ufdd0'line", 128))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 6, subpar.core.forward.call(null, "((ab ) )", 4))) {
+  if(cljs.core._EQ_.call(null, 6, subpar.core.forward_fn.call(null, "((ab ) )", 4))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 6, cljs.core.with_meta(cljs.core.list("\ufdd1'forward", "((ab ) )", 4), cljs.core.hash_map("\ufdd0'line", 131))), cljs.core.hash_map("\ufdd0'line", 131))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 6, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-fn", "((ab ) )", 4), cljs.core.hash_map("\ufdd0'line", 129))), cljs.core.hash_map("\ufdd0'line", 129))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 13, subpar.core.forward.call(null, ";a\n[asdf {a}]", 0))) {
+  if(cljs.core._EQ_.call(null, 13, subpar.core.forward_fn.call(null, ";a\n[asdf {a}]", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 13, cljs.core.with_meta(cljs.core.list("\ufdd1'forward", ";a\n[asdf {a}]", 0), cljs.core.hash_map("\ufdd0'line", 132))), cljs.core.hash_map("\ufdd0'line", 132))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 13, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-fn", ";a\n[asdf {a}]", 0), cljs.core.hash_map("\ufdd0'line", 130))), cljs.core.hash_map("\ufdd0'line", 130))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 5, subpar.core.forward.call(null, " asdf ", 0))) {
+  if(cljs.core._EQ_.call(null, 5, subpar.core.forward_fn.call(null, " asdf ", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 5, cljs.core.with_meta(cljs.core.list("\ufdd1'forward", " asdf ", 0), cljs.core.hash_map("\ufdd0'line", 133))), cljs.core.hash_map("\ufdd0'line", 133))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 5, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-fn", " asdf ", 0), cljs.core.hash_map("\ufdd0'line", 131))), cljs.core.hash_map("\ufdd0'line", 131))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 5, subpar.core.forward.call(null, " asdf ", 2))) {
+  if(cljs.core._EQ_.call(null, 5, subpar.core.forward_fn.call(null, " asdf ", 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 5, cljs.core.with_meta(cljs.core.list("\ufdd1'forward", " asdf ", 2), cljs.core.hash_map("\ufdd0'line", 134))), cljs.core.hash_map("\ufdd0'line", 134))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 5, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-fn", " asdf ", 2), cljs.core.hash_map("\ufdd0'line", 132))), cljs.core.hash_map("\ufdd0'line", 132))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 9, subpar.core.forward.call(null, "( a ;b\n c)", 3))) {
+  if(cljs.core._EQ_.call(null, 9, subpar.core.forward_fn.call(null, "( a ;b\n c)", 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 9, cljs.core.with_meta(cljs.core.list("\ufdd1'forward", "( a ;b\n c)", 3), cljs.core.hash_map("\ufdd0'line", 135))), cljs.core.hash_map("\ufdd0'line", 135))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 9, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-fn", "( a ;b\n c)", 3), cljs.core.hash_map("\ufdd0'line", 133))), cljs.core.hash_map("\ufdd0'line", 133))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 4, subpar.core.forward.call(null, '"\\n"', 0))) {
+  if(cljs.core._EQ_.call(null, 4, subpar.core.forward_fn.call(null, '"\\n"', 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'forward", '"\\n"', 0), cljs.core.hash_map("\ufdd0'line", 136))), cljs.core.hash_map("\ufdd0'line", 136))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-fn", '"\\n"', 0), cljs.core.hash_map("\ufdd0'line", 134))), cljs.core.hash_map("\ufdd0'line", 134))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [")", 1, 4, 1], subpar.core.forward_slurp.call(null, "() a", 1)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([")", 1, 4, 1], true), subpar.core.forward_slurp_vals.call(null, "() a", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", ")", 1, 4, 1), cljs.core.hash_map("\ufdd0'line", 138)), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp", "() a", 1), cljs.core.hash_map("\ufdd0'line", 138))), cljs.core.hash_map("\ufdd0'line", 138))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([")", 1, 4, 1]), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp-vals", "() a", 1), cljs.core.hash_map("\ufdd0'line", 136))), cljs.core.hash_map("\ufdd0'line", 136))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [")", 1, 6, 1], subpar.core.forward_slurp.call(null, "() (a)", 1)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([")", 1, 6, 1], true), subpar.core.forward_slurp_vals.call(null, "() (a)", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", ")", 1, 6, 1), cljs.core.hash_map("\ufdd0'line", 139)), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp", "() (a)", 1), cljs.core.hash_map("\ufdd0'line", 139))), cljs.core.hash_map("\ufdd0'line", 139))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([")", 1, 6, 1]), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp-vals", "() (a)", 1), cljs.core.hash_map("\ufdd0'line", 137))), cljs.core.hash_map("\ufdd0'line", 137))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [")", 1, 8, 1], subpar.core.forward_slurp.call(null, "() (a b)", 1)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([")", 1, 8, 1], true), subpar.core.forward_slurp_vals.call(null, "() (a b)", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", ")", 1, 8, 1), cljs.core.hash_map("\ufdd0'line", 140)), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp", "() (a b)", 1), cljs.core.hash_map("\ufdd0'line", 140))), cljs.core.hash_map("\ufdd0'line", 140))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([")", 1, 8, 1]), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp-vals", "() (a b)", 1), cljs.core.hash_map("\ufdd0'line", 138))), cljs.core.hash_map("\ufdd0'line", 138))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [")", 1, 10, 2], subpar.core.forward_slurp.call(null, "();c\n(a b)", 1)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([")", 1, 10, 2], true), subpar.core.forward_slurp_vals.call(null, "();c\n(a b)", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", ")", 1, 10, 2), cljs.core.hash_map("\ufdd0'line", 141)), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp", "();c\n(a b)", 1), cljs.core.hash_map("\ufdd0'line", 141))), cljs.core.hash_map("\ufdd0'line", 141))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([")", 1, 10, 2]), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp-vals", "();c\n(a b)", 1), cljs.core.hash_map("\ufdd0'line", 139))), cljs.core.hash_map("\ufdd0'line", 139))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [], subpar.core.forward_slurp.call(null, "() ", 2)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.EMPTY, subpar.core.forward_slurp_vals.call(null, "() ", 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array"), cljs.core.hash_map("\ufdd0'line", 142)), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp", "() ", 2), cljs.core.hash_map("\ufdd0'line", 142))), cljs.core.hash_map("\ufdd0'line", 142))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([]), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp-vals", "() ", 2), cljs.core.hash_map("\ufdd0'line", 140))), cljs.core.hash_map("\ufdd0'line", 140))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [], subpar.core.forward_slurp.call(null, " () ", 0)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.EMPTY, subpar.core.forward_slurp_vals.call(null, " () ", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array"), cljs.core.hash_map("\ufdd0'line", 143)), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp", " () ", 0), cljs.core.hash_map("\ufdd0'line", 143))), cljs.core.hash_map("\ufdd0'line", 143))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([]), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp-vals", " () ", 0), cljs.core.hash_map("\ufdd0'line", 141))), cljs.core.hash_map("\ufdd0'line", 141))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [")", 1, 8, 1], subpar.core.forward_slurp.call(null, '() "a b"', 1)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([")", 1, 8, 1], true), subpar.core.forward_slurp_vals.call(null, '() "a b"', 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", ")", 1, 8, 1), cljs.core.hash_map("\ufdd0'line", 144)), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp", '() "a b"', 1), cljs.core.hash_map("\ufdd0'line", 144))), cljs.core.hash_map("\ufdd0'line", 144))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([")", 1, 8, 1]), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp-vals", '() "a b"', 1), cljs.core.hash_map("\ufdd0'line", 142))), cljs.core.hash_map("\ufdd0'line", 142))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [], subpar.core.forward_slurp.call(null, '({a "b"} c)', 6)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.EMPTY, subpar.core.forward_slurp_vals.call(null, '({a "b"} c)', 6))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array"), cljs.core.hash_map("\ufdd0'line", 145)), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp", '({a "b"} c)', 6), cljs.core.hash_map("\ufdd0'line", 145))), cljs.core.hash_map("\ufdd0'line", 145))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([]), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp-vals", '({a "b"} c)', 6), cljs.core.hash_map("\ufdd0'line", 143))), cljs.core.hash_map("\ufdd0'line", 143))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [")", 4, 7, 1], subpar.core.forward_slurp.call(null, "(abc) a", 2)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([")", 4, 7, 1], true), subpar.core.forward_slurp_vals.call(null, "(abc) a", 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", ")", 4, 7, 1), cljs.core.hash_map("\ufdd0'line", 146)), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp", "(abc) a", 2), cljs.core.hash_map("\ufdd0'line", 146))), cljs.core.hash_map("\ufdd0'line", 146))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([")", 4, 7, 1]), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-slurp-vals", "(abc) a", 2), cljs.core.hash_map("\ufdd0'line", 144))), cljs.core.hash_map("\ufdd0'line", 144))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, ["(", 3, 1, 1], subpar.core.backward_slurp.call(null, " a () ", 4)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray(["(", 3, 1, 1], true), subpar.core.backward_slurp_vals.call(null, " a () ", 4))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", "(", 3, 1, 1), cljs.core.hash_map("\ufdd0'line", 148)), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-slurp", " a () ", 4), cljs.core.hash_map("\ufdd0'line", 148))), cljs.core.hash_map("\ufdd0'line", 148))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec(["(", 3, 1, 1]), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-slurp-vals", " a () ", 4), cljs.core.hash_map("\ufdd0'line", 146))), cljs.core.hash_map("\ufdd0'line", 146))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, ["(", 2, 0, 1], subpar.core.backward_slurp.call(null, "a () ", 3)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray(["(", 2, 0, 1], true), subpar.core.backward_slurp_vals.call(null, "a () ", 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", "(", 2, 0, 1), cljs.core.hash_map("\ufdd0'line", 149)), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-slurp", "a () ", 3), cljs.core.hash_map("\ufdd0'line", 149))), cljs.core.hash_map("\ufdd0'line", 149))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec(["(", 2, 0, 1]), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-slurp-vals", "a () ", 3), cljs.core.hash_map("\ufdd0'line", 147))), cljs.core.hash_map("\ufdd0'line", 147))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [], subpar.core.backward_slurp.call(null, "a () ", 2)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.EMPTY, subpar.core.backward_slurp_vals.call(null, "a () ", 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array"), cljs.core.hash_map("\ufdd0'line", 150)), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-slurp", "a () ", 2), cljs.core.hash_map("\ufdd0'line", 150))), cljs.core.hash_map("\ufdd0'line", 150))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([]), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-slurp-vals", "a () ", 2), cljs.core.hash_map("\ufdd0'line", 148))), cljs.core.hash_map("\ufdd0'line", 148))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, ["(", 6, 1, 1], subpar.core.backward_slurp.call(null, " [ab] (c d) ", 9)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray(["(", 6, 1, 1], true), subpar.core.backward_slurp_vals.call(null, " [ab] (c d) ", 9))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", "(", 6, 1, 1), cljs.core.hash_map("\ufdd0'line", 151)), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-slurp", " [ab] (c d) ", 9), cljs.core.hash_map("\ufdd0'line", 151))), cljs.core.hash_map("\ufdd0'line", 151))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec(["(", 6, 1, 1]), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-slurp-vals", " [ab] (c d) ", 9), cljs.core.hash_map("\ufdd0'line", 149))), cljs.core.hash_map("\ufdd0'line", 149))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, ["(", 6, 1, 1], subpar.core.backward_slurp.call(null, " {ab} (c d) ", 8)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray(["(", 6, 1, 1], true), subpar.core.backward_slurp_vals.call(null, " {ab} (c d) ", 8))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", "(", 6, 1, 1), cljs.core.hash_map("\ufdd0'line", 152)), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-slurp", " {ab} (c d) ", 8), cljs.core.hash_map("\ufdd0'line", 152))), cljs.core.hash_map("\ufdd0'line", 152))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec(["(", 6, 1, 1]), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-slurp-vals", " {ab} (c d) ", 8), cljs.core.hash_map("\ufdd0'line", 150))), cljs.core.hash_map("\ufdd0'line", 150))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, ["(", 7, 1, 1], subpar.core.backward_slurp.call(null, " (a b) (c d) ", 8)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray(["(", 7, 1, 1], true), subpar.core.backward_slurp_vals.call(null, " (a b) (c d) ", 8))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", "(", 7, 1, 1), cljs.core.hash_map("\ufdd0'line", 153)), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-slurp", " (a b) (c d) ", 8), cljs.core.hash_map("\ufdd0'line", 153))), cljs.core.hash_map("\ufdd0'line", 153))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec(["(", 7, 1, 1]), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-slurp-vals", " (a b) (c d) ", 8), cljs.core.hash_map("\ufdd0'line", 151))), cljs.core.hash_map("\ufdd0'line", 151))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, ["(", 7, 1, 1], subpar.core.backward_slurp.call(null, ' "a b" (c d) ', 8)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray(["(", 7, 1, 1], true), subpar.core.backward_slurp_vals.call(null, ' "a b" (c d) ', 8))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", "(", 7, 1, 1), cljs.core.hash_map("\ufdd0'line", 154)), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-slurp", ' "a b" (c d) ', 8), cljs.core.hash_map("\ufdd0'line", 154))), cljs.core.hash_map("\ufdd0'line", 154))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec(["(", 7, 1, 1]), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-slurp-vals", ' "a b" (c d) ', 8), cljs.core.hash_map("\ufdd0'line", 152))), cljs.core.hash_map("\ufdd0'line", 152))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [], subpar.core.backward_slurp.call(null, "(a [{}])", 5)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.EMPTY, subpar.core.backward_slurp_vals.call(null, "(a [{}])", 5))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array"), cljs.core.hash_map("\ufdd0'line", 155)), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-slurp", "(a [{}])", 5), cljs.core.hash_map("\ufdd0'line", 155))), cljs.core.hash_map("\ufdd0'line", 155))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([]), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-slurp-vals", "(a [{}])", 5), cljs.core.hash_map("\ufdd0'line", 153))), cljs.core.hash_map("\ufdd0'line", 153))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 0, subpar.core.forward_delete.call(null, "", 0))) {
+  if(cljs.core._EQ_.call(null, 0, subpar.core.forward_delete_action.call(null, "", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete", "", 0), cljs.core.hash_map("\ufdd0'line", 157))), cljs.core.hash_map("\ufdd0'line", 157))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete-action", "", 0), cljs.core.hash_map("\ufdd0'line", 155))), cljs.core.hash_map("\ufdd0'line", 155))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 0, subpar.core.forward_delete.call(null, "a", 1))) {
+  if(cljs.core._EQ_.call(null, 0, subpar.core.forward_delete_action.call(null, "a", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete", "a", 1), cljs.core.hash_map("\ufdd0'line", 158))), cljs.core.hash_map("\ufdd0'line", 158))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete-action", "a", 1), cljs.core.hash_map("\ufdd0'line", 156))), cljs.core.hash_map("\ufdd0'line", 156))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 1, subpar.core.forward_delete.call(null, "a", 0))) {
+  if(cljs.core._EQ_.call(null, 1, subpar.core.forward_delete_action.call(null, "a", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete", "a", 0), cljs.core.hash_map("\ufdd0'line", 159))), cljs.core.hash_map("\ufdd0'line", 159))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete-action", "a", 0), cljs.core.hash_map("\ufdd0'line", 157))), cljs.core.hash_map("\ufdd0'line", 157))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.forward_delete.call(null, "[]", 0))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.forward_delete_action.call(null, "[]", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete", "[]", 0), cljs.core.hash_map("\ufdd0'line", 160))), cljs.core.hash_map("\ufdd0'line", 160))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete-action", "[]", 0), cljs.core.hash_map("\ufdd0'line", 158))), cljs.core.hash_map("\ufdd0'line", 158))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 2, subpar.core.forward_delete.call(null, "[]", 1))) {
+  if(cljs.core._EQ_.call(null, 2, subpar.core.forward_delete_action.call(null, "[]", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete", "[]", 1), cljs.core.hash_map("\ufdd0'line", 161))), cljs.core.hash_map("\ufdd0'line", 161))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete-action", "[]", 1), cljs.core.hash_map("\ufdd0'line", 159))), cljs.core.hash_map("\ufdd0'line", 159))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 0, subpar.core.forward_delete.call(null, "[a]", 2))) {
+  if(cljs.core._EQ_.call(null, 0, subpar.core.forward_delete_action.call(null, "[a]", 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete", "[a]", 2), cljs.core.hash_map("\ufdd0'line", 162))), cljs.core.hash_map("\ufdd0'line", 162))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete-action", "[a]", 2), cljs.core.hash_map("\ufdd0'line", 160))), cljs.core.hash_map("\ufdd0'line", 160))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 0, subpar.core.forward_delete.call(null, "[ ]", 2))) {
+  if(cljs.core._EQ_.call(null, 0, subpar.core.forward_delete_action.call(null, "[ ]", 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete", "[ ]", 2), cljs.core.hash_map("\ufdd0'line", 163))), cljs.core.hash_map("\ufdd0'line", 163))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete-action", "[ ]", 2), cljs.core.hash_map("\ufdd0'line", 161))), cljs.core.hash_map("\ufdd0'line", 161))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 4, subpar.core.forward_delete.call(null, "( )", 0))) {
+  if(cljs.core._EQ_.call(null, 4, subpar.core.forward_delete_action.call(null, "( )", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete", "( )", 0), cljs.core.hash_map("\ufdd0'line", 164))), cljs.core.hash_map("\ufdd0'line", 164))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete-action", "( )", 0), cljs.core.hash_map("\ufdd0'line", 162))), cljs.core.hash_map("\ufdd0'line", 162))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 4, subpar.core.forward_delete.call(null, "(a)", 0))) {
+  if(cljs.core._EQ_.call(null, 4, subpar.core.forward_delete_action.call(null, "(a)", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete", "(a)", 0), cljs.core.hash_map("\ufdd0'line", 165))), cljs.core.hash_map("\ufdd0'line", 165))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete-action", "(a)", 0), cljs.core.hash_map("\ufdd0'line", 163))), cljs.core.hash_map("\ufdd0'line", 163))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 4, subpar.core.forward_delete.call(null, '"a"', 0))) {
+  if(cljs.core._EQ_.call(null, 4, subpar.core.forward_delete_action.call(null, '"a"', 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete", '"a"', 0), cljs.core.hash_map("\ufdd0'line", 166))), cljs.core.hash_map("\ufdd0'line", 166))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete-action", '"a"', 0), cljs.core.hash_map("\ufdd0'line", 164))), cljs.core.hash_map("\ufdd0'line", 164))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.forward_delete.call(null, '""', 0))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.forward_delete_action.call(null, '""', 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete", '""', 0), cljs.core.hash_map("\ufdd0'line", 167))), cljs.core.hash_map("\ufdd0'line", 167))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete-action", '""', 0), cljs.core.hash_map("\ufdd0'line", 165))), cljs.core.hash_map("\ufdd0'line", 165))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 0, subpar.core.forward_delete.call(null, '" "', 2))) {
+  if(cljs.core._EQ_.call(null, 0, subpar.core.forward_delete_action.call(null, '" "', 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete", '" "', 2), cljs.core.hash_map("\ufdd0'line", 168))), cljs.core.hash_map("\ufdd0'line", 168))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete-action", '" "', 2), cljs.core.hash_map("\ufdd0'line", 166))), cljs.core.hash_map("\ufdd0'line", 166))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.forward_delete.call(null, "\\a", 0))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.forward_delete_action.call(null, "\\a", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete", "\\a", 0), cljs.core.hash_map("\ufdd0'line", 169))), cljs.core.hash_map("\ufdd0'line", 169))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete-action", "\\a", 0), cljs.core.hash_map("\ufdd0'line", 167))), cljs.core.hash_map("\ufdd0'line", 167))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 2, subpar.core.forward_delete.call(null, "\\a", 1))) {
+  if(cljs.core._EQ_.call(null, 2, subpar.core.forward_delete_action.call(null, "\\a", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete", "\\a", 1), cljs.core.hash_map("\ufdd0'line", 170))), cljs.core.hash_map("\ufdd0'line", 170))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete-action", "\\a", 1), cljs.core.hash_map("\ufdd0'line", 168))), cljs.core.hash_map("\ufdd0'line", 168))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.forward_delete.call(null, '"\\a"', 1))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.forward_delete_action.call(null, '"\\a"', 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete", '"\\a"', 1), cljs.core.hash_map("\ufdd0'line", 171))), cljs.core.hash_map("\ufdd0'line", 171))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete-action", '"\\a"', 1), cljs.core.hash_map("\ufdd0'line", 169))), cljs.core.hash_map("\ufdd0'line", 169))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 2, subpar.core.forward_delete.call(null, '"\\a"', 2))) {
+  if(cljs.core._EQ_.call(null, 2, subpar.core.forward_delete_action.call(null, '"\\a"', 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete", '"\\a"', 2), cljs.core.hash_map("\ufdd0'line", 172))), cljs.core.hash_map("\ufdd0'line", 172))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'forward-delete-action", '"\\a"', 2), cljs.core.hash_map("\ufdd0'line", 170))), cljs.core.hash_map("\ufdd0'line", 170))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 0, subpar.core.backward_delete.call(null, "", 0))) {
+  if(cljs.core._EQ_.call(null, 0, subpar.core.backward_delete_action.call(null, "", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete", "", 0), cljs.core.hash_map("\ufdd0'line", 174))), cljs.core.hash_map("\ufdd0'line", 174))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete-action", "", 0), cljs.core.hash_map("\ufdd0'line", 172))), cljs.core.hash_map("\ufdd0'line", 172))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 0, subpar.core.backward_delete.call(null, " ", 0))) {
+  if(cljs.core._EQ_.call(null, 0, subpar.core.backward_delete_action.call(null, " ", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete", " ", 0), cljs.core.hash_map("\ufdd0'line", 175))), cljs.core.hash_map("\ufdd0'line", 175))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete-action", " ", 0), cljs.core.hash_map("\ufdd0'line", 173))), cljs.core.hash_map("\ufdd0'line", 173))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 1, subpar.core.backward_delete.call(null, " ", 1))) {
+  if(cljs.core._EQ_.call(null, 1, subpar.core.backward_delete_action.call(null, " ", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete", " ", 1), cljs.core.hash_map("\ufdd0'line", 176))), cljs.core.hash_map("\ufdd0'line", 176))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 1, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete-action", " ", 1), cljs.core.hash_map("\ufdd0'line", 174))), cljs.core.hash_map("\ufdd0'line", 174))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 0, subpar.core.backward_delete.call(null, "( )", 1))) {
+  if(cljs.core._EQ_.call(null, 0, subpar.core.backward_delete_action.call(null, "( )", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete", "( )", 1), cljs.core.hash_map("\ufdd0'line", 177))), cljs.core.hash_map("\ufdd0'line", 177))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 0, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete-action", "( )", 1), cljs.core.hash_map("\ufdd0'line", 175))), cljs.core.hash_map("\ufdd0'line", 175))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 4, subpar.core.backward_delete.call(null, "( )", 3))) {
+  if(cljs.core._EQ_.call(null, 4, subpar.core.backward_delete_action.call(null, "( )", 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete", "( )", 3), cljs.core.hash_map("\ufdd0'line", 178))), cljs.core.hash_map("\ufdd0'line", 178))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete-action", "( )", 3), cljs.core.hash_map("\ufdd0'line", 176))), cljs.core.hash_map("\ufdd0'line", 176))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.backward_delete.call(null, "()", 2))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.backward_delete_action.call(null, "()", 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete", "()", 2), cljs.core.hash_map("\ufdd0'line", 179))), cljs.core.hash_map("\ufdd0'line", 179))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete-action", "()", 2), cljs.core.hash_map("\ufdd0'line", 177))), cljs.core.hash_map("\ufdd0'line", 177))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 4, subpar.core.backward_delete.call(null, "(asdf)", 6))) {
+  if(cljs.core._EQ_.call(null, 4, subpar.core.backward_delete_action.call(null, "(asdf)", 6))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete", "(asdf)", 6), cljs.core.hash_map("\ufdd0'line", 180))), cljs.core.hash_map("\ufdd0'line", 180))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 4, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete-action", "(asdf)", 6), cljs.core.hash_map("\ufdd0'line", 178))), cljs.core.hash_map("\ufdd0'line", 178))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 2, subpar.core.backward_delete.call(null, "\\a", 1))) {
+  if(cljs.core._EQ_.call(null, 2, subpar.core.backward_delete_action.call(null, "\\a", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete", "\\a", 1), cljs.core.hash_map("\ufdd0'line", 181))), cljs.core.hash_map("\ufdd0'line", 181))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete-action", "\\a", 1), cljs.core.hash_map("\ufdd0'line", 179))), cljs.core.hash_map("\ufdd0'line", 179))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.backward_delete.call(null, "\\a", 2))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.backward_delete_action.call(null, "\\a", 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete", "\\a", 2), cljs.core.hash_map("\ufdd0'line", 182))), cljs.core.hash_map("\ufdd0'line", 182))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete-action", "\\a", 2), cljs.core.hash_map("\ufdd0'line", 180))), cljs.core.hash_map("\ufdd0'line", 180))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 2, subpar.core.backward_delete.call(null, '""', 1))) {
+  if(cljs.core._EQ_.call(null, 2, subpar.core.backward_delete_action.call(null, '""', 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete", '""', 1), cljs.core.hash_map("\ufdd0'line", 183))), cljs.core.hash_map("\ufdd0'line", 183))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete-action", '""', 1), cljs.core.hash_map("\ufdd0'line", 181))), cljs.core.hash_map("\ufdd0'line", 181))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.backward_delete.call(null, '""', 2))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.backward_delete_action.call(null, '""', 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete", '""', 2), cljs.core.hash_map("\ufdd0'line", 184))), cljs.core.hash_map("\ufdd0'line", 184))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete-action", '""', 2), cljs.core.hash_map("\ufdd0'line", 182))), cljs.core.hash_map("\ufdd0'line", 182))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 2, subpar.core.backward_delete.call(null, '"\\"', 2))) {
+  if(cljs.core._EQ_.call(null, 2, subpar.core.backward_delete_action.call(null, '"\\"', 2))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete", '"\\"', 2), cljs.core.hash_map("\ufdd0'line", 185))), cljs.core.hash_map("\ufdd0'line", 185))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 2, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete-action", '"\\"', 2), cljs.core.hash_map("\ufdd0'line", 183))), cljs.core.hash_map("\ufdd0'line", 183))))].join(""));
   }
-  if(cljs.core._EQ_.call(null, 3, subpar.core.backward_delete.call(null, '"\\"', 3))) {
+  if(cljs.core._EQ_.call(null, 3, subpar.core.backward_delete_action.call(null, '"\\"', 3))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete", '"\\"', 3), cljs.core.hash_map("\ufdd0'line", 186))), cljs.core.hash_map("\ufdd0'line", 186))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", 3, cljs.core.with_meta(cljs.core.list("\ufdd1'backward-delete-action", '"\\"', 3), cljs.core.hash_map("\ufdd0'line", 184))), cljs.core.hash_map("\ufdd0'line", 184))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [], subpar.core.backward_barf.call(null, "", 0)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.EMPTY, subpar.core.backward_barf_vals.call(null, "", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array"), cljs.core.hash_map("\ufdd0'line", 188)), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-barf", "", 0), cljs.core.hash_map("\ufdd0'line", 188))), cljs.core.hash_map("\ufdd0'line", 188))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([]), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-barf-vals", "", 0), cljs.core.hash_map("\ufdd0'line", 186))), cljs.core.hash_map("\ufdd0'line", 186))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [], subpar.core.backward_barf.call(null, "()", 1)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.EMPTY, subpar.core.backward_barf_vals.call(null, "()", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array"), cljs.core.hash_map("\ufdd0'line", 189)), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-barf", "()", 1), cljs.core.hash_map("\ufdd0'line", 189))), cljs.core.hash_map("\ufdd0'line", 189))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([]), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-barf-vals", "()", 1), cljs.core.hash_map("\ufdd0'line", 187))), cljs.core.hash_map("\ufdd0'line", 187))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, ["(", 0, 2, true, 1], subpar.core.backward_barf.call(null, "(a)", 1)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray(["(", 0, 2, true, 1], true), subpar.core.backward_barf_vals.call(null, "(a)", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", "(", 0, 2, true, 1), cljs.core.hash_map("\ufdd0'line", 190)), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-barf", "(a)", 1), cljs.core.hash_map("\ufdd0'line", 190))), cljs.core.hash_map("\ufdd0'line", 190))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec(["(", 0, 2, true, 1]), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-barf-vals", "(a)", 1), cljs.core.hash_map("\ufdd0'line", 188))), cljs.core.hash_map("\ufdd0'line", 188))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, ["(", 0, 3, false, 1], subpar.core.backward_barf.call(null, "(a b)", 1)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray(["(", 0, 3, false, 1], true), subpar.core.backward_barf_vals.call(null, "(a b)", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", "(", 0, 3, false, 1), cljs.core.hash_map("\ufdd0'line", 191)), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-barf", "(a b)", 1), cljs.core.hash_map("\ufdd0'line", 191))), cljs.core.hash_map("\ufdd0'line", 191))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec(["(", 0, 3, false, 1]), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-barf-vals", "(a b)", 1), cljs.core.hash_map("\ufdd0'line", 189))), cljs.core.hash_map("\ufdd0'line", 189))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, ["(", 0, 3, false, 2], subpar.core.backward_barf.call(null, "(a\nb)", 1)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray(["(", 0, 3, false, 2], true), subpar.core.backward_barf_vals.call(null, "(a\nb)", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", "(", 0, 3, false, 2), cljs.core.hash_map("\ufdd0'line", 192)), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-barf", "(a\nb)", 1), cljs.core.hash_map("\ufdd0'line", 192))), cljs.core.hash_map("\ufdd0'line", 192))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec(["(", 0, 3, false, 2]), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-barf-vals", "(a\nb)", 1), cljs.core.hash_map("\ufdd0'line", 190))), cljs.core.hash_map("\ufdd0'line", 190))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [], subpar.core.backward_barf.call(null, "(a b)", 5)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.EMPTY, subpar.core.backward_barf_vals.call(null, "(a b)", 5))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array"), cljs.core.hash_map("\ufdd0'line", 193)), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-barf", "(a b)", 5), cljs.core.hash_map("\ufdd0'line", 193))), cljs.core.hash_map("\ufdd0'line", 193))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([]), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-barf-vals", "(a b)", 5), cljs.core.hash_map("\ufdd0'line", 191))), cljs.core.hash_map("\ufdd0'line", 191))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [], subpar.core.backward_barf.call(null, "(a b) ", 5)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.EMPTY, subpar.core.backward_barf_vals.call(null, "(a b) ", 5))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array"), cljs.core.hash_map("\ufdd0'line", 194)), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-barf", "(a b) ", 5), cljs.core.hash_map("\ufdd0'line", 194))), cljs.core.hash_map("\ufdd0'line", 194))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([]), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-barf-vals", "(a b) ", 5), cljs.core.hash_map("\ufdd0'line", 192))), cljs.core.hash_map("\ufdd0'line", 192))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, ["[", 3, 5, true, 1], subpar.core.backward_barf.call(null, "(a [b]) ", 4)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray(["[", 3, 5, true, 1], true), subpar.core.backward_barf_vals.call(null, "(a [b]) ", 4))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", "[", 3, 5, true, 1), cljs.core.hash_map("\ufdd0'line", 195)), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-barf", "(a [b]) ", 4), cljs.core.hash_map("\ufdd0'line", 195))), cljs.core.hash_map("\ufdd0'line", 195))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec(["[", 3, 5, true, 1]), cljs.core.with_meta(cljs.core.list("\ufdd1'backward-barf-vals", "(a [b]) ", 4), cljs.core.hash_map("\ufdd0'line", 193))), cljs.core.hash_map("\ufdd0'line", 193))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [], subpar.core.forward_barf.call(null, "", 0)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.EMPTY, subpar.core.forward_barf_vals.call(null, "", 0))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array"), cljs.core.hash_map("\ufdd0'line", 197)), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-barf", "", 0), cljs.core.hash_map("\ufdd0'line", 197))), cljs.core.hash_map("\ufdd0'line", 197))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([]), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-barf-vals", "", 0), cljs.core.hash_map("\ufdd0'line", 195))), cljs.core.hash_map("\ufdd0'line", 195))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [], subpar.core.forward_barf.call(null, "()", 1)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.EMPTY, subpar.core.forward_barf_vals.call(null, "()", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array"), cljs.core.hash_map("\ufdd0'line", 198)), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-barf", "()", 1), cljs.core.hash_map("\ufdd0'line", 198))), cljs.core.hash_map("\ufdd0'line", 198))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([]), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-barf-vals", "()", 1), cljs.core.hash_map("\ufdd0'line", 196))), cljs.core.hash_map("\ufdd0'line", 196))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [")", 2, 1, true, 1, 0], subpar.core.forward_barf.call(null, "(a)", 1)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([")", 2, 1, true, 1, 0], true), subpar.core.forward_barf_vals.call(null, "(a)", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", ")", 2, 1, true, 1, 0), cljs.core.hash_map("\ufdd0'line", 199)), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-barf", "(a)", 1), cljs.core.hash_map("\ufdd0'line", 199))), cljs.core.hash_map("\ufdd0'line", 199))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([")", 2, 1, true, 1, 0]), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-barf-vals", "(a)", 1), cljs.core.hash_map("\ufdd0'line", 197))), cljs.core.hash_map("\ufdd0'line", 197))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [")", 4, 2, false, 1, 0], subpar.core.forward_barf.call(null, "(a b)", 1)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([")", 4, 2, false, 1, 0], true), subpar.core.forward_barf_vals.call(null, "(a b)", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", ")", 4, 2, false, 1, 0), cljs.core.hash_map("\ufdd0'line", 200)), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-barf", "(a b)", 1), cljs.core.hash_map("\ufdd0'line", 200))), cljs.core.hash_map("\ufdd0'line", 200))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([")", 4, 2, false, 1, 0]), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-barf-vals", "(a b)", 1), cljs.core.hash_map("\ufdd0'line", 198))), cljs.core.hash_map("\ufdd0'line", 198))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [")", 4, 2, false, 2, 0], subpar.core.forward_barf.call(null, "(a\nb)", 1)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([")", 4, 2, false, 2, 0], true), subpar.core.forward_barf_vals.call(null, "(a\nb)", 1))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", ")", 4, 2, false, 2, 0), cljs.core.hash_map("\ufdd0'line", 201)), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-barf", "(a\nb)", 1), cljs.core.hash_map("\ufdd0'line", 201))), cljs.core.hash_map("\ufdd0'line", 201))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([")", 4, 2, false, 2, 0]), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-barf-vals", "(a\nb)", 1), cljs.core.hash_map("\ufdd0'line", 199))), cljs.core.hash_map("\ufdd0'line", 199))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [], subpar.core.forward_barf.call(null, "(a b)", 5)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.EMPTY, subpar.core.forward_barf_vals.call(null, "(a b)", 5))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array"), cljs.core.hash_map("\ufdd0'line", 202)), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-barf", "(a b)", 5), cljs.core.hash_map("\ufdd0'line", 202))), cljs.core.hash_map("\ufdd0'line", 202))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([]), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-barf-vals", "(a b)", 5), cljs.core.hash_map("\ufdd0'line", 200))), cljs.core.hash_map("\ufdd0'line", 200))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [], subpar.core.forward_barf.call(null, "(a b) ", 5)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.EMPTY, subpar.core.forward_barf_vals.call(null, "(a b) ", 5))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array"), cljs.core.hash_map("\ufdd0'line", 203)), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-barf", "(a b) ", 5), cljs.core.hash_map("\ufdd0'line", 203))), cljs.core.hash_map("\ufdd0'line", 203))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([]), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-barf-vals", "(a b) ", 5), cljs.core.hash_map("\ufdd0'line", 201))), cljs.core.hash_map("\ufdd0'line", 201))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, ["]", 5, 4, true, 1, 3], subpar.core.forward_barf.call(null, "(a [b]) ", 4)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray(["]", 5, 4, true, 1, 3], true), subpar.core.forward_barf_vals.call(null, "(a [b]) ", 4))) {
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", "]", 5, 4, true, 1, 3), cljs.core.hash_map("\ufdd0'line", 204)), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-barf", "(a [b]) ", 4), cljs.core.hash_map("\ufdd0'line", 204))), cljs.core.hash_map("\ufdd0'line", 204))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec(["]", 5, 4, true, 1, 3]), cljs.core.with_meta(cljs.core.list("\ufdd1'forward-barf-vals", "(a [b]) ", 4), cljs.core.hash_map("\ufdd0'line", 202))), cljs.core.hash_map("\ufdd0'line", 202))))].join(""));
   }
-  if(cljs.core.truth_(subpar.test.tests.arr_EQ_.call(null, [true, 1, 4, 2], subpar.core.close_expression.call(null, "[   ]", 1)))) {
+  if(cljs.core._EQ_.call(null, cljs.core.PersistentVector.fromArray([true, 1, 4, 2], true), subpar.core.close_expression_vals.call(null, subpar.core.parse.call(null, "[   ]"), 1))) {
     return null
   }else {
-    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'arr=", cljs.core.with_meta(cljs.core.list("\ufdd1'array", true, 1, 4, 2), cljs.core.hash_map("\ufdd0'line", 206)), cljs.core.with_meta(cljs.core.list("\ufdd1'close-expression", "[   ]", 1), cljs.core.hash_map("\ufdd0'line", 206))), cljs.core.hash_map("\ufdd0'line", 206))))].join(""));
+    throw new Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'=", cljs.core.vec([true, 1, 4, 2]), cljs.core.with_meta(cljs.core.list("\ufdd1'close-expression-vals", cljs.core.with_meta(cljs.core.list("\ufdd1'parse", "[   ]"), cljs.core.hash_map("\ufdd0'line", 204)), 1), cljs.core.hash_map("\ufdd0'line", 204))), cljs.core.hash_map("\ufdd0'line", 204))))].join(""));
   }
 };
 goog.provide("subpar.test");

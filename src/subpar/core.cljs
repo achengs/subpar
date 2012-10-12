@@ -1,13 +1,15 @@
 (ns subpar.core)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; codemirror utility
+;; convenience in getting info from code mirror
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn get-index [cm]
   (.indexFromPos cm (.getCursor cm)))
 
-(defn go-to-index [cm i j]
+(defn go-to-index
+  "moves the point from i to j as long as they're different"
+  [cm i j]
   (if (not= i j)
     (.setCursor cm (.posFromIndex cm j))))
 
@@ -19,7 +21,7 @@
    (.getValue   cm)])
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; parsing
+;; items for use in parsing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (def code    \c)
@@ -36,7 +38,8 @@
                           (= x \space)
                           (= x \newline)))
 
-;; he's too ashamed to be seen at the moment. he needs a makeover.
+;; parse doesn't want you to see him just yet. he's pondering how to
+;; be less of a beast.
 (declare parse)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -49,17 +52,30 @@
 (defn get-closing-delimiter-index-with-parse [p i]
   (get-in p [:families (get-opening-delimiter-index-with-parse p i) :closer]))
 
-(defn get-opening-delimiter-index [s i]
+(defn get-opening-delimiter-index
+  "returns index of the opening delimiter for the list that contains
+  the point. if there is no containing list, this returns -1"
+  [s i]
   (get-opening-delimiter-index-with-parse (parse s) i))
 
-(defn get-closing-delimiter-index [s i]
+(defn get-closing-delimiter-index
+  "returns index of the closing delimiter for the list that contains
+  the point. if there is no containing list, this returns the length
+  of the code"
+  [s i]
   (get-closing-delimiter-index-with-parse (parse s) i))
 
-(defn get-wrapper [p i]
+(defn get-wrapper
+  "returns the indices of the delimiters of the list containing the
+  point."
+  [p i]
   [(get-opening-delimiter-index-with-parse p i)
    (get-closing-delimiter-index-with-parse p i)])
 
-(defn get-mode [p i] (-> p :chars (nth i) (nth 0)))
+(defn get-mode
+  "gets the kind of text containin the point: string, code, comment"
+  [p i]
+  (-> p :chars (nth i) (nth 0)))
 
 (defn in? [p i mode]
   (and (<= 0 i (count (:chars p)))
@@ -86,7 +102,9 @@
        (filter predicate)
        sort))
 
-(defn count-lines [s i j]
+(defn count-lines
+  "how many lines contain the code from i to j inclusive"
+  [s i j]
   (and i j 
        (->> (take (count s) s)
             (drop-last (dec (- (count s) j)))
@@ -95,7 +113,9 @@
             count
             inc)))
 
-(defn escaped? [s i]
+(defn escaped?
+  "whether the current spot is escaped"
+  [s i]
   (-> (loop [c 0, j (dec i)]
         (let [a (nth s j nil)]
           (cond (< j 0) c

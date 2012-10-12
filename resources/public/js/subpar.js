@@ -363,12 +363,14 @@
 
         "Shift-Ctrl-["   : function(cm) {subpar.core.backward_barf(cm)},
         "Ctrl-Alt-Right" : function(cm) {subpar.core.backward_barf(cm)},
+        "Ctrl-]"         : function(cm) {subpar.core.backward_barf(cm)},
 
         "Shift-Ctrl-]"   : function(cm) {subpar.core.forward_barf(cm)},
         "Ctrl-Left"      : function(cm) {subpar.core.forward_barf(cm)},
 
         "Shift-Ctrl-9"   : function(cm) {subpar.core.backward_slurp(cm)},
         "Ctrl-Alt-Left"  : function(cm) {subpar.core.backward_slurp(cm)},
+        "Ctrl-["         : function(cm) {subpar.core.backward_slurp(cm)},
 
         "Shift-Ctrl-0"   : function(cm) {subpar.core.forward_slurp(cm)},// todo key combination didn't work in chrome on windows
         "Ctrl-Right"     : function(cm) {subpar.core.forward_slurp(cm)},

@@ -2,7 +2,7 @@
 
 SubPar is an approximate implementation of a subset of
 [ParEdit](http://emacswiki.org/emacs/ParEdit) for
-[CodeMirror](http://codemirror.net/).
+[CodeMirror](http://codemirror.net/). SubPar is written in ClojureScript.
 
 ## Demo
 

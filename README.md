@@ -39,9 +39,9 @@ I want to investigate that before recommending its use)
   * Backward Down: Ctrl-Alt-P
   * Forward Up: Ctrl-Alt-N
 * Barf / Slurp
-  * Backward Barf: Shift-Ctrl-[ or Ctrl-Alt-Right
+  * Backward Barf: Shift-Ctrl-[ or Ctrl-Alt-Right or Ctrl-]
   * Forward Barf: Shift-Ctrl-] or Ctrl-Left
-  * Backward Slurp: Shift-Ctrl-9 or Ctrl-Alt-Left
+  * Backward Slurp: Shift-Ctrl-9 or Ctrl-Alt-Left or Ctrl-[
   * Forward Slurp: Shift-Ctrl-0 or Ctrl-Right
 * Splicing
   * Splice: Alt-S

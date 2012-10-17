@@ -1,22 +1,22 @@
 (ns subpar.test.tests
-  (:use [subpar.core :only [parse
-                            get-opening-delimiter-index
-                            get-closing-delimiter-index
-                            in-comment?
-                            in-code?
-                            in-string?
-                            double-quote-action
-                            get-start-of-next-list
-                            backward-up-fn
-                            forward-fn
-                            forward-slurp-vals
-                            forward-barf-vals
-                            backward-slurp-vals
-                            backward-barf-vals
-                            forward-delete-action
-                            backward-delete-action
-                            count-lines
-                            close-expression-vals]]))
+  (:use [subpar.paredit :only [parse
+                               get-opening-delimiter-index
+                               get-closing-delimiter-index
+                               in-comment?
+                               in-code?
+                               in-string?
+                               double-quote-action
+                               get-start-of-next-list
+                               backward-up-fn
+                               forward-fn
+                               forward-slurp-vals
+                               forward-barf-vals
+                               backward-slurp-vals
+                               backward-barf-vals
+                               forward-delete-action
+                               backward-delete-action
+                               count-lines
+                               close-expression-vals]]))
 
 (defn run []
   (assert (= 4 (count-lines "\n\n\n\n" 0 2)))
@@ -201,5 +201,4 @@
   (assert (= []                 (forward-barf-vals "(a b) " 5)))
   (assert (= [\] 5 4 true 1 3]  (forward-barf-vals "(a [b]) " 4)))
 
-  (assert (= [true 1 4 2] (close-expression-vals (parse "[   ]") 1)))
-)
+  (assert (= [true 1 4 2] (close-expression-vals (parse "[   ]") 1))))

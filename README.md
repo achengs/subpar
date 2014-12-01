@@ -52,8 +52,7 @@ resources/public/js/subpar.js. (If you find an issue and wish to investigate, yo
 * Indentation
   * Indent Selection: Ctrl-Alt-\
 
-Bug reports are definitely welcome. I'll need to add Cmd versions to
-support Mac OS.
+Bug reports are definitely welcome.
 
 ## Customization
 

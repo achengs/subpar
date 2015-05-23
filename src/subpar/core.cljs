@@ -1,5 +1,5 @@
 (ns subpar.core
-   (:use [subpar.paredit :only [parse
+  (:use [subpar.paredit :only [parse
                                in-string  ; takes string
                                in-string? ; takes parse output
                                forward-delete-action
@@ -30,8 +30,6 @@
 ;; operations -- those belong in subpar.paredit.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(enable-console-print!)
-
 (defn get-index [cm]
   (.indexFromPos cm (.getCursor cm)))
 
@@ -55,10 +53,10 @@
           (.setCursor cm (.-line cur) (inc (.-ch cur))))
       (.operation cm
                        (fn []
-                           (.replaceRange cm pair cur)
-                           ; CHANGED: use aget instead of -line
-                           (.setCursor cm (aget cur "line") (inc (aget cur "ch")))
-                           (.indentLine cm (aget cur "line")))))))
+                         (.replaceRange cm pair cur)
+                         ; Using aget instead of -line because (.-line cur) was returning nil
+                         (.setCursor cm (aget cur "line") (inc (aget cur "ch")))
+                         (.indentLine cm (aget cur "line")))))))
 
 (defn ^:export forward-delete [cm]
   (if (nothing-selected? cm)
@@ -87,11 +85,12 @@
           e2  (.posFromIndex cm (inc i))
           s3  (.posFromIndex cm (- i 2))
           e3  e1]
-
       (condp = act
         1 (.replaceRange cm "" s1 e1)
         2 (.replaceRange cm "" s2 e2)
         3 (.replaceRange cm "" s3 e3)
+             ; removed '4' and made .setCursor the fallback action because
+             ; this was throwing a 'no matching clause' error
         (.setCursor cm s1)))
     (.replaceSelection cm "")))
 

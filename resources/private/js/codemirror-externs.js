@@ -5,8 +5,24 @@ var CodeMirrorObj = function() {
 
 };
 
-CodeMirrorObj.prototype.indexFromPos = function(coords){};
+/**
+ * Replace the selection(s) with the given string. By default, the new selection ends up after the inserted text.
+ * The optional select argument can be used to change this—passing "around" will cause the new text to be selected,
+ * passing "start" will collapse the selection to the start of the inserted text.
+ */
+CodeMirrorObj.prototype.replaceSelection = function(replacement){};
+
+/**
+ * Calculates and returns a {line, ch} object for a zero-based index who's value is relative to the start
+ * of the editor's text. If the index is out of range of the text then thereturned object is clipped to
+ * start or end of the text respectively.
+ */
 CodeMirrorObj.prototype.posFromIndex = function(off){};
+
+/**
+ * The reverse of posFromIndex.
+ */
+CodeMirrorObj.prototype.indexFromPos = function(coords){};
 
 /**
  * Get the current editor content.

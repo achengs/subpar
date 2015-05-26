@@ -167,3 +167,8 @@ pip-log.txt
 ############
 
 .lein-cljsbuild-compiler*
+target
+
+# IntelliJ
+.idea
+*.iml

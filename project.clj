@@ -1,35 +1,33 @@
 (defproject subpar "0.0.0"
   :description "an approximate subset of paredit for codemirror"
-  :dependencies [[org.clojure/clojure "1.4.0"]]
-  :plugins [[lein-cljsbuild "0.2.7"]]
-  :hooks [leiningen.cljsbuild]
+  :dependencies [[org.clojure/clojure "1.7.0-beta2"]
+                 [org.clojure/clojurescript "0.0-3269"]]
+  :plugins [[lein-cljsbuild "1.0.6"]]
   :cljsbuild
-  {:test-commands
-                                        ; Test command for running the unit tests in "test" (see below).
-                                        ;     $ lein cljsbuild test
-   {"unit" ["phantomjs"
-            "phantom/unit-test.js"
-            "resources/private/html/unit-test.html"]}
-   :builds {
-            :dev
-            {:source-path "src"
-             :jar true
-             :compiler {:output-to "resources/public/js/subpar.core.debug.js"
-                        :optimizations :whitespace
-                        :externs ["resources/private/js/codemirror-externs.js"]
-                        :pretty-print true}}
-            :prod
-            {:source-path "src"
-             :compiler {:output-to "resources/public/js/subpar.core.js"
-                        :optimizations :advanced
-                        :externs ["resources/private/js/codemirror-externs.js"]
-                        :pretty-print false}}
-                                        ; This build is for the ClojureScript unit tests that will
-                                        ; be run via PhantomJS.  See the phantom/unit-test.js file
-                                        ; for details on how it is run.
-            :test
-            {:source-path "test"
-             :compiler {:output-to "resources/private/js/unit-test.js"
-                        :optimizations :whitespace
-                        :externs ["resources/private/js/codemirror-externs.js"]
-                        :pretty-print true}}}})
+            {:builds
+             [{:source-paths ["src"],
+               :id "prod",
+               :compiler
+                             {:externs ["resources/private/js/codemirror-externs.js"],
+                              :optimizations :advanced,
+                              :output-to "resources/public/js/subpar.core.js",
+                              :pretty-print false}}
+              {:source-paths ["test"],
+               :id "test",
+               :compiler
+                             {:externs ["resources/private/js/codemirror-externs.js"],
+                              :optimizations :whitespace,
+                              :output-to "resources/private/js/unit-test.js",
+                              :pretty-print true}}
+              {:source-paths ["src"],
+               :id "dev",
+               :compiler
+                             {:externs ["resources/private/js/codemirror-externs.js"],
+                              :optimizations :whitespace,
+                              :output-to "resources/public/js/subpar.core.debug.js",
+                              :pretty-print true}}],
+             :test-commands
+             {"unit"
+              ["phantomjs"
+               "phantom/unit-test.js"
+               "resources/private/html/unit-test.html"]}})

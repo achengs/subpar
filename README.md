@@ -16,7 +16,7 @@ NOTE: You might have to reload the demo page to get the source code to load insi
 
 Here are the steps I took to create [the demo example](http://htmlpreview.github.com/?https://github.com/achengs/subpar/blob/master/demo/normal.html).
 
-1. Started with a copy of one of the dmeo pages from CodeMirror, like
+1. Started with a copy of one of the demo pages from CodeMirror, like
 [this one](http://codemirror.net/mode/clojure/index.html).
 2. Used [the CodeMirror compression
 page](http://codemirror.net/doc/compress.html) to get a minified

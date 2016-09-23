@@ -4,13 +4,21 @@ SubPar is an approximate implementation of a subset of
 [ParEdit](http://emacswiki.org/emacs/ParEdit) for
 [CodeMirror](http://codemirror.net/). 
 
-SubPar is written in ClojureScript.
+SubPar is written in ClojureScript. Its basic idea is to discover where all forms and siblings start and end, and use those positions for ParEdit operations.
+
+The approach in this implementation is not suitable for handling large files, because it parses the entire file for each operation.
+
+The reason it parses the entire file is because the original ParEdit plugin for LightTable at the time (2012!) scanned only a max distance from the cursor in either direction. So it seemed possible that particular constructs could trick it. I wanted to try an implementation that could not be tricked.
+
+It's possible that the CodeMirror editor (now) exposes the nature of the current position (are you inside a comment or a string or normal code?). That would support a fool-proof approach that doesn't have to parse the entire file.
+
+This exercise was also a test of "don't optimize for performance until it proves necessary." Of course, it was known ahead of time that parsing the whole file would make each operation's cost depend on the size of the file, compared to LightTable ParEdit's approach. But what wasn't known was: how bad could it be?
 
 ## Demo
 
 [Here is a page that hosts a demo.](http://htmlpreview.github.com/?https://github.com/achengs/subpar/blob/master/demo/normal.html)
 
-NOTE: You might have to reload the demo page to get the source code to load inside the CodeMirror.
+You might have to reload the demo page to get the source code to load inside the CodeMirror.
 
 ## Usage
 

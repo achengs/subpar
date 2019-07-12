@@ -37,7 +37,7 @@
   (and (multi-opener? c)
        (multi-second? next)))
 
-(declare ;; see comments in spar.macros to learn what these are:
+(declare ;; see comments in subpar.macros to learn what these are:
  ;; 'classifiers' 'peekers' and 'steppers'.
 
  peek-code
@@ -204,14 +204,6 @@
   ([s]        (parse s peek-default))
   ([s peeker] (parse s peeker "" [] 0))
   ([s peeker code depth next-depth]
-   ;; (println "parse")
-   ;; (println (str "s \"" s "\""))
-   ;; (println "peeker" peeker)
-   ;; (println (str "code \"" code "\""))
-   ;; (println "depth" depth)
-   ;; (println "ndepth" next-depth)
-
-   ;; TODO profile
    (trampoline peeker code depth next-depth s)))
 
 (def plain-typing-mode (atom true))
@@ -227,7 +219,7 @@
   (reset! depth d))
 
 (defn reject [change]
-  (println "rejecting change: unbalanced parens")
+  (println "rejecting change: unbalanced parentheses")
   (.cancel change))
 
 (defn get-next-depth

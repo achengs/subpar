@@ -209,7 +209,7 @@
 (def plain-typing-mode (atom true))
 
 (def code (atom ""))
-
+;; todo consider making these a single atom since they change together.
 (def depth (atom []))
 
 (defn change-state

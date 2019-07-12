@@ -1,6 +1,6 @@
 (ns subpar.paredit)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;; what belongs in this namespace: anything related to parsing code
 ;; and deciding what indices are involved to perform a paredit-like
 ;; operation.
@@ -32,7 +32,7 @@
 ;;
 ;; this code assumes clojure-like syntax, and only handles
 ;; single-character delimiters. for example, it does not handle ^:{ 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 
 (def code \c)
 
@@ -54,11 +54,42 @@
 
 ;; parse doesn't want you to see him just yet. he's pondering how to
 ;; be less of a beast.
+;;
+;; ***************************************************************************
+;; * UPDATE ******************************************************************
+;; ***************************************************************************
+;;
+;; i came up with a more workable arrangement, compared to the 'parse'
+;; that's currently being used.  one problem with the existing 'parse'
+;; is that it is a huge loop expression with many MANY cases. it's
+;; unmaintainable code.
+;;
+;; a second problem with the existing 'parse' is that we parse the
+;; whole file on every edit. this is slow enough to prohibit use on
+;; larger files.
+;;
+;; the better arrangement is in the other files in this directory: better.cljs
+;; and macros.cljc. benefits: [1] the parsing concepts are NAMED so you're no
+;; longer forced to think about what a bit of code represents. [2] there's a
+;; clear distinction between peeking at the next character to determine what
+;; kind of step to take, and actually consuming that next character with the
+;; right transition -- thus forming a finite state machine. [3] we can now hand
+;; the chunk of the previous parse result which precedes an edited section and
+;; the section itself to do an incremental parse instead of having to parse the
+;; whole file.
+;;
+;; the result from using this better parse has a different structure. so either
+;; the using code or this structure needs to be tweaked.
+;;
+;; ***************************************************************************
+;; ***************************************************************************
+;; ***************************************************************************
+
 (declare parse)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;; getting info out of parse
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 
 (defn get-opening-delimiter-index-with-parse [p i]
   (-> p :chars (nth i) (nth 1)))
@@ -141,9 +172,9 @@
 (defn closes-list? [p i] (some #{i} (->> p :families vals (map :closer))))
 (defn opens-list?  [p i] (some #{i} (->> p :families keys)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;; paredit meat
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 
 (defn backward-up-fn [s i]
   (let [[o c] (get-wrapper (parse s) i)]
@@ -419,6 +450,21 @@
 ;; todo: implement wrap
 
 (defn parse
+  ;;
+  ;; ***************************************************************************
+  ;; * UPDATE ******************************************************************
+  ;; ***************************************************************************
+  ;;
+  ;; the problems with this 'parse': (1) it's a huge unmaintainable
+  ;; expression and (2) it needs to be run on the entire file for
+  ;; every edit.
+  ;;
+  ;; these problems are addressed with the new (not yet used) version inside the
+  ;; other files in this directory: better.cljs and macros.cljc
+  ;;
+  ;; ***************************************************************************
+  ;; ***************************************************************************
+  ;; ***************************************************************************
   "annotates each index in s. assumes/requires all delimiters that are
   not in comments or strings to be paired and properly nested vs ([)].
 

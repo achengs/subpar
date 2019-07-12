@@ -6,7 +6,9 @@ SubPar is an approximate implementation of a subset of
 
 SubPar is written in ClojureScript. Its basic idea is to discover where all forms and siblings start and end, and use those positions for ParEdit operations.
 
-The approach in this implementation is not suitable for handling large files, because it parses the entire file for each operation.
+The approach in this implementation is not suitable (note) for handling large files, because it parses the entire file for each operation. 
+(*note:* _I came up with a better alternative which is more maintainable and supports incremental parsing to avoid parsing the whole file repeatedly.
+The rest of the project has not been refactored to use it yet. The new code is in better.cljs and macros.cljc._)
 
 The reason it parses the entire file is because the original ParEdit plugin for LightTable at the time (2012!) scanned only a max distance from the cursor in either direction. So it seemed possible that particular constructs could trick it. I wanted to try an implementation that could not be tricked.
 

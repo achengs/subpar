@@ -1,30 +1,28 @@
 # SubPar
 
-SubPar is an approximate implementation of a subset of
+SubPar is a 2012 implementation of a subset of
 [ParEdit](http://emacswiki.org/emacs/ParEdit) for
-[CodeMirror](http://codemirror.net/). 
+[CodeMirror](http://codemirror.net/) in ClojureScript. 
 
-SubPar is written in ClojureScript. Its basic idea is to discover where all forms and siblings start and end, and use those positions for ParEdit operations.
+SubPar discovers where all forms and siblings start and end, and uses those positions for ParEdit operations.
 
-The approach in this implementation is not suitable (note) for handling large files, because it parses the entire file for each operation. 
-(*note:* _I came up with a better alternative which is more maintainable and supports incremental parsing to avoid parsing the whole file repeatedly.
-The rest of the project has not been refactored to use it yet. The new code is in better.cljs and macros.cljc._)
+SubPar is not suitable for handling large files, because it parses the entire file for each operation.
+The original ParEdit plugin for LightTable at the time (2012!) scanned only a maximum distance from the cursor in either direction. So valid code could trick it.
+Also back then, CodeMirror did not provide the nature of the current cursor position (code vs comment vs string).
 
-The reason it parses the entire file is because the original ParEdit plugin for LightTable at the time (2012!) scanned only a max distance from the cursor in either direction. So it seemed possible that particular constructs could trick it. I wanted to try an implementation that could not be tricked.
-
-It's possible that the CodeMirror editor (now) exposes the nature of the current position (are you inside a comment or a string or normal code?). That would support a fool-proof approach that doesn't have to parse the entire file.
-
-This exercise was also a test of "don't optimize for performance until it proves necessary." Of course, it was known ahead of time that parsing the whole file would make each operation's cost depend on the size of the file, compared to LightTable ParEdit's approach. But what wasn't known was: how bad could it be?
+(I came up with a better alternative which is more maintainable and supports incremental parsing to avoid parsing the whole file repeatedly. 
+The rest of the project has not been refactored to use it yet. 
+The new code is in better.cljs and macros.cljc.)
 
 ## Demo
 
-[Here is a page that hosts a demo.](http://htmlpreview.github.com/?https://github.com/achengs/subpar/blob/master/demo/normal.html)
+[Here is a page that hosts a demo.](http://htmlpreview.github.io/?https://github.com/achengs/subpar/blob/master/demo/normal.html)
 
 You might have to reload the demo page to get the source code to load inside the CodeMirror.
 
 ## Usage
 
-Here are the steps I took to create [the demo example](http://htmlpreview.github.com/?https://github.com/achengs/subpar/blob/master/demo/normal.html).
+Here are the steps I took to create [the demo example](http://htmlpreview.github.io/?https://github.com/achengs/subpar/blob/master/demo/normal.html).
 
 1. Started with a copy of one of the demo pages from CodeMirror, like
 [this one](http://codemirror.net/mode/clojure/index.html).
@@ -59,10 +57,6 @@ resources/public/js/subpar.js. (If you find an issue and wish to investigate, yo
   * Splice: Alt-S
   * Splice Delete Backward: Alt-Up
   * Splice Delete Forward: Alt-Down
-* Indentation
-  * Indent Selection: Ctrl-Alt-\
-
-Bug reports are definitely welcome.
 
 ## Customization
 

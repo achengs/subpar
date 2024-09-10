@@ -41,7 +41,7 @@
         "Alt-Down"       : function(cm) {subpar.core.splice_delete_forward(cm)},
         "Alt-S"          : function(cm) {subpar.core.splice(cm)},
         //todo wrap expression in round, square, curly.
-        "Ctrl-Alt-\\"    : function(cm) {subpar.core.indent_selection(cm)},
+        // "Ctrl-Alt-/"    : function(cm) {subpar.core.indent_selection(cm)},
         fallthrough: ["basic", "emacs"] // not sure if this is right
     };
 

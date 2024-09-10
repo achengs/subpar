@@ -17,64 +17,62 @@
   <body>
     <h2>CodeMirror: SubPar bindings demo</h2>
 
-    <form><textarea id="code" name="code">
-      ;; Conway's Game of Life, based on the work of:
-      ;; Laurent Petit https://gist.github.com/1200343
-      ;; Christophe Grand http://clj-me.cgrand.net/2011/08/19/conways-game-of-life
+    <form><textarea id="code" name="code">;; Conway's Game of Life, based on the work of:
+;; Laurent Petit https://gist.github.com/1200343
+;; Christophe Grand http://clj-me.cgrand.net/2011/08/19/conways-game-of-life
 
-      (ns ^{:doc "Conway's Game of Life."}
-      game-of-life)
+(ns ^{:doc "Conway's Game of Life."}
+    game-of-life)
 
-      ;; Core game of life's algorithm functions
+;; Core game of life's algorithm functions
 
-      (defn neighbours
-      "Given a cell's coordinates, returns the coordinates of its neighbours."
-      [[x y]]
-      (for [dx [-1 0 1] dy (if (zero? dx) [-1 1] [-1 0 1])]
-      [(+ dx x) (+ dy y)]))
+(defn neighbours
+  "Given a cell's coordinates, returns the coordinates of its neighbours."
+  [[x y]]
+  (for [dx [-1 0 1] dy (if (zero? dx) [-1 1] [-1 0 1])]
+    [(+ dx x) (+ dy y)]))
 
-      (defn step
-      "Given a set of living cells, computes the new set of living cells."
-      [cells]
-      (set (for [[cell n] (frequencies (mapcat neighbours cells))
-      :when (or (= n 3) (and (= n 2) (cells cell)))]
-      cell)))
+(defn step
+  "Given a set of living cells, computes the new set of living cells."
+  [cells]
+  (set (for [[cell n] (frequencies (mapcat neighbours cells))
+             :when    (or (= n 3) (and (= n 2) (cells cell)))]
+         cell)))
 
-      ;; Utility methods for displaying game on a text terminal
+;; Utility methods for displaying game on a text terminal
 
-      (defn print-board
-      "Prints a board on *out*, representing a step in the game."
-      [board w h]
-      (doseq [x (range (inc w)) y (range (inc h))]
-      (if (= y 0) (print "\n"))
-      (print (if (board [x y]) "[X]" " . "))))
+(defn print-board
+  "Prints a board on *out*, representing a step in the game."
+  [board w h]
+  (doseq [x (range (inc w)) y (range (inc h))]
+    (if (= y 0) (print "\n"))
+    (print (if (board [x y]) "[X]" " . "))))
 
-      (defn display-grids
-      "Prints a squence of boards on *out*, representing several steps."
-      [grids w h]
-      (doseq [board grids]
-      (print-board board w h)
-      (print "\n")))
+(defn display-grids
+  "Prints a squence of boards on *out*, representing several steps."
+  [grids w h]
+  (doseq [board grids]
+    (print-board board w h)
+    (print "\n")))
 
-      ;; Launches an example board
+;; Launches an example board
 
-      (def
-      ^{:doc "board represents the initial set of living cells"}
-      board #{[2 1] [2 2] [2 3]})
+(def
+  ^{:doc "board represents the initial set of living cells"}
+  board #{[2 1] [2 2] [2 3]})
 
-      (display-grids (take 3 (iterate step board)) 5 5)
+(display-grids (take 3 (iterate step board)) 5 5)
     </textarea></form>
 
 <p>SubPar is an approximation of a subset of Paredit.</p>
-<p>This page demos the inclusion of the <b>minimized / optimized</b> version of the code. NOTE: You might have to <b>reload</b> this page to get the source code to load inside the CodeMirror.</p>
+<p>NOTE: If you don't see code in the text area above, keep trying to <b>reload</b> this page until the code appears.</p>
 <p>The SubPar keybindings are enabled
-by including <a href="../resources/public/js/subpar.core.js">subpar.core.js</a>, 
-<a href="../resources/public/js/subpar.js">subpar.js</a> and setting the
+by including <code>../resources/public/js/subpar.core.js</code>, <code>../resources/public/js/subpar.js</code>, and setting the
 <code>keyMap</code> option to <code>"subpar"</code>.</p>
 
 <h3>Features / Key Bindings</h3>
 
-Keybindings can be customized by editing subpar.js.
+Keybindings can be customized by editing <code>../resources/public/js/subpar.js</code>.
 
 <ul>
 <li>Delimiters
@@ -113,16 +111,13 @@ Keybindings can be customized by editing subpar.js.
 <li>Splice Delete Forward: Alt-Down</li>
 </ul>
 </li>
-<li>Indentation
+<!-- <li>Indentation
 
 <ul>
-<li>Indent Selection: Ctrl-Alt-\</li>
+<li>Indent Selection: Ctrl-Alt-/</li>
 </ul>
-</li>
-</ul><p>Bug reports are definitely welcome. I'll need to add Cmd
-versions to support Mac OS. If you know what they should be and you
-need them soon, let me know. Otherwise it won't happen until I get
-access to a Mac.</p>
+</li>-->
+</ul>
     <script>
       var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         mode: "clojure",

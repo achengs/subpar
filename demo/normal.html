@@ -556,7 +556,6 @@ a.download:hover {
     </textarea></form>
 
 <p>SubPar is an approximation of a subset of Paredit.</p>
-<p>NOTE: If you don't see code in the text area above, keep trying to <b>reload</b> this page until the code appears.</p>
 <p>The SubPar keybindings are enabled
 by including <code>../resources/public/js/subpar.core.js</code>, <code>../resources/public/js/subpar.js</code>, and setting the
 <code>keyMap</code> option to <code>"subpar"</code>.</p>
@@ -613,8 +612,7 @@ Keybindings can be customized by editing <code>../resources/public/js/subpar.js<
       var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         mode: "clojure",
         lineNumbers: true,
-        keyMap: "subpar",
-        name: "Joe"
+        keyMap: "subpar"
       });
     </script>
   </body>

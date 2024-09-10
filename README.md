@@ -18,7 +18,7 @@ This exercise was also a test of "don't optimize for performance until it proves
 
 ## Demo
 
-[Here is a page that hosts a demo.](http://htmlpreview.github.com/?https://github.com/achengs/subpar/blob/master/demo/normal.html)
+[Here is a page that hosts a demo.](https://htmlpreview.github.io/?https://github.com/achengs/subpar/blob/master/demo/normal.html)
 
 You might have to reload the demo page to get the source code to load inside the CodeMirror.
 

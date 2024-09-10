@@ -16,9 +16,7 @@ The new code is in better.cljs and macros.cljc.)
 
 ## Demo
 
-[Here is a page that hosts a demo.](http://htmlpreview.github.io/?https://github.com/achengs/subpar/blob/update-demo-url/demo/normal.html)
-
-You might have to reload the demo page to get the source code to load inside the CodeMirror.
+[Here is a page that hosts a demo.](http://htmlpreview.github.io/?https://github.com/achengs/subpar/blob/master/demo/normal.html)
 
 ## Usage
 

@@ -65,15 +65,14 @@
     </textarea></form>
 
 <p>SubPar is an approximation of a subset of Paredit.</p>
-<p>This page demos the inclusion of the <b>minimized / optimized</b> version of the code. NOTE: You might have to <b>reload</b> this page to get the source code to load inside the CodeMirror.</p>
+<p>NOTE: If you don't see code in the text area above, keep trying to <b>reload</b> this page until the code appears.</p>
 <p>The SubPar keybindings are enabled
-by including <a href="../resources/public/js/subpar.core.js">subpar.core.js</a>, 
-<a href="../resources/public/js/subpar.js">subpar.js</a> and setting the
+by including <code>../resources/public/js/subpar.core.js</code>, <code>../resources/public/js/subpar.js</code>, and setting the
 <code>keyMap</code> option to <code>"subpar"</code>.</p>
 
 <h3>Features / Key Bindings</h3>
 
-Keybindings can be customized by editing subpar.js.
+Keybindings can be customized by editing <code>../resources/public/js/subpar.js</code>.
 
 <ul>
 <li>Delimiters
@@ -112,12 +111,12 @@ Keybindings can be customized by editing subpar.js.
 <li>Splice Delete Forward: Alt-Down</li>
 </ul>
 </li>
-<li>Indentation
+<!-- <li>Indentation
 
 <ul>
 <li>Indent Selection: Ctrl-Alt-/</li>
 </ul>
-</li>
+</li>-->
 </ul>
     <script>
       var editor = CodeMirror.fromTextArea(document.getElementById("code"), {

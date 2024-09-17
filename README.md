@@ -1,17 +1,17 @@
-# SubPar
+# subpar
 
-SubPar is a 2012 implementation of a subset of
+subpar is a 2012 implementation of a subset of
 [ParEdit](http://emacswiki.org/emacs/ParEdit) for
-[CodeMirror](http://codemirror.net/) in ClojureScript. 
+[CodeMirror](http://codemirror.net/) in ClojureScript.
 
-SubPar discovers where all forms and siblings start and end, and uses those positions for ParEdit operations.
+subpar discovers where all forms and siblings start and end, and uses those positions for ParEdit operations.
 
-SubPar is not suitable for handling large files, because it parses the entire file for each operation.
+subpar is not suitable for handling large files, because it parses the entire file for each operation.
 The original ParEdit plugin for LightTable at the time (2012!) scanned only a maximum distance from the cursor in either direction. So valid code could trick it.
 Also back then, CodeMirror did not provide the nature of the current cursor position (code vs comment vs string).
 
-(I came up with a better alternative which is more maintainable and supports incremental parsing to avoid parsing the whole file repeatedly. 
-The rest of the project has not been refactored to use it yet. 
+(I came up with a better alternative which is more maintainable and supports incremental parsing to avoid parsing the whole file repeatedly.
+The rest of the project has not been refactored to use it yet.
 The new code is in better.cljs and macros.cljc.)
 
 ## Demo
